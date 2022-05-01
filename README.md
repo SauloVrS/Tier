@@ -1,6 +1,6 @@
 # tier
 
-A new Flutter project.
+Projeto em flutter para construir um aplicativo para pets, adoção de pets e comercio de produtos.
 
 ## Getting Started
 
