@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tier/views/main_lojas.dart';
+import 'package:tier/views/perfil_usuario.dart';
 
 class BottomNavBar extends StatelessWidget {
   final String pagina;
@@ -20,12 +21,7 @@ class BottomNavBar extends StatelessWidget {
             onPressed: () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(
-                    builder: (context) => Center( // SUBSTITUIR O CENTER PELA PAGINA RELACIONADA
-                      child: ElevatedButton(
-                        onPressed: () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MainLojas())); },
-                        child: const Text("Voltar"),
-                      ),
-                    ),
+                    builder: (context) => MainLojas(),//COLOCAR O CENTER SE NÂO TIVER ESSA PAGINA NO SEU ARQUIVO
                   )
               );
             },
@@ -97,12 +93,7 @@ class BottomNavBar extends StatelessWidget {
             onPressed: () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(
-                    builder: (context) => Center( // SUBSTITUIR O CENTER PELA PAGINA RELACIONADA
-                      child: ElevatedButton(
-                        onPressed: () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MainLojas())); },
-                        child: const Text("Voltar"),
-                      ),
-                    ),
+                    builder: (context) => TelaPerfilUsuario(),//COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
                   )
               );
             },
