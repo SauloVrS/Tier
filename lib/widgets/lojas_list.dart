@@ -5,15 +5,16 @@ class LojasList extends StatelessWidget {
   final String name, imgUrl;
   final num stars, distancia, taxa, tempoMin, tempoMax;
   final bool situacao;
+  final int espacamento;//minimo é 30 (30 na home)
 
-  const LojasList({Key? key, required this.name, required this.imgUrl, required this.stars, required this.distancia, required this.tempoMin, required this.tempoMax, required this.taxa, required this.situacao}) : super(key: key);
+  const LojasList({Key? key, required this.name, required this.imgUrl, required this.stars, required this.distancia, required this.tempoMin, required this.tempoMax, required this.taxa, required this.situacao, required this.espacamento}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
       height: 80,
-      width: MediaQuery.of(context).size.width - 30,
+      width: MediaQuery.of(context).size.width - (espacamento),
       child: Row(
         children: [
           ClipRRect(

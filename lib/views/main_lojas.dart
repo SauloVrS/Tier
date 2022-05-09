@@ -239,7 +239,7 @@ class _MainLojasState extends State<MainLojas> {
                 ListView(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  children: lojas.map((e) => LojasList(name: e['name'], imgUrl: e['imgUrl'], stars: e['stars'], distancia: e['distancia'], tempoMin: e['tempoMin'], tempoMax: e['tempoMax'], taxa: e['taxa'], situacao: e['aberto'])).toList(),
+                  children: lojas.map((e) => LojasList(name: e['name'], imgUrl: e['imgUrl'], stars: e['stars'], distancia: e['distancia'], tempoMin: e['tempoMin'], tempoMax: e['tempoMax'], taxa: e['taxa'], situacao: e['aberto'], espacamento: 30,)).toList(),
                 ),
               ],
             )
