@@ -51,8 +51,8 @@ class _PetListState extends State<PetList> {
               );
             },
             child: Container(
-                width: 350,
-                height: 200,
+                width: MediaQuery.of(context).size.width/1.2,
+                height: MediaQuery.of(context).size.height/3.5,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(30),
@@ -66,8 +66,8 @@ class _PetListState extends State<PetList> {
           Container(
             padding: EdgeInsets.only(
                 left: 10, top: 10, right: 10, bottom: 10),
-            width: 350,
-            height: 80,
+            width: MediaQuery.of(context).size.width/1.2,
+            height: MediaQuery.of(context).size.height/6,
             decoration: BoxDecoration(
               color: Color(0xffe5e5e5),
               borderRadius: BorderRadius.only(
@@ -84,14 +84,14 @@ class _PetListState extends State<PetList> {
                     Row(
                       children: [
                         Text(widget.nome_pet, style: TextStyle(
-                            fontSize: 30,
+                            fontSize: 23,
                             fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(width: 15,),
+                        SizedBox(width: 8,),
                         Text(widget.idade,
-                          style: TextStyle(fontSize: 22),),
-                        SizedBox(width: 15,),
-                        Text(widget.typePet,style: TextStyle(fontSize: 1),)
+                          style: TextStyle(fontSize: 19),),
+                        SizedBox(width: 8,),
+                        Text(widget.typePet,style: TextStyle(fontSize: 0.1),)
 
 
 
