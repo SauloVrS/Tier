@@ -78,79 +78,82 @@ class _AdocaoHomeState extends State<AdocaoHome> {
         children: [
           SizedBox(height: 10,),
           // escolher os bixos
-          Ink(
+          Column(
 
-
-            width: 350,
-            height: 100,
-            color: Colors.white.withOpacity(0.3),
-            child: GridView.count(
-
-                primary: true,
-                crossAxisCount: 4,
-                crossAxisSpacing: 12,
-                childAspectRatio: 1,
-                children:
-                List.generate(isSelected.length, (index) => InkWell(
-                  splashColor: Colors.white54,
-                  onTap: (){
-                    setState(() {
-                      for( int indexBtn =0;
-                      indexBtn< isSelected.length;indexBtn++){
-                        if (indexBtn==index){
-                          isSelected[indexBtn] = true;
-                        } else {
-                          isSelected[indexBtn] =false;
-                        }
-                      }
-                    });
-                  },
-                  child: Ink(
-
-                    decoration: BoxDecoration(
-                      image:  DecorationImage(
-                          opacity: 0.7,
-                          image: NetworkImage(petIcons[index]))  ,
-
-                      color: isSelected[index] ? Color(0xFFffb761) : Color(0xE6FFC368).withOpacity(0.6),
-                      borderRadius: BorderRadius.circular(30),
-
-
-                    ),
-
-
-                  ),
-                ))
-
-            ),
-          ),
-
-          Row(
             children: [
-              SizedBox(width: 28,),
-              Text("Cachorros"),
-              SizedBox(width: 39,),
-              Text("Gatos"),
-              SizedBox(width: 43,),
-              Text("Roedores"),
-              SizedBox(width: 33,),
-              Text("Pássaros"),
+              Ink(
 
 
+                width: MediaQuery.of(context).size.width/1.09,
+                height: MediaQuery.of(context).size.height/6,
+                color: Colors.white.withOpacity(0.3),
+                child: GridView.count(
+
+                    primary: true,
+                    crossAxisCount: 4,
+                    crossAxisSpacing: 10,
+                    childAspectRatio: 1,
+                    children:
+                    List.generate(isSelected.length, (index) => InkWell(
+                      splashColor: Colors.white54,
+                      onTap: (){
+                        setState(() {
+                          for( int indexBtn =0;
+                          indexBtn< isSelected.length;indexBtn++){
+                            if (indexBtn==index){
+                              isSelected[indexBtn] = true;
+                            } else {
+                              isSelected[indexBtn] =false;
+                            }
+                          }
+                        });
+                      },
+                      child: Ink(
+
+                        decoration: BoxDecoration(
+                          image:  DecorationImage(
+                              opacity: 0.7,
+                              image: NetworkImage(petIcons[index]))  ,
+
+                          color: isSelected[index] ? Color(0xFFffb761) : Color(0xE6FFC368).withOpacity(0.6),
+                          borderRadius: BorderRadius.circular(30),
+
+
+                        ),
+
+
+                      ),
+                    ))
+
+                ),
+              ),
+              Row(children: [
+                SizedBox(width: MediaQuery.of(context).size.width/32,),
+                Text("Cachorros"),
+                SizedBox(width: MediaQuery.of(context).size.width/12,),
+                Text("Gatos"),
+                SizedBox(width: MediaQuery.of(context).size.width/10,),
+                Text("Roedores"),
+                SizedBox(width: MediaQuery.of(context).size.width/19,),
+                Text("Pássaros"),
+              ]
+              )
             ],
           ),
 
 
+
+
           //escolher os filtros
           Container(
-              height: 80,
-              padding: EdgeInsets.only(left: 20),
+              height: MediaQuery.of(context).size.height/8,
+              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/20,top: MediaQuery.of(context).size.height/35,bottom: MediaQuery.of(context).size.height/35  ),
               child:
               Row(
                 children: [
                   Container(
 
-                    width: 80,
+                    width: MediaQuery.of(context).size.width/5,
                     height: 40,
 
                     decoration: BoxDecoration(
@@ -163,16 +166,16 @@ class _AdocaoHomeState extends State<AdocaoHome> {
                     padding: EdgeInsets.only(top: 8,bottom: 5,left: 5,right: 5),
                     child: Text(
                       "Filtros", style: TextStyle(
-                      fontSize: 18,
+
                       color: Colors.white,
                     ), textAlign:TextAlign.center ,
                     ),
 
                   ),
-                  SizedBox(width: 10,),
+                  SizedBox(width: MediaQuery.of(context).size.width/65,),
                   Container(
 
-                    width: 90,
+                    width: MediaQuery.of(context).size.width/4,
                     height: 40,
 
                     decoration: BoxDecoration(
@@ -185,16 +188,15 @@ class _AdocaoHomeState extends State<AdocaoHome> {
                     padding: EdgeInsets.only(top: 8,bottom: 5,left: 5,right: 5),
                     child: Text(
                       "Distância", style: TextStyle(
-                      fontSize: 18,
                       color: Colors.black,
                     ), textAlign:TextAlign.center ,
                     ),
 
                   ),
-                  SizedBox(width: 10,),
+                  SizedBox(width:MediaQuery.of(context).size.width/65,),
                   Container(
 
-                    width: 70,
+                    width: MediaQuery.of(context).size.width/5,
                     height: 40,
 
                     decoration: BoxDecoration(
@@ -208,16 +210,16 @@ class _AdocaoHomeState extends State<AdocaoHome> {
                     child: Text(
                       "Idade", style: TextStyle(
 
-                      fontSize: 18,
+
                       color: Colors.black,
                     ), textAlign:TextAlign.center ,
                     ),
 
                   ),
-                  SizedBox(width: 10,),
+                  SizedBox(width:MediaQuery.of(context).size.width/65 ),
                   Container(
 
-                    width: 70,
+                    width: MediaQuery.of(context).size.width/5,
                     height: 40,
 
                     decoration: BoxDecoration(
@@ -230,7 +232,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
                     padding: EdgeInsets.only(top: 8,bottom: 5,left: 5,right: 5),
                     child: Text(
                       "Gênero", style: TextStyle(
-                      fontSize: 18,
+
                       color: Colors.black,
                     ), textAlign:TextAlign.center ,
                     ),
@@ -245,7 +247,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
           Visibility(
             visible: isSelected[0]?true: false,
             child: Container(
-              height: 480,
+              height: MediaQuery.of(context).size.height/2.3,
 
               child: ListView.builder(
                 itemCount: pets.length,
@@ -272,7 +274,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
           Visibility(
             visible: isSelected[1]?true: false,
             child: Container(
-              height: 480,
+              height: MediaQuery.of(context).size.height/2.3,
 
               child: ListView.builder(
                 itemCount: pets.length,
@@ -299,7 +301,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
           Visibility(
             visible: isSelected[2]?true: false,
             child: Container(
-              height: 480,
+              height: MediaQuery.of(context).size.height/2.3,
 
               child: ListView.builder(
                 itemCount: pets.length,
@@ -326,7 +328,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
           Visibility(
             visible: isSelected[3]?true: false,
             child: Container(
-              height: 480,
+              height: MediaQuery.of(context).size.height/2.3,
 
               child: ListView.builder(
                 itemCount: pets.length,
@@ -352,7 +354,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
           ),
 
 
-
+          //bottom navigator bar
 
 
         ],
