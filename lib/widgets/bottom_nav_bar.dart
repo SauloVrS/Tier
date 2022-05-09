@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tier/views/adocao-home.dart';
 import 'package:tier/views/busca_principal.dart';
 import 'package:tier/views/main_lojas.dart';
 import 'package:tier/views/perfil_usuario.dart';
@@ -51,12 +52,7 @@ class BottomNavBar extends StatelessWidget {
             onPressed: () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(
-                    builder: (context) => Center( // SUBSTITUIR O CENTER PELA PAGINA RELACIONADA
-                      child: ElevatedButton(
-                        onPressed: () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MainLojas())); },
-                        child: const Text("Voltar"),
-                      ),
-                    ),
+                    builder: (context) => AdocaoHome(),
                   )
               );
             },
