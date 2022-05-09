@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tier/views/main_lojas.dart';
 
+import 'views/splash_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MainLojas(), // ADICIONAR COMPONENTE SPLASH AQUI
+      home: const SplashScreen(), // ADICIONAR COMPONENTE SPLASH AQUI
     );
   }
 }
