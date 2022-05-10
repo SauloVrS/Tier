@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/data/pet_data.dart';
 
 import '../views/pet_page.dart';
@@ -42,32 +43,23 @@ class _PetListState extends State<PetList> {
       margin: EdgeInsets.only(bottom: 20),
       child: Column(
         children: [
-          GestureDetector(
-            onTap: (){
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(
-                    builder: (context) => PetPage(),
-                  )
-              );
-            },
-            child: Container(
-                width: 350,
-                height: 200,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(30),
-                      topLeft: Radius.circular(30)),
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(widget.foto_pet)),
-                )
-            ),
+          Container(
+              width: MediaQuery.of(context).size.width/1.2,
+              height: MediaQuery.of(context).size.height/3.5,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(30),
+                    topLeft: Radius.circular(30)),
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(widget.foto_pet)),
+              )
           ),
           Container(
             padding: EdgeInsets.only(
                 left: 10, top: 10, right: 10, bottom: 10),
-            width: 350,
-            height: 80,
+            width: MediaQuery.of(context).size.width/1.2,
+            height: MediaQuery.of(context).size.height/6,
             decoration: BoxDecoration(
               color: Color(0xffe5e5e5),
               borderRadius: BorderRadius.only(
@@ -83,15 +75,15 @@ class _PetListState extends State<PetList> {
                   children: [
                     Row(
                       children: [
-                        Text(widget.nome_pet, style: TextStyle(
-                            fontSize: 30,
+                        Text(widget.nome_pet, style: GoogleFonts.poppins(
+                            fontSize: 23,
                             fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(width: 15,),
+                        SizedBox(width: 8,),
                         Text(widget.idade,
-                          style: TextStyle(fontSize: 22),),
-                        SizedBox(width: 15,),
-                        Text(widget.typePet,style: TextStyle(fontSize: 1),)
+                          style: GoogleFonts.poppins(fontSize: 12),),
+                        SizedBox(width: 8,),
+                        Text(widget.typePet,style: GoogleFonts.poppins(fontSize: 0.1),)
 
 
 
@@ -104,7 +96,7 @@ class _PetListState extends State<PetList> {
                           bottom: 6,
                           top: 6),
                       child: Icon(
-                        Icons.star_outline, size: 26,),
+                        Icons.star_outline, size: 26,color: Colors.amber,),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(
@@ -120,7 +112,7 @@ class _PetListState extends State<PetList> {
                     Icon(Icons.place_outlined, size: 18,),
                     SizedBox(width: 4,),
                     Text(widget.distancia,
-                      style: TextStyle(fontSize: 16),)
+                      style: GoogleFonts.poppins(fontSize: 16),)
                   ],
                 )
               ],
