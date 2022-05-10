@@ -2,6 +2,7 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/data/pet_data.dart';
 import 'package:tier/widgets/pet_list.dart';
 
@@ -20,10 +21,13 @@ class _AdocaoHomeState extends State<AdocaoHome> {
   List<String> petIcons = ['https://cdn3.iconfinder.com/data/icons/font-awesome-solid/576/dog-256.png','https://cdn1.iconfinder.com/data/icons/pets-and-animals-5/96/cat-256.png','https://cdn-icons-png.flaticon.com/512/3969/3969770.png','https://cdn1.iconfinder.com/data/icons/animals-178/400/parrot-256.png'];
   String? location = "tomás rodrigues, 1361";
   List<Map>pets=[];
+  
 
   initData(){
     pets = Pets().pets;
   }
+
+
 
   @override
   void initState(){
@@ -42,7 +46,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
               width: location == null ? 65 : MediaQuery.of(context).size.width/2-23,
               child: Text(
                 location == null ? 'endereço' : location!,
-                style: const TextStyle(color: Colors.black, fontSize: 15),
+                style: GoogleFonts.poppins(color: Colors.black, fontSize: 15),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
@@ -108,36 +112,33 @@ class _AdocaoHomeState extends State<AdocaoHome> {
                           }
                         });
                       },
-                      child: Ink(
+                      child:
+                          Ink(
 
-                        decoration: BoxDecoration(
-                          image:  DecorationImage(
-                              opacity: 0.7,
-                              image: NetworkImage(petIcons[index]))  ,
+                            decoration: BoxDecoration(
+                              image:  DecorationImage(
+                                  opacity: 0.7,
+                                  image: NetworkImage(petIcons[index]))  ,
 
-                          color: isSelected[index] ? Color(0xFFffb761) : Color(0xE6FFC368).withOpacity(0.6),
-                          borderRadius: BorderRadius.circular(30),
-
-
-                        ),
+                              color: isSelected[index] ? Color(0xFFffb761) : Color(0xE6FFC368).withOpacity(0.6),
+                              borderRadius: BorderRadius.circular(30),
 
 
-                      ),
-                    ))
+                            ),
+
+
+                          ),
+
+
+                    )),
+
 
                 ),
               ),
-              Row(children: [
-                SizedBox(width: MediaQuery.of(context).size.width/32,),
-                Text("Cachorros"),
-                SizedBox(width: MediaQuery.of(context).size.width/12,),
-                Text("Gatos"),
-                SizedBox(width: MediaQuery.of(context).size.width/10,),
-                Text("Roedores"),
-                SizedBox(width: MediaQuery.of(context).size.width/19,),
-                Text("Pássaros"),
-              ]
-              )
+
+
+
+
             ],
           ),
 
@@ -165,7 +166,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
                     padding: EdgeInsets.only(top: 8,bottom: 5,left: 5,right: 5),
                     child: Text(
-                      "Filtros", style: TextStyle(
+                      "Filtros", style: GoogleFonts.poppins(
 
                       color: Colors.white,
                     ), textAlign:TextAlign.center ,
@@ -187,7 +188,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
                     padding: EdgeInsets.only(top: 8,bottom: 5,left: 5,right: 5),
                     child: Text(
-                      "Distância", style: TextStyle(
+                      "Distância", style: GoogleFonts.poppins(
                       color: Colors.black,
                     ), textAlign:TextAlign.center ,
                     ),
@@ -208,7 +209,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
                     padding: EdgeInsets.only(top: 8,bottom: 5,left: 5,right: 5),
                     child: Text(
-                      "Idade", style: TextStyle(
+                      "Idade", style: GoogleFonts.poppins(
 
 
                       color: Colors.black,
@@ -231,7 +232,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
                     padding: EdgeInsets.only(top: 8,bottom: 5,left: 5,right: 5),
                     child: Text(
-                      "Gênero", style: TextStyle(
+                      "Gênero", style: GoogleFonts.poppins(
 
                       color: Colors.black,
                     ), textAlign:TextAlign.center ,
@@ -246,9 +247,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
           // feed adocao
           Visibility(
             visible: isSelected[0]?true: false,
-            child: Container(
-              height: MediaQuery.of(context).size.height/2.5,
-
+            child: Expanded(
               child: ListView.builder(
                 itemCount: pets.length,
                 itemBuilder: (context, index)  => Visibility(
@@ -268,14 +267,11 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
 
               ),
-
             ),
           ),
           Visibility(
             visible: isSelected[1]?true: false,
-            child: Container(
-              height: MediaQuery.of(context).size.height/2.5,
-
+            child: Expanded(
               child: ListView.builder(
                 itemCount: pets.length,
                 itemBuilder: (context, index)  => Visibility(
@@ -295,13 +291,12 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
 
               ),
-
             ),
           ),
           Visibility(
             visible: isSelected[2]?true: false,
-            child: Container(
-              height: MediaQuery.of(context).size.height/2.5,
+            child: Expanded(
+
 
               child: ListView.builder(
                 itemCount: pets.length,
@@ -327,9 +322,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
           ),
           Visibility(
             visible: isSelected[3]?true: false,
-            child: Container(
-              height: MediaQuery.of(context).size.height/2.5,
-
+            child: Expanded(
               child: ListView.builder(
                 itemCount: pets.length,
                 itemBuilder: (context, index)  => Visibility(
@@ -349,7 +342,6 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
 
               ),
-
             ),
           ),
 

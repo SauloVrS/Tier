@@ -5,6 +5,8 @@ import 'package:tier/colors.dart';
 import 'package:tier/widgets/bottom_nav_bar.dart';
 import 'package:tier/views/configuracoes_perfil.dart';
 
+import '../colors.dart';
+import '../widgets/bottom_nav_bar.dart';
 
 class TelaPerfilUsuario extends StatefulWidget {
   const TelaPerfilUsuario({Key? key}) : super(key: key);
@@ -33,7 +35,6 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                         width: 70,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(40),
-                          //color: Colors.blue,
                           boxShadow: [
                             BoxShadow(
                               blurRadius: 10,
@@ -109,25 +110,30 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                                 ),
                               ]
                           ),
-                          padding: const EdgeInsets.all(15),
-                          child: Row(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.receipt_long_outlined,
-                                  color: AppColor.textosPretos3,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.receipt_long_outlined,
+                                    color: AppColor.textosPretos3,
+                                  ),
+                                  const SizedBox(width: 10,),
+                                  RichText(text: TextSpan(
+                                      text: 'Meus\n',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 18,
+                                          color: AppColor.textosPretos3),
+                                      children: const [
+                                        TextSpan(
+                                          text: 'pedidos',
+                                        )
+                                      ]
+                                  ),
+                                  )
+                                ],
                               ),
-                              const SizedBox(width: 10,),
-                              RichText(text: TextSpan(
-                                  text: 'Meus\n',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 20,
-                                      color: AppColor.textosPretos3),
-                                  children: const [
-                                    TextSpan(
-                                      text: 'pedidos',
-                                    )
-                                  ]
-                              ),
-                              )
                             ],
                           ),
                         ),
@@ -138,7 +144,6 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                         child: Container(
                           width: (MediaQuery.of(context).size.width - 60)/2,
                           height: 110,
-                          padding: EdgeInsets.all(30),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: AppColor.background,
@@ -163,20 +168,28 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                                   offset: const Offset(3, -3),
                                   color: AppColor.cinzaBranco,
                                 ),
-                              ]                           ),
-                          child: Row(
+                              ]
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(CupertinoIcons.rosette,
-                                color: AppColor.textosPretos3,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(CupertinoIcons.rosette,
+                                    color: AppColor.textosPretos3,
+                                  ),
+                                  const SizedBox(width: 5,),
+                                  Text(
+                                    'Nível',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 18,
+                                      color: AppColor.textosPretos3,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 5,),
+                                ],
                               ),
-                              const SizedBox(width: 10,),
-                              Text(
-                                'Nível',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 20,
-                                  color: AppColor.textosPretos3,
-                                ),
-                              )
                             ],
                           ),
                         ),
