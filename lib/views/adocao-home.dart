@@ -247,9 +247,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
           // feed adocao
           Visibility(
             visible: isSelected[0]?true: false,
-            child: Container(
-              height: MediaQuery.of(context).size.height/2.5,
-
+            child: Expanded(
               child: ListView.builder(
                 itemCount: pets.length,
                 itemBuilder: (context, index)  => Visibility(
@@ -269,14 +267,11 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
 
               ),
-
             ),
           ),
           Visibility(
             visible: isSelected[1]?true: false,
-            child: Container(
-              height: MediaQuery.of(context).size.height/2.5,
-
+            child: Expanded(
               child: ListView.builder(
                 itemCount: pets.length,
                 itemBuilder: (context, index)  => Visibility(
@@ -296,13 +291,12 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
 
               ),
-
             ),
           ),
           Visibility(
             visible: isSelected[2]?true: false,
-            child: Container(
-              height: MediaQuery.of(context).size.height/2.5,
+            child: Expanded(
+
 
               child: ListView.builder(
                 itemCount: pets.length,
@@ -328,9 +322,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
           ),
           Visibility(
             visible: isSelected[3]?true: false,
-            child: Container(
-              height: MediaQuery.of(context).size.height/2.5,
-
+            child: Expanded(
               child: ListView.builder(
                 itemCount: pets.length,
                 itemBuilder: (context, index)  => Visibility(
@@ -350,7 +342,6 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
 
               ),
-
             ),
           ),
 
