@@ -130,13 +130,13 @@ class _AdocaoHomeState extends State<AdocaoHome> {
               ),
               Row(children: [
                 SizedBox(width: MediaQuery.of(context).size.width/32,),
-                Text("Cachorros",style: GoogleFonts.poppins(),),
+                Text("Cachorros",style: GoogleFonts.poppins(fontSize: 12),),
                 SizedBox(width: MediaQuery.of(context).size.width/12,),
-                Text("Gatos",style: GoogleFonts.poppins()),
+                Text("Gatos",style: GoogleFonts.poppins(fontSize: 12)),
                 SizedBox(width: MediaQuery.of(context).size.width/10,),
-                Text("Roedores",style: GoogleFonts.poppins()),
+                Text("Roedores",style: GoogleFonts.poppins(fontSize: 12)),
                 SizedBox(width: MediaQuery.of(context).size.width/19,),
-                Text("Pássaros",style: GoogleFonts.poppins()),
+                Text("Pássaros",style: GoogleFonts.poppins(fontSize: 12)),
               ]
               )
             ],

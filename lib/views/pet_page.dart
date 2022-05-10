@@ -108,13 +108,13 @@ class _PetPageState extends State<PetPage> {
                               child: Column(
 
                                 children: [
-                                  Text("Macho",style: GoogleFonts.poppins(fontSize:MediaQuery.of(context).size.width/19,fontWeight: FontWeight.w600),),
-                                  Text("Gênero",style: GoogleFonts.poppins(fontSize:MediaQuery.of(context).size.width/25),)
+                                  Text("Macho",style: GoogleFonts.poppins(fontSize:MediaQuery.of(context).size.width/25,fontWeight: FontWeight.w600),),
+                                  Text("Gênero",style: GoogleFonts.poppins(fontSize:MediaQuery.of(context).size.width/30),)
                                 ],
                               ),
                             ),
                           ),
-                          SizedBox(width: MediaQuery.of(context).size.width/35,),
+                          SizedBox(width: MediaQuery.of(context).size.width/18,),
                           Container(
                             padding: EdgeInsets.only(top: MediaQuery.of(context).size.width/30,bottom: MediaQuery.of(context).size.width/30,left: MediaQuery.of(context).size.width/30,right: MediaQuery.of(context).size.width/30),
                             decoration: BoxDecoration(
@@ -124,12 +124,12 @@ class _PetPageState extends State<PetPage> {
                             child: Column(
 
                               children: [
-                                Text("2 Meses",style: GoogleFonts.poppins(fontSize:MediaQuery.of(context).size.width/19,fontWeight: FontWeight.w600),),
-                                Text("Idade",style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/25),)
+                                Text("2 Meses",style: GoogleFonts.poppins(fontSize:MediaQuery.of(context).size.width/23,fontWeight: FontWeight.w600),),
+                                Text("Idade",style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/28),)
                               ],
                             ),
                           ),
-                          SizedBox(width: MediaQuery.of(context).size.width/35,),
+                          SizedBox(width: MediaQuery.of(context).size.width/18,),
                           Container(
                             padding: EdgeInsets.only(top: MediaQuery.of(context).size.width/30,bottom: MediaQuery.of(context).size.width/30,left: MediaQuery.of(context).size.width/30,right: MediaQuery.of(context).size.width/30),
                             decoration: BoxDecoration(
@@ -139,8 +139,8 @@ class _PetPageState extends State<PetPage> {
                             child: Column(
 
                               children: [
-                                Text("Pequeno",style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/19,fontWeight: FontWeight.w600),),
-                                Text("Porte",style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/25),)
+                                Text("Pequeno",style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/23,fontWeight: FontWeight.w600),),
+                                Text("Porte",style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/28),)
                               ],
                             ),
                           ),
@@ -175,7 +175,7 @@ class _PetPageState extends State<PetPage> {
 
                             ],
                           ),
-                          SizedBox(width: MediaQuery.of(context).size.width/6,),
+                          SizedBox(width: MediaQuery.of(context).size.width/9,),
                           Container(
                             padding: EdgeInsets.only(top: 10, bottom: 10, right: 10, left: 10),
                             decoration: BoxDecoration(
@@ -191,16 +191,16 @@ class _PetPageState extends State<PetPage> {
                     //descricao do dono
                     Padding(
                       padding: const EdgeInsets.only(left: 11,right: 11,top: 11,bottom: 0),
-                      child: Text("Tive muitos filhotes e só posso cuidar de 1",style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/24),),
+                      child: Text("Tive muitos filhotes e só posso cuidar de 1",style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/30),),
                     ),
                     Padding(
                         padding: const EdgeInsets.all(11.0),
                         child: Row(
                           children: [
-                            Text("Descrição do gato: calmo, pequeno...",style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/30)),
+                            Text("Descrição do gato: calmo, pequeno...",style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/32)),
 
                             SizedBox(width: 10,),
-                            Text("Mostrar mais",style: GoogleFonts.poppins(color: Colors.orangeAccent,fontSize: MediaQuery.of(context).size.width/30),),
+                            Text("Mostrar mais",style: GoogleFonts.poppins(color: Colors.orangeAccent,fontSize: MediaQuery.of(context).size.width/46),),
                           ],
 
                         )

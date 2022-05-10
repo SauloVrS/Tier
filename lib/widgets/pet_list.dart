@@ -90,7 +90,7 @@ class _PetListState extends State<PetList> {
                         ),
                         SizedBox(width: 8,),
                         Text(widget.idade,
-                          style: GoogleFonts.poppins(fontSize: 19),),
+                          style: GoogleFonts.poppins(fontSize: 12),),
                         SizedBox(width: 8,),
                         Text(widget.typePet,style: GoogleFonts.poppins(fontSize: 0.1),)
 
