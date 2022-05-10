@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tier/views/login_page.dart';
 import 'package:tier/views/main_lojas.dart';
 
 import 'views/splash_screen.dart';
@@ -19,9 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SplashScreen(), // ADICIONAR COMPONENTE SPLASH AQUI
+      home: const LoginPage(), // ADICIONAR COMPONENTE SPLASH AQUI
     );
   }
 }
-
-

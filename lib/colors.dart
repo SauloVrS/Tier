@@ -9,7 +9,7 @@ class AppColor{
   static Color amareloEscuro = const Color(0xFFffb761);
   static Color amareloPrincipal = const Color(0xE6FFC368);
   static Color amareloPastel = const Color(0xFFFFE9C2);
-  static Color cinzaBranco = const Color(0xffe5e5e5);
+  static Color cinzaBranco = const Color(0xffe5e5e3);
   static Color cinzaClaro = const Color(0xFFc4c4c4);
   static Color cinzaMedio = const Color(0xFFaaaaaa);
   static Color cinzaclaroAppBar = const Color(0x4D000000);
