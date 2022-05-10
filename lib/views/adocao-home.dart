@@ -2,6 +2,7 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/data/pet_data.dart';
 import 'package:tier/widgets/pet_list.dart';
 
@@ -42,7 +43,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
               width: location == null ? 65 : MediaQuery.of(context).size.width/2-23,
               child: Text(
                 location == null ? 'endereço' : location!,
-                style: const TextStyle(color: Colors.black, fontSize: 15),
+                style: GoogleFonts.poppins(color: Colors.black, fontSize: 15),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
@@ -129,13 +130,13 @@ class _AdocaoHomeState extends State<AdocaoHome> {
               ),
               Row(children: [
                 SizedBox(width: MediaQuery.of(context).size.width/32,),
-                Text("Cachorros"),
+                Text("Cachorros",style: GoogleFonts.poppins(),),
                 SizedBox(width: MediaQuery.of(context).size.width/12,),
-                Text("Gatos"),
+                Text("Gatos",style: GoogleFonts.poppins()),
                 SizedBox(width: MediaQuery.of(context).size.width/10,),
-                Text("Roedores"),
+                Text("Roedores",style: GoogleFonts.poppins()),
                 SizedBox(width: MediaQuery.of(context).size.width/19,),
-                Text("Pássaros"),
+                Text("Pássaros",style: GoogleFonts.poppins()),
               ]
               )
             ],
@@ -165,7 +166,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
                     padding: EdgeInsets.only(top: 8,bottom: 5,left: 5,right: 5),
                     child: Text(
-                      "Filtros", style: TextStyle(
+                      "Filtros", style: GoogleFonts.poppins(
 
                       color: Colors.white,
                     ), textAlign:TextAlign.center ,
@@ -187,7 +188,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
                     padding: EdgeInsets.only(top: 8,bottom: 5,left: 5,right: 5),
                     child: Text(
-                      "Distância", style: TextStyle(
+                      "Distância", style: GoogleFonts.poppins(
                       color: Colors.black,
                     ), textAlign:TextAlign.center ,
                     ),
@@ -208,7 +209,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
                     padding: EdgeInsets.only(top: 8,bottom: 5,left: 5,right: 5),
                     child: Text(
-                      "Idade", style: TextStyle(
+                      "Idade", style: GoogleFonts.poppins(
 
 
                       color: Colors.black,
@@ -231,7 +232,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
                     padding: EdgeInsets.only(top: 8,bottom: 5,left: 5,right: 5),
                     child: Text(
-                      "Gênero", style: TextStyle(
+                      "Gênero", style: GoogleFonts.poppins(
 
                       color: Colors.black,
                     ), textAlign:TextAlign.center ,

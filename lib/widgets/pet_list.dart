@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/data/pet_data.dart';
 
 import '../views/pet_page.dart';
@@ -83,15 +84,15 @@ class _PetListState extends State<PetList> {
                   children: [
                     Row(
                       children: [
-                        Text(widget.nome_pet, style: TextStyle(
+                        Text(widget.nome_pet, style: GoogleFonts.poppins(
                             fontSize: 23,
                             fontWeight: FontWeight.bold),
                         ),
                         SizedBox(width: 8,),
                         Text(widget.idade,
-                          style: TextStyle(fontSize: 19),),
+                          style: GoogleFonts.poppins(fontSize: 19),),
                         SizedBox(width: 8,),
-                        Text(widget.typePet,style: TextStyle(fontSize: 0.1),)
+                        Text(widget.typePet,style: GoogleFonts.poppins(fontSize: 0.1),)
 
 
 
@@ -120,7 +121,7 @@ class _PetListState extends State<PetList> {
                     Icon(Icons.place_outlined, size: 18,),
                     SizedBox(width: 4,),
                     Text(widget.distancia,
-                      style: TextStyle(fontSize: 16),)
+                      style: GoogleFonts.poppins(fontSize: 16),)
                   ],
                 )
               ],

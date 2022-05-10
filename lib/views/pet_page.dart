@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'adocao-home.dart';
 
@@ -69,13 +70,13 @@ class _PetPageState extends State<PetPage> {
                       children: [
                         Column(
                           children: [
-                            Text("Bolinha",style: TextStyle(fontSize: MediaQuery.of(context).size.width/13,fontWeight: FontWeight.w700),),
+                            Text("Bolinha",style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/13,fontWeight: FontWeight.w700),),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Icon(Icons.place_outlined,size: 18,),
                                 SizedBox(width: 4,),
-                                Text("1,7km",style: TextStyle(fontSize: MediaQuery.of(context).size.width/23),)
+                                Text("1,7km",style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/23),)
                               ],
                             )
                           ],
@@ -107,8 +108,8 @@ class _PetPageState extends State<PetPage> {
                               child: Column(
 
                                 children: [
-                                  Text("Macho",style: TextStyle(fontSize:MediaQuery.of(context).size.width/19,fontWeight: FontWeight.w600),),
-                                  Text("Gênero",style: TextStyle(fontSize:MediaQuery.of(context).size.width/25),)
+                                  Text("Macho",style: GoogleFonts.poppins(fontSize:MediaQuery.of(context).size.width/19,fontWeight: FontWeight.w600),),
+                                  Text("Gênero",style: GoogleFonts.poppins(fontSize:MediaQuery.of(context).size.width/25),)
                                 ],
                               ),
                             ),
@@ -123,8 +124,8 @@ class _PetPageState extends State<PetPage> {
                             child: Column(
 
                               children: [
-                                Text("2 Meses",style: TextStyle(fontSize:MediaQuery.of(context).size.width/19,fontWeight: FontWeight.w600),),
-                                Text("Idade",style: TextStyle(fontSize: MediaQuery.of(context).size.width/25),)
+                                Text("2 Meses",style: GoogleFonts.poppins(fontSize:MediaQuery.of(context).size.width/19,fontWeight: FontWeight.w600),),
+                                Text("Idade",style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/25),)
                               ],
                             ),
                           ),
@@ -138,8 +139,8 @@ class _PetPageState extends State<PetPage> {
                             child: Column(
 
                               children: [
-                                Text("Pequeno",style: TextStyle(fontSize: MediaQuery.of(context).size.width/19,fontWeight: FontWeight.w600),),
-                                Text("Porte",style: TextStyle(fontSize: MediaQuery.of(context).size.width/25),)
+                                Text("Pequeno",style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/19,fontWeight: FontWeight.w600),),
+                                Text("Porte",style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/25),)
                               ],
                             ),
                           ),
@@ -169,8 +170,8 @@ class _PetPageState extends State<PetPage> {
                           SizedBox(width: MediaQuery.of(context).size.width/35,),
                           Column(
                             children: [
-                              Text("Vitor Rangel",style: TextStyle(fontSize: MediaQuery.of(context).size.width/25,fontWeight: FontWeight.w600),),
-                              Text("Doador",style: TextStyle(fontSize: MediaQuery.of(context).size.width/33,fontWeight: FontWeight.w400),),
+                              Text("Vitor Rangel",style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/25,fontWeight: FontWeight.w600),),
+                              Text("Doador",style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/33,fontWeight: FontWeight.w400),),
 
                             ],
                           ),
@@ -181,7 +182,7 @@ class _PetPageState extends State<PetPage> {
                                 color: Color(0xFFc4c4c4),
                                 borderRadius: BorderRadius.circular(10)
                             ),
-                            child: Text("Ver perfil",style: TextStyle(fontSize: MediaQuery.of(context).size.width/30,fontWeight: FontWeight.w500),),
+                            child: Text("Ver perfil",style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/30,fontWeight: FontWeight.w500),),
                           )
                         ],
                       ),
@@ -190,16 +191,16 @@ class _PetPageState extends State<PetPage> {
                     //descricao do dono
                     Padding(
                       padding: const EdgeInsets.only(left: 11,right: 11,top: 11,bottom: 0),
-                      child: Text("Tive muitos filhotes e só posso cuidar de 1",style: TextStyle(fontSize: MediaQuery.of(context).size.width/24),),
+                      child: Text("Tive muitos filhotes e só posso cuidar de 1",style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/24),),
                     ),
                     Padding(
                         padding: const EdgeInsets.all(11.0),
                         child: Row(
                           children: [
-                            Text("Descrição do gato: calmo, pequeno...",style: TextStyle(fontSize: MediaQuery.of(context).size.width/30)),
+                            Text("Descrição do gato: calmo, pequeno...",style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/30)),
 
                             SizedBox(width: 10,),
-                            Text("Mostrar mais",style: TextStyle(color: Colors.orangeAccent,fontSize: MediaQuery.of(context).size.width/30),),
+                            Text("Mostrar mais",style: GoogleFonts.poppins(color: Colors.orangeAccent,fontSize: MediaQuery.of(context).size.width/30),),
                           ],
 
                         )
@@ -212,7 +213,7 @@ class _PetPageState extends State<PetPage> {
                         borderRadius: BorderRadius.circular(15),
                         color: Color(0xFFffb761),
                       ),
-                      child: Text("Adotar",style: TextStyle(fontSize:MediaQuery.of(context).size.width/28 ),),
+                      child: Text("Adotar",style: GoogleFonts.poppins(fontSize:MediaQuery.of(context).size.width/28 ),),
                     ),
                     SizedBox(height: 100,)
                   ],
