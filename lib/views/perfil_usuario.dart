@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';
 import 'package:tier/widgets/bottom_nav_bar.dart';
+import 'package:tier/views/configuracoes_perfil.dart';
 
 
 class TelaPerfilUsuario extends StatefulWidget {
@@ -424,7 +425,9 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               ),
             ),
             GestureDetector(
-              onTap: (){},
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>Configuracoes()));
+              },
               child: Container(
                 height: 59,
                 child: Column(
