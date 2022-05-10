@@ -317,7 +317,6 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
 
               ),
-
             ),
           ),
           Visibility(
