@@ -38,11 +38,11 @@ class _AdocaoHomeState extends State<AdocaoHome> {
   }
   @override
   Widget build(BuildContext context) {
-    namePets.forEach((listItem){
+    for (var listItem in namePets) {
       listItem.forEach((listSubItem){
         strToDIsplay += (listSubItem.toString() + " ");
       });
-    });
+    }
 
     return Scaffold(
       appBar: AppBar(
