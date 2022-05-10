@@ -142,7 +142,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
                 ),
               ),
-              Text(strToDIsplay),
+
 
 
 
