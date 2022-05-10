@@ -21,12 +21,15 @@ class _AdocaoHomeState extends State<AdocaoHome> {
   List<String> petIcons = ['https://cdn3.iconfinder.com/data/icons/font-awesome-solid/576/dog-256.png','https://cdn1.iconfinder.com/data/icons/pets-and-animals-5/96/cat-256.png','https://cdn-icons-png.flaticon.com/512/3969/3969770.png','https://cdn1.iconfinder.com/data/icons/animals-178/400/parrot-256.png'];
   String? location = "tomás rodrigues, 1361";
   List<Map>pets=[];
-
+  List namePets= ['Cachorros','Gatos','Roedores','Pássaros'];
+  String strToDIsplay = "";
 
 
   initData(){
     pets = Pets().pets;
   }
+
+
 
   @override
   void initState(){
@@ -35,6 +38,11 @@ class _AdocaoHomeState extends State<AdocaoHome> {
   }
   @override
   Widget build(BuildContext context) {
+    namePets.forEach((listItem){
+      listItem.forEach((listSubItem){
+        strToDIsplay += (listSubItem.toString() + " ");
+      });
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -134,19 +142,10 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
                 ),
               ),
+              Text(strToDIsplay),
 
 
-              Row(children: [
-                SizedBox(width: MediaQuery.of(context).size.width/32,),
-                Text("Cachorros",style: GoogleFonts.poppins(fontSize: 12),),
-                SizedBox(width: MediaQuery.of(context).size.width/12,),
-                Text("Gatos",style: GoogleFonts.poppins(fontSize: 12)),
-                SizedBox(width: MediaQuery.of(context).size.width/10,),
-                Text("Roedores",style: GoogleFonts.poppins(fontSize: 12)),
-                SizedBox(width: MediaQuery.of(context).size.width/19,),
-                Text("Pássaros",style: GoogleFonts.poppins(fontSize: 12)),
-              ]
-              )
+
             ],
           ),
 
