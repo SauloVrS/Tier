@@ -43,26 +43,17 @@ class _PetListState extends State<PetList> {
       margin: EdgeInsets.only(bottom: 20),
       child: Column(
         children: [
-          GestureDetector(
-            onTap: (){
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(
-                    builder: (context) => PetPage(),
-                  )
-              );
-            },
-            child: Container(
-                width: MediaQuery.of(context).size.width/1.2,
-                height: MediaQuery.of(context).size.height/3.5,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(30),
-                      topLeft: Radius.circular(30)),
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(widget.foto_pet)),
-                )
-            ),
+          Container(
+              width: MediaQuery.of(context).size.width/1.2,
+              height: MediaQuery.of(context).size.height/3.5,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(30),
+                    topLeft: Radius.circular(30)),
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(widget.foto_pet)),
+              )
           ),
           Container(
             padding: EdgeInsets.only(
@@ -105,7 +96,7 @@ class _PetListState extends State<PetList> {
                           bottom: 6,
                           top: 6),
                       child: Icon(
-                        Icons.star_outline, size: 26,),
+                        Icons.star_outline, size: 26,color: Colors.amber,),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(

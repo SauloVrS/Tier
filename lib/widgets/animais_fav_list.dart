@@ -19,28 +19,19 @@ class AnimaisList extends StatelessWidget {
       //color: AppColor.amareloPrincipal,
       child: Column(
         children: [
-          GestureDetector(
-              onTap: (){
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(
-                      builder: (context) => PetPage(),
-                    )
-                );
-              },
-              child: Container(
-                width: (MediaQuery.of(context).size.width - 50)/2,
-                height: 100,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(20),
-                    topLeft: Radius.circular(20),
-                  ),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(imgUrl)
-                  )
-                ),
+          Container(
+            width: (MediaQuery.of(context).size.width - 50)/2,
+            height: 100,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(20),
+                topLeft: Radius.circular(20),
+              ),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(imgUrl)
               )
+            ),
           ),
           Container(
             width: (MediaQuery.of(context).size.width - 50)/2,

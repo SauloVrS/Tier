@@ -22,6 +22,8 @@ class _AdocaoHomeState extends State<AdocaoHome> {
   String? location = "tomás rodrigues, 1361";
   List<Map>pets=[];
 
+
+
   initData(){
     pets = Pets().pets;
   }
@@ -109,25 +111,31 @@ class _AdocaoHomeState extends State<AdocaoHome> {
                           }
                         });
                       },
-                      child: Ink(
+                      child:
+                          Ink(
 
-                        decoration: BoxDecoration(
-                          image:  DecorationImage(
-                              opacity: 0.7,
-                              image: NetworkImage(petIcons[index]))  ,
+                            decoration: BoxDecoration(
+                              image:  DecorationImage(
+                                  opacity: 0.7,
+                                  image: NetworkImage(petIcons[index]))  ,
 
-                          color: isSelected[index] ? Color(0xFFffb761) : Color(0xE6FFC368).withOpacity(0.6),
-                          borderRadius: BorderRadius.circular(30),
-
-
-                        ),
+                              color: isSelected[index] ? Color(0xFFffb761) : Color(0xE6FFC368).withOpacity(0.6),
+                              borderRadius: BorderRadius.circular(30),
 
 
-                      ),
-                    ))
+                            ),
+
+
+                          ),
+
+
+                    )),
+
 
                 ),
               ),
+
+
               Row(children: [
                 SizedBox(width: MediaQuery.of(context).size.width/32,),
                 Text("Cachorros",style: GoogleFonts.poppins(fontSize: 12),),
