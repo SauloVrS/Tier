@@ -21,9 +21,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
   List<String> petIcons = ['https://cdn3.iconfinder.com/data/icons/font-awesome-solid/576/dog-256.png','https://cdn1.iconfinder.com/data/icons/pets-and-animals-5/96/cat-256.png','https://cdn-icons-png.flaticon.com/512/3969/3969770.png','https://cdn1.iconfinder.com/data/icons/animals-178/400/parrot-256.png'];
   String? location = "tomás rodrigues, 1361";
   List<Map>pets=[];
-  List namePets= ['Cachorros','Gatos','Roedores','Pássaros'];
-  String strToDIsplay = "";
-
+  
 
   initData(){
     pets = Pets().pets;
@@ -38,11 +36,6 @@ class _AdocaoHomeState extends State<AdocaoHome> {
   }
   @override
   Widget build(BuildContext context) {
-    for (var listItem in namePets) {
-      listItem.forEach((listSubItem){
-        strToDIsplay += (listSubItem.toString() + " ");
-      });
-    }
 
     return Scaffold(
       appBar: AppBar(
