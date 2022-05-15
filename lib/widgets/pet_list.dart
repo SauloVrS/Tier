@@ -43,23 +43,32 @@ class _PetListState extends State<PetList> {
       margin: EdgeInsets.only(bottom: 20),
       child: Column(
         children: [
-          Container(
-              width: MediaQuery.of(context).size.width/1.2,
-              height: MediaQuery.of(context).size.height/3.5,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(30),
-                    topLeft: Radius.circular(30)),
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(widget.foto_pet)),
-              )
+          GestureDetector(
+            onTap: (){
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(
+                  builder: (context) =>  PetPage(),
+                  )
+              );
+            },
+            child: Container(
+                width: MediaQuery.of(context).size.width/1.2,
+                height: MediaQuery.of(context).size.height/3.5,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(30),
+                      topLeft: Radius.circular(30)),
+                  image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(widget.foto_pet)),
+                )
+            ),
           ),
           Container(
             padding: EdgeInsets.only(
                 left: 10, top: 10, right: 10, bottom: 10),
             width: MediaQuery.of(context).size.width/1.2,
-            height: MediaQuery.of(context).size.height/6,
+            height: MediaQuery.of(context).size.height/8,
             decoration: BoxDecoration(
               color: Color(0xffe5e5e5),
               borderRadius: BorderRadius.only(

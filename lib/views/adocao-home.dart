@@ -89,7 +89,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
 
                 width: MediaQuery.of(context).size.width/1.09,
-                height: MediaQuery.of(context).size.height/6,
+                height: MediaQuery.of(context).size.height/9.8,
                 color: Colors.white.withOpacity(0.3),
                 child: GridView.count(
 
