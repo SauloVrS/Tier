@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LoginPage(), // ADICIONAR COMPONENTE SPLASH AQUI
+      home: const SplashScreen(), // ADICIONAR COMPONENTE SPLASH AQUI
     );
   }
 }
