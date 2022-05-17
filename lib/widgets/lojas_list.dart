@@ -1,5 +1,69 @@
 import 'package:flutter/material.dart';
 
+import '../firebase/loja_helper.dart';
+
+Widget lojaList(Loja loja, int espacamento, BuildContext context) {
+  return Container(
+    margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+    height: 80,
+    width: MediaQuery.of(context).size.width - (espacamento),
+    child: Row(
+      children: [
+        ClipRRect(
+            borderRadius: BorderRadius.circular(50),
+            child: Image.network(
+              loja.imgUrl,
+              height: 70,
+              width: 70,
+              fit: BoxFit.cover,
+              color: !loja.status ? Colors.white.withOpacity(0.25) : Colors.white.withOpacity(1),
+              colorBlendMode: BlendMode.modulate,
+            )
+        ),
+        const SizedBox(width: 10,),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(loja.nome, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: loja.status ? Colors.black : Colors.grey),),
+            const SizedBox(height: 3,),
+            Row(
+              children: [
+                Container(
+                    margin: const EdgeInsets.only(right: 2),
+                    child: Icon(Icons.star, color: loja.status ? Colors.yellowAccent : Colors.yellow, size: 14,)
+                ),
+                Text(loja.avaliacao.toString(), style: TextStyle(fontSize: 10, color: loja.status ? Colors.black : Colors.grey),),
+                Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Icon(Icons.circle, color: loja.status ? Colors.black : Colors.grey, size: 5)
+                ),
+                Text('${loja.distancia.toString()} km', style: TextStyle(fontSize: 10, color: loja.status ? Colors.black : Colors.grey),),
+                Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Icon(Icons.circle, color: loja.status ? Colors.black : Colors.grey, size: 5)
+                ),
+                Text(loja.status ? "aberto" : "fechado", style: TextStyle(fontSize: 10, color: loja.status ? Colors.black : Colors.grey),),
+              ],
+            ),
+            const SizedBox(height: 3,),
+            Row(
+              children: [
+                Text('${loja.tempMin.toString()} - ${loja.tempMax.toString()} min', style: TextStyle(fontSize: 10, color: loja.status ? Colors.black : Colors.grey),),
+                Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Icon(Icons.circle, color: loja.status ? Colors.black : Colors.grey, size: 5)
+                ),
+                Text('R\$ ${loja.taxa.toString()}', style: TextStyle(fontSize: 10, color: loja.status ? Colors.black : Colors.grey),),
+              ],
+            ),
+          ],
+        )
+      ],
+    ),
+  );
+}
+
 class LojasList extends StatelessWidget {
 
   final String name, imgUrl;
