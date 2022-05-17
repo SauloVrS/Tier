@@ -1,28 +1,28 @@
 class ModelPet {
-  final String? descricao_doador;
-  final String? descricao_pet;
+  final String? descricaoDoador;
+  final String? descricaoPet;
   final String? distancia;
-  final String? foto_pet;
-  final String? foto_doador;
-  final String? genero;
-  final String? idade;
-  final String? nome_doador;
-  final String? nome_pet;
+  final String? fotoPet;
+  final String? fotoDoador;
+  final String? generoPet;
+  final String? idadePet;
+  final String? nomeDoador;
+  final String? nomePet;
 
   //int? favorite;
 
   final String? typePet;
 
   ModelPet({
-    required this.descricao_doador,
-    required this.descricao_pet,
+    required this.descricaoDoador,
+    required this.descricaoPet,
     required this.distancia,
-    required this.foto_doador,
-    required this.foto_pet,
-    required this.genero,
-    required this.idade,
-    required this.nome_doador,
-    required this.nome_pet,
+    required this.fotoDoador,
+    required this.fotoPet,
+    required this.generoPet,
+    required this.idadePet,
+    required this.nomeDoador,
+    required this.nomePet,
     required this.typePet,
     //required this.favorite,
     //required this.dog,
@@ -30,4 +30,13 @@ class ModelPet {
     // required this.mouse,
     // required this.bird,
   });
+
+  Map<String, dynamic> toJson() => {
+    "descricaoDoador" : descricaoDoador,
+    "descricaoPet" : descricaoPet,
+    "distancia" : distancia,
+    "fotoDoador" : fotoDoador,
+
+
+  };
 }
