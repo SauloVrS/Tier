@@ -20,7 +20,7 @@ class AnimaisDonoList extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            width: (MediaQuery.of(context).size.width - 50)/2.3,
+            width: (MediaQuery.of(context).size.width - 50)/2.2,
             height: 100,
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
@@ -34,7 +34,7 @@ class AnimaisDonoList extends StatelessWidget {
             ),
           ),
           Container(
-            width: (MediaQuery.of(context).size.width - 50)/2.3,
+            width: (MediaQuery.of(context).size.width - 50)/2.2,
             height: 50,
             decoration: BoxDecoration(
                 color: AppColor.cinzaBranco,

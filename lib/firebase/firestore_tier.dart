@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tier/firebase/user.dart';
 
+
 // widget para lista uma unica coleção
 Widget futureBuildFirebase() {
   return FutureBuilder<User?>(
@@ -63,4 +64,6 @@ Stream<List<User>> readUsers() => FirebaseFirestore.instance
     .collection("users")
     .snapshots()
     .map((snapshot) => snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
+
+
 

@@ -84,7 +84,7 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
           Positioned(
               left: 0,
               right: 0,
-              top: MediaQuery.of(context).size.height/3.8,
+              top: MediaQuery.of(context).size.height/3,
               bottom: 0,
               child:
              Container(
