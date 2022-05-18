@@ -6,6 +6,7 @@ import 'package:tier/colors.dart';
 import 'package:tier/views/pet_page.dart';
 
 import '../data/animais_fav.dart';
+import '../widgets/animais_dono_list.dart';
 import '../widgets/animais_fav_list.dart';
 
 class PerfilDonoPet extends StatefulWidget {
@@ -40,7 +41,7 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
               child: Container(
                 width: double.maxFinite,
                 height: MediaQuery.of(context).size.width/1.5,
-                color: AppColor.cinzaClaro.withOpacity(0.4),
+                color: AppColor.cinzaClaro.withOpacity(0.1),
                 child: Padding(
                   padding:  EdgeInsets.only(top: MediaQuery.of(context).size.width/8),
                   child: Column(
@@ -83,12 +84,13 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
           Positioned(
               left: 0,
               right: 0,
-              top: MediaQuery.of(context).size.height/3.8,
+              top: MediaQuery.of(context).size.height/3,
+              bottom: 0,
               child:
              Container(
-               padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/15,right: MediaQuery.of(context).size.width/15, top: MediaQuery.of(context).size.height/25,bottom: MediaQuery.of(context).size.height/15),
+               padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/15,right: MediaQuery.of(context).size.width/15, top: MediaQuery.of(context).size.height/25,bottom: MediaQuery.of(context).size.height/40),
                decoration: BoxDecoration(
-                 borderRadius: BorderRadius.circular(30),
+                 borderRadius: BorderRadius.only( topLeft: Radius.circular(30),topRight: Radius.circular(30)),
                  color: AppColor.background,
                ),
                child: Column(
@@ -96,23 +98,53 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
                    Text("Sou uma pessoa que legal que luta pela causa animal e blablabla",style: GoogleFonts.poppins(),),
                    SizedBox( height: MediaQuery.of(context).size.height/30),
                    Container(
-                     padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/15,right: MediaQuery.of(context).size.width/15, top: MediaQuery.of(context).size.height/45,bottom: MediaQuery.of(context).size.height/45),
+                     width: MediaQuery.of(context).size.width/1.32,
+                     height: MediaQuery.of(context).size.height/15,
+                     padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/40,right: MediaQuery.of(context).size.width/40, top: MediaQuery.of(context).size.height/70,bottom: MediaQuery.of(context).size.height/70),
                      decoration: BoxDecoration(
                        color: AppColor.amareloPrincipal,
-                       borderRadius: BorderRadius.all(Radius.circular(30)),
+                       borderRadius: BorderRadius.all(Radius.circular(15)),
 
                      ),
                      child: Row(
                        crossAxisAlignment: CrossAxisAlignment.center,
                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                        children: [
-                         Text("Mandar mensagem",style: GoogleFonts.poppins(color: AppColor.textoBranco),),
+                         Text("Mandar mensagem",style: GoogleFonts.poppins(color: AppColor.textoBranco,fontSize: 16),),
                          Icon(Icons.chat_bubble_rounded,size: 18,color: AppColor.textoBranco,)
                        ],
                      ),
                    ),
                    SizedBox( height: MediaQuery.of(context).size.height/30),
                    Text("Animais para adoção",textAlign: TextAlign.left,style: GoogleFonts.poppins(fontSize: 18,color: AppColor.textosPretos3)),
+
+                   Expanded(
+                     child: ListView.builder(
+                       itemCount: (favoritas.length%2 == 0)? (favoritas.length)~/2: (favoritas.length)~/2 + 1,
+                       itemBuilder: (context, index){
+                         int a = 2 * index;
+                         int b = a + 1;
+                         return Row(
+                           children: [
+                             AnimaisDonoList(
+                                 nome: favoritas[a]['nome_pet'],
+                                 imgUrl: favoritas[a]['foto_pet'],
+                                 idade: favoritas[a]['idade'],
+                                 direita: 0,
+                                 esquerda: 0),
+                             (b <= favoritas.length - 1)?
+                             AnimaisDonoList(
+                                 nome: favoritas[b]['nome_pet'],
+                                 imgUrl: favoritas[b]['foto_pet'],
+                                 idade: favoritas[b]['idade'],
+                                 direita: 0,
+                                 esquerda: 0):
+                             Container(),
+                           ],
+                         );
+                       },
+                     ),
+                   ),
 
 
 

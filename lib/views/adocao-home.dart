@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/data/pet_data.dart';
 import 'package:tier/widgets/pet_list.dart';
+import 'package:tier/widgets/pet_list2.dart';
 
 import '../widgets/bottom_nav_bar.dart';
 
@@ -21,7 +22,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
   List<String> petIcons = ['https://cdn3.iconfinder.com/data/icons/font-awesome-solid/576/dog-256.png','https://cdn1.iconfinder.com/data/icons/pets-and-animals-5/96/cat-256.png','https://cdn-icons-png.flaticon.com/512/3969/3969770.png','https://cdn1.iconfinder.com/data/icons/animals-178/400/parrot-256.png'];
   String? location = "tomás rodrigues, 1361";
   List<Map>pets=[];
-  
+
 
   initData(){
     pets = Pets().pets;
@@ -82,64 +83,67 @@ class _AdocaoHomeState extends State<AdocaoHome> {
         children: [
           SizedBox(height: 10,),
           // escolher os bixos
-          Column(
+          Container(
+            margin: EdgeInsets.only(left:MediaQuery.of(context).size.width/20, top:MediaQuery.of(context).size.height/250,right:MediaQuery.of(context).size.width/20,bottom:MediaQuery.of(context).size.height/80),
+            child: Column(
 
-            children: [
-              Ink(
+              children: [
+                Ink(
 
 
-                width: MediaQuery.of(context).size.width/1.09,
-                height: MediaQuery.of(context).size.height/9.8,
-                color: Colors.white.withOpacity(0.3),
-                child: GridView.count(
+                  width: MediaQuery.of(context).size.width/1.09,
+                  height: MediaQuery.of(context).size.height/9.8,
+                  color: Colors.white.withOpacity(0.3),
+                  child: GridView.count(
 
-                    primary: true,
-                    crossAxisCount: 4,
-                    crossAxisSpacing: 10,
-                    childAspectRatio: 1,
-                    children:
-                    List.generate(isSelected.length, (index) => InkWell(
-                      splashColor: Colors.white54,
-                      onTap: (){
-                        setState(() {
-                          for( int indexBtn =0;
-                          indexBtn< isSelected.length;indexBtn++){
-                            if (indexBtn==index){
-                              isSelected[indexBtn] = true;
-                            } else {
-                              isSelected[indexBtn] =false;
+                      primary: true,
+                      crossAxisCount: 4,
+                      crossAxisSpacing: 10,
+                      childAspectRatio: 1,
+                      children:
+                      List.generate(isSelected.length, (index) => InkWell(
+                        splashColor: Colors.white54,
+                        onTap: (){
+                          setState(() {
+                            for( int indexBtn =0;
+                            indexBtn< isSelected.length;indexBtn++){
+                              if (indexBtn==index){
+                                isSelected[indexBtn] = true;
+                              } else {
+                                isSelected[indexBtn] =false;
+                              }
                             }
-                          }
-                        });
-                      },
-                      child:
-                          Ink(
+                          });
+                        },
+                        child:
+                            Ink(
 
-                            decoration: BoxDecoration(
-                              image:  DecorationImage(
-                                  opacity: 0.7,
-                                  image: NetworkImage(petIcons[index]))  ,
+                              decoration: BoxDecoration(
+                                image:  DecorationImage(
+                                    opacity: 0.7,
+                                    image: NetworkImage(petIcons[index]))  ,
 
-                              color: isSelected[index] ? Color(0xFFffb761) : Color(0xE6FFC368).withOpacity(0.6),
-                              borderRadius: BorderRadius.circular(30),
+                                color: isSelected[index] ? Color(0xFFffb761) : Color(0xE6FFC368).withOpacity(0.6),
+                                borderRadius: BorderRadius.circular(30),
+
+
+                              ),
 
 
                             ),
 
 
-                          ),
+                      )),
 
 
-                    )),
-
-
+                  ),
                 ),
-              ),
 
 
 
 
-            ],
+              ],
+            ),
           ),
 
 

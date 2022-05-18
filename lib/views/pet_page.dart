@@ -115,7 +115,7 @@ class _PetPageState extends State<PetPage> {
                               ),
                             ),
                           ),
-                          SizedBox(width: MediaQuery.of(context).size.width/18,),
+                          SizedBox(width: MediaQuery.of(context).size.width/22,),
                           Container(
                             padding: EdgeInsets.only(top: MediaQuery.of(context).size.width/30,bottom: MediaQuery.of(context).size.width/30,left: MediaQuery.of(context).size.width/30,right: MediaQuery.of(context).size.width/30),
                             decoration: BoxDecoration(
@@ -130,7 +130,7 @@ class _PetPageState extends State<PetPage> {
                               ],
                             ),
                           ),
-                          SizedBox(width: MediaQuery.of(context).size.width/18,),
+                          SizedBox(width: MediaQuery.of(context).size.width/22,),
                           Container(
                             padding: EdgeInsets.only(top: MediaQuery.of(context).size.width/30,bottom: MediaQuery.of(context).size.width/30,left: MediaQuery.of(context).size.width/30,right: MediaQuery.of(context).size.width/30),
                             decoration: BoxDecoration(
@@ -214,10 +214,10 @@ class _PetPageState extends State<PetPage> {
 
                         )
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height/12,),
+                    SizedBox(height: MediaQuery.of(context).size.height/60,),
                     //botao de adotar
                     Container(
-                      padding: EdgeInsets.only(top: 10,bottom: 10,left: 40,right: 40),
+                      padding: EdgeInsets.only(top: 5,bottom: 5,left: 30,right: 30),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         color: Color(0xFFffb761),
