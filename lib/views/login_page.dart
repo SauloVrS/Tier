@@ -42,9 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       TextButton(
-                        style: ButtonStyle(
-
-                        ),
+                        style: ButtonStyle(),
                         onPressed: () {},
                         child: Text(
                           'Login',

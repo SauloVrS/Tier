@@ -10,6 +10,7 @@ import 'package:tier/views/configuracoes_perfil.dart';
 
 import '../colors.dart';
 import '../widgets/bottom_nav_bar.dart';
+import 'nivel_usuario.dart';
 
 class TelaPerfilUsuario extends StatefulWidget {
   const TelaPerfilUsuario({Key? key}) : super(key: key);
@@ -28,7 +29,8 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
           children: [
             Container(
               height: 200,
-              margin: const EdgeInsets.only(top: 25, bottom: 20, left: 20, right: 20),
+              margin: const EdgeInsets.only(
+                  top: 25, bottom: 20, left: 20, right: 20),
               child: Column(
                 children: [
                   Row(
@@ -61,70 +63,85 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                             ),
                           ],
                         ),
-                        child: (idUsuario == null)? CircleAvatar(
-                          backgroundColor: AppColor.background,
-                          foregroundColor: AppColor.textosPretos2,
-                          child: Icon(Icons.perm_identity),
-                        ):
-                        FutureBuilder<ModelUsers?>(
-                          future: readUser(idUsuario!),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasError){
-                              print (snapshot.error);
-                              return Text('Something went wrong! ${snapshot.error}');
-                            } else if (snapshot.hasData){
-                              final user = snapshot.data;
-                              return (user!.fotoUsuario == null)?
-                              CircleAvatar(
+                        child: (idUsuario == null)
+                            ? CircleAvatar(
                                 backgroundColor: AppColor.background,
                                 foregroundColor: AppColor.textosPretos2,
                                 child: Icon(Icons.perm_identity),
-                              ):
-                              CircleAvatar(
-                                backgroundImage: NetworkImage(user.fotoUsuario!),
-                              );
-                            } else{
-                              return const Center(child: CircularProgressIndicator(),);
-                            }
-                          },
-                        ),
+                              )
+                            : FutureBuilder<ModelUsers?>(
+                                future: readUser(idUsuario!),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasError) {
+                                    print(snapshot.error);
+                                    return Text(
+                                        'Something went wrong! ${snapshot.error}');
+                                  } else if (snapshot.hasData) {
+                                    final user = snapshot.data;
+                                    return (user!.fotoUsuario == null)
+                                        ? CircleAvatar(
+                                            backgroundColor:
+                                                AppColor.background,
+                                            foregroundColor:
+                                                AppColor.textosPretos2,
+                                            child: Icon(Icons.perm_identity),
+                                          )
+                                        : CircleAvatar(
+                                            backgroundImage:
+                                                NetworkImage(user.fotoUsuario!),
+                                          );
+                                  } else {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                                },
+                              ),
                       ),
-                      const SizedBox(width: 15,),
+                      const SizedBox(
+                        width: 15,
+                      ),
                       Container(
                         height: 70,
                         width: MediaQuery.of(context).size.width - 125,
                         padding: EdgeInsets.symmetric(vertical: 20),
-                        child: (idUsuario == null)? Text(
-                          'Nome',
-                          style: GoogleFonts.poppins(fontSize: 20),
-                        ):
-                        FutureBuilder<ModelUsers?>(
-                          future: readUser(idUsuario!),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasError){
-                              print (snapshot.error);
-                              return Text('Something went wrong! ${snapshot.error}');
-                            } else if (snapshot.hasData){
-                              final user = snapshot.data;
-                              return Text(
-                                user!.nomeUsuario!,
+                        child: (idUsuario == null)
+                            ? Text(
+                                'Nome',
                                 style: GoogleFonts.poppins(fontSize: 20),
-                              );
-                            } else{
-                              return const Center(child: CircularProgressIndicator(),);
-                            }
-                          },
-                        ),
+                              )
+                            : FutureBuilder<ModelUsers?>(
+                                future: readUser(idUsuario!),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasError) {
+                                    print(snapshot.error);
+                                    return Text(
+                                        'Something went wrong! ${snapshot.error}');
+                                  } else if (snapshot.hasData) {
+                                    final user = snapshot.data;
+                                    return Text(
+                                      user!.nomeUsuario!,
+                                      style: GoogleFonts.poppins(fontSize: 20),
+                                    );
+                                  } else {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                                },
+                              ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 15,),
+                  const SizedBox(
+                    height: 15,
+                  ),
                   Row(
                     children: [
                       GestureDetector(
-                        onTap: (){},
+                        onTap: () {},
                         child: Container(
-                          width: (MediaQuery.of(context).size.width - 60)/2,
+                          width: (MediaQuery.of(context).size.width - 60) / 2,
                           height: 110,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
@@ -150,29 +167,31 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                                   offset: const Offset(3, -3),
                                   color: AppColor.cinzaBranco,
                                 ),
-                              ]
-                          ),
+                              ]),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(Icons.receipt_long_outlined,
+                                  Icon(
+                                    Icons.receipt_long_outlined,
                                     color: AppColor.textosPretos3,
                                   ),
-                                  const SizedBox(width: 10,),
-                                  RichText(text: TextSpan(
-                                      text: 'Meus\n',
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 18,
-                                          color: AppColor.textosPretos3),
-                                      children: const [
-                                        TextSpan(
-                                          text: 'pedidos',
-                                        )
-                                      ]
+                                  const SizedBox(
+                                    width: 10,
                                   ),
+                                  RichText(
+                                    text: TextSpan(
+                                        text: 'Meus\n',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 18,
+                                            color: AppColor.textosPretos3),
+                                        children: const [
+                                          TextSpan(
+                                            text: 'pedidos',
+                                          )
+                                        ]),
                                   )
                                 ],
                               ),
@@ -180,11 +199,19 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 20,),
+                      const SizedBox(
+                        width: 20,
+                      ),
                       GestureDetector(
-                        onTap: (){},
+                        onTap: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => NivelUsuario(),
+                              ));
+                        },
                         child: Container(
-                          width: (MediaQuery.of(context).size.width - 60)/2,
+                          width: (MediaQuery.of(context).size.width - 60) / 2,
                           height: 110,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
@@ -210,18 +237,20 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                                   offset: const Offset(3, -3),
                                   color: AppColor.cinzaBranco,
                                 ),
-                              ]
-                          ),
+                              ]),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(CupertinoIcons.rosette,
+                                  Icon(
+                                    CupertinoIcons.rosette,
                                     color: AppColor.textosPretos3,
                                   ),
-                                  const SizedBox(width: 5,),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
                                   Text(
                                     'Nível',
                                     style: GoogleFonts.poppins(
@@ -229,7 +258,9 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                                       color: AppColor.textosPretos3,
                                     ),
                                   ),
-                                  const SizedBox(width: 5,),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
                                 ],
                               ),
                             ],
@@ -242,19 +273,22 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               ),
             ),
             GestureDetector(
-              onTap: (){
-                if (idUsuario == null){
-                  Navigator.pushReplacement(context,
+              onTap: () {
+                if (idUsuario == null) {
+                  Navigator.pushReplacement(
+                      context,
                       MaterialPageRoute(
-                        builder: (context) => LoginPage(),//COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
-                      )
-                  );
-                }else{
-                  Navigator.pushReplacement(context,
+                        builder: (context) =>
+                            LoginPage(), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
+                      ));
+                } else {
+                  Navigator.pushReplacement(
+                      context,
                       MaterialPageRoute(
-                        builder: (context) => MeuPerfil(idUsuario: idUsuario!,),//COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
-                      )
-                  );
+                        builder: (context) => MeuPerfil(
+                          idUsuario: idUsuario!,
+                        ), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
+                      ));
                 }
               },
               child: Container(
@@ -269,11 +303,16 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                       height: 58,
                       child: Row(
                         children: [
-                          const SizedBox(width: 15,),
-                          Icon(Icons.perm_identity,
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Icon(
+                            Icons.perm_identity,
                             color: AppColor.textosPretos3,
                           ),
-                          const SizedBox(width: 10,),
+                          const SizedBox(
+                            width: 10,
+                          ),
                           Expanded(
                             child: Text(
                               'Meu Perfil',
@@ -283,10 +322,13 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                               ),
                             ),
                           ),
-                          Icon(Icons.arrow_forward_ios_outlined,
+                          Icon(
+                            Icons.arrow_forward_ios_outlined,
                             color: AppColor.textosPretos2.withOpacity(0.8),
                           ),
-                          const SizedBox(width: 15,),
+                          const SizedBox(
+                            width: 15,
+                          ),
                         ],
                       ),
                     ),
@@ -299,7 +341,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               ),
             ),
             GestureDetector(
-              onTap: (){},
+              onTap: () {},
               child: Container(
                 height: 59,
                 child: Column(
@@ -308,11 +350,16 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                       height: 58,
                       child: Row(
                         children: [
-                          const SizedBox(width: 15,),
-                          Icon(Icons.local_activity_outlined,
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Icon(
+                            Icons.local_activity_outlined,
                             color: AppColor.textosPretos3,
                           ),
-                          const SizedBox(width: 10,),
+                          const SizedBox(
+                            width: 10,
+                          ),
                           Expanded(
                             child: Text(
                               'Cupons',
@@ -322,10 +369,13 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                               ),
                             ),
                           ),
-                          Icon(Icons.arrow_forward_ios_outlined,
+                          Icon(
+                            Icons.arrow_forward_ios_outlined,
                             color: AppColor.textosPretos2.withOpacity(0.8),
                           ),
-                          const SizedBox(width: 15,),
+                          const SizedBox(
+                            width: 15,
+                          ),
                         ],
                       ),
                     ),
@@ -338,7 +388,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               ),
             ),
             GestureDetector(
-              onTap: (){},
+              onTap: () {},
               child: Container(
                 height: 59,
                 child: Column(
@@ -347,11 +397,16 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                       height: 58,
                       child: Row(
                         children: [
-                          const SizedBox(width: 15,),
-                          Icon(Icons.account_balance_wallet_outlined,
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Icon(
+                            Icons.account_balance_wallet_outlined,
                             color: AppColor.textosPretos3,
                           ),
-                          const SizedBox(width: 10,),
+                          const SizedBox(
+                            width: 10,
+                          ),
                           Expanded(
                             child: Text(
                               'Carteira',
@@ -361,10 +416,13 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                               ),
                             ),
                           ),
-                          Icon(Icons.arrow_forward_ios_outlined,
+                          Icon(
+                            Icons.arrow_forward_ios_outlined,
                             color: AppColor.textosPretos2.withOpacity(0.8),
                           ),
-                          const SizedBox(width: 15,),
+                          const SizedBox(
+                            width: 15,
+                          ),
                         ],
                       ),
                     ),
@@ -377,7 +435,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               ),
             ),
             GestureDetector(
-              onTap: (){},
+              onTap: () {},
               child: Container(
                 height: 59,
                 child: Column(
@@ -386,11 +444,16 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                       height: 58,
                       child: Row(
                         children: [
-                          const SizedBox(width: 15,),
-                          Icon(Icons.wallet_giftcard_outlined,
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Icon(
+                            Icons.wallet_giftcard_outlined,
                             color: AppColor.textosPretos2,
                           ),
-                          const SizedBox(width: 10,),
+                          const SizedBox(
+                            width: 10,
+                          ),
                           Expanded(
                             child: Text(
                               'Assinatura',
@@ -400,10 +463,13 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                               ),
                             ),
                           ),
-                          Icon(Icons.arrow_forward_ios_outlined,
+                          Icon(
+                            Icons.arrow_forward_ios_outlined,
                             color: AppColor.textosPretos2.withOpacity(0.8),
                           ),
-                          const SizedBox(width: 15,),
+                          const SizedBox(
+                            width: 15,
+                          ),
                         ],
                       ),
                     ),
@@ -416,7 +482,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               ),
             ),
             GestureDetector(
-              onTap: (){},
+              onTap: () {},
               child: Container(
                 height: 59,
                 child: Column(
@@ -425,11 +491,16 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                       height: 58,
                       child: Row(
                         children: [
-                          const SizedBox(width: 15,),
-                          Icon(Icons.location_on_outlined,
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Icon(
+                            Icons.location_on_outlined,
                             color: AppColor.textosPretos3,
                           ),
-                          const SizedBox(width: 10,),
+                          const SizedBox(
+                            width: 10,
+                          ),
                           Expanded(
                             child: Text(
                               'Endereços',
@@ -439,10 +510,13 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                               ),
                             ),
                           ),
-                          Icon(Icons.arrow_forward_ios_outlined,
+                          Icon(
+                            Icons.arrow_forward_ios_outlined,
                             color: AppColor.textosPretos2.withOpacity(0.8),
                           ),
-                          const SizedBox(width: 15,),
+                          const SizedBox(
+                            width: 15,
+                          ),
                         ],
                       ),
                     ),
@@ -455,7 +529,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               ),
             ),
             GestureDetector(
-              onTap: (){},
+              onTap: () {},
               child: Container(
                 height: 59,
                 child: Column(
@@ -464,11 +538,16 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                       height: 58,
                       child: Row(
                         children: [
-                          const SizedBox(width: 15,),
-                          Icon(Icons.share,
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Icon(
+                            Icons.share,
                             color: AppColor.textosPretos2,
                           ),
-                          const SizedBox(width: 10,),
+                          const SizedBox(
+                            width: 10,
+                          ),
                           Expanded(
                             child: Text(
                               'Meu código',
@@ -478,10 +557,13 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                               ),
                             ),
                           ),
-                          Icon(Icons.arrow_forward_ios_outlined,
+                          Icon(
+                            Icons.arrow_forward_ios_outlined,
                             color: AppColor.textosPretos2.withOpacity(0.8),
                           ),
-                          const SizedBox(width: 15,),
+                          const SizedBox(
+                            width: 15,
+                          ),
                         ],
                       ),
                     ),
@@ -494,8 +576,9 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               ),
             ),
             GestureDetector(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>Configuracoes()));
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Configuracoes()));
               },
               child: Container(
                 height: 59,
@@ -505,11 +588,16 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                       height: 58,
                       child: Row(
                         children: [
-                          const SizedBox(width: 15,),
-                          Icon(Icons.settings_outlined,
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Icon(
+                            Icons.settings_outlined,
                             color: AppColor.textosPretos3,
                           ),
-                          const SizedBox(width: 10,),
+                          const SizedBox(
+                            width: 10,
+                          ),
                           Expanded(
                             child: Text(
                               'Configurações',
@@ -519,10 +607,13 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                               ),
                             ),
                           ),
-                          Icon(Icons.arrow_forward_ios_outlined,
+                          Icon(
+                            Icons.arrow_forward_ios_outlined,
                             color: AppColor.textosPretos2.withOpacity(0.8),
                           ),
-                          const SizedBox(width: 15,),
+                          const SizedBox(
+                            width: 15,
+                          ),
                         ],
                       ),
                     ),
