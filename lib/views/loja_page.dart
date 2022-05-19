@@ -259,7 +259,7 @@ Widget descLoja(Loja loja, int espacamento, BuildContext context) {
                     child: Icon(Icons.circle,
                         color: loja.status ? Colors.black : Colors.grey,
                         size: 5)),
-                Text('R\$ ${loja.taxa.toString()}',
+                Text('R\$ ${loja.taxa.toStringAsFixed(2)}',
                     style: GoogleFonts.poppins(
                       textStyle: TextStyle(
                           fontSize: 10,
