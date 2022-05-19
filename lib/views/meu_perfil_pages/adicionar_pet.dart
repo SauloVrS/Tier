@@ -1,20 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:perfil/meu_perfil.dart';
-import 'package:perfil/perfil_usuario.dart';
+import 'package:tier/models/users_model.dart';
 
-import '../colors.dart';
-import '../widgets/bottom_nav_bar.dart';
+import '../../colors.dart';
+import '../meu_perfil.dart';
+import '../perfil_usuario.dart';
+
 
 class AdicionarPet extends StatefulWidget {
-  const AdicionarPet({Key? key}) : super(key: key);
-
+  AdicionarPet({required this.idUsuario, Key? key}) : super(key: key);
+  String idUsuario;
   @override
-  _AdicionarPetState createState() => _AdicionarPetState();
+  _AdicionarPetState createState() => _AdicionarPetState(idUsuario: idUsuario);
 }
 
 class _AdicionarPetState extends State<AdicionarPet> {
+  _AdicionarPetState({required this.idUsuario,});
+  String idUsuario;
   String tipo = 'Tipo';
   String genero = 'Gênero';
   String porte = 'Porte';
@@ -49,7 +52,7 @@ class _AdicionarPetState extends State<AdicionarPet> {
                             onPressed: (){
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(
-                                    builder: (context) => MeuPerfil(),
+                                    builder: (context) => MeuPerfil(idUsuario: idUsuario,),
                                   )
                               );
                             },
@@ -241,12 +244,88 @@ class _AdicionarPetState extends State<AdicionarPet> {
                         child: Container(
                           height: 150,
                           width: MediaQuery.of(context).size.width - 40,
-                          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: AppColor.cinzaBranco,
+                            border: Border.all(color: AppColor.cinzaBranco),
+                            //color: AppColor.cinzaBranco,
                           ),
-                          child: Text('endereço aqui'),
+                          child: FutureBuilder<ModelUsers?>(
+                           future: readUser(idUsuario),
+                           builder: (context, snapshot) {
+                             if (snapshot.hasError){
+                               return Text('Something went wrong! ${snapshot.error}');
+                             }else if(snapshot.hasData){
+                               final user = snapshot.data;
+                               return Row(
+                                 mainAxisAlignment: MainAxisAlignment.start,
+                                 children: [
+                                   Column(
+                                     children: [
+                                       Container(
+                                         width: MediaQuery.of(context).size.width - 75,
+                                         child: Row(
+                                           mainAxisAlignment: MainAxisAlignment.start,
+                                           children: [
+                                             Text(
+                                               'Endereço',
+                                               style: GoogleFonts.poppins(
+                                                 fontWeight: FontWeight.w600,
+                                                 color: AppColor.cinzaMedio,
+                                                 fontSize: 16,
+                                               ),
+                                             ),
+                                             Expanded(child: Container()),
+                                             Icon(
+                                               Icons.edit_outlined,
+                                               color: AppColor.textosPretos1,
+                                             ),
+                                           ],
+                                         ),
+                                       ),
+                                       const SizedBox(height: 50,),
+                                       Container(
+                                         width: MediaQuery.of(context).size.width - 75,
+                                         child: Row(
+                                           mainAxisAlignment: MainAxisAlignment.start,
+                                           children: [
+                                             Text(
+                                               'Av. Treze de Maio, 1333',
+                                               style: GoogleFonts.poppins(
+                                                 fontSize: 18,
+                                                 fontWeight: FontWeight.w600,
+                                                 color: AppColor.textosPretos1,
+                                               ),
+                                             ),
+                                             Expanded(child: Container()),
+                                           ],
+                                         ),
+                                       ),
+                                       Container(
+                                         width: MediaQuery.of(context).size.width - 75,
+                                         child: Row(
+                                           mainAxisAlignment: MainAxisAlignment.start,
+                                           children: [
+                                             Text(
+                                               'Fortaleza - Ceará',
+                                               style: GoogleFonts.poppins(
+                                                 fontSize: 14,
+                                               ),
+                                             ),
+                                             Expanded(child: Container()),
+                                           ],
+                                         ),
+                                       ),
+
+                                     ],
+                                   ),
+                                 ],
+                               );
+                             }else{
+                               return Center(child: CircularProgressIndicator(),);
+                             }
+                           },
+                          )
                         ),
                       ),
                       const SizedBox(height: 15,),
