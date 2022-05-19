@@ -76,9 +76,11 @@ class _TierTestState extends State<TierTest> {
       status: true,
       avaliacao: 4.9,
       taxa: 5,
+      pedidoMin: 15,
       tempMax: 50,
       tempMin: 60,
-      distancia: 2.8
+      distancia: 2.8,
+      tipoProdutos: ['Ração'],
     );
 
     final json = loja.toJson();
