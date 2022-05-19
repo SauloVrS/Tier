@@ -1,5 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 
 class Loja {
   String id;
@@ -9,9 +10,11 @@ class Loja {
   final bool status;
   final num avaliacao;
   final num taxa;
+  final num pedidoMin;
   final num tempMax; // removido depois - função para calcular
   final num tempMin; // removido depois - função para calcular
   final num distancia; // removido depois - função para calcular
+  final List tipoProdutos;
 
   Loja(
       {this.id = '',
@@ -21,9 +24,11 @@ class Loja {
         required this.status,
         required this.avaliacao,
         required this.taxa,
+        required this.pedidoMin,
         required this.tempMax, // removido depois - função para calcular
         required this.tempMin, // removido depois - função para calcular
-        required this.distancia // removido depois - função para calcular
+        required this.distancia, // removido depois - função para calcular
+        required this.tipoProdutos
       });
 
   Map<String, dynamic> toJson() => {
@@ -34,9 +39,11 @@ class Loja {
     'status': status,
     'avaliacao': avaliacao,
     'taxa': taxa,
+    'pedidoMin': pedidoMin,
     'tempMax': tempMax,
     'tempMin': tempMin,
-    'distancia': distancia
+    'distancia': distancia,
+    'tipoProdutos': tipoProdutos
   };
 
   static Loja fromJson(Map<String, dynamic> json) => Loja(
@@ -47,9 +54,11 @@ class Loja {
       status: json['status'],
       avaliacao: json['avaliacao'],
       taxa: json['taxa'],
+      pedidoMin: json['pedidoMin'],
       tempMax: json['tempMax'],
       tempMin: json['tempMin'],
-      distancia: json['distancia']);
+      distancia: json['distancia'],
+      tipoProdutos: json['tipoProdutos']);
 }
 
 Stream<List<Loja>> readUsers() => FirebaseFirestore.instance
@@ -58,6 +67,13 @@ Stream<List<Loja>> readUsers() => FirebaseFirestore.instance
 //.orderBy("status", descending: true)
     .snapshots()
     .map((snapshot) => snapshot.docs.map((doc) => Loja.fromJson(doc.data())).toList());
+
+Stream<Loja> getLojaById(String id) => FirebaseFirestore.instance
+    .collection("lojas")
+    .doc(id)
+    .snapshots()
+    .map((snapshot) => Loja.fromJson(snapshot.data()!));
+    //.map((snapshot) => snapshot.docs.map((doc) => Loja.fromJson(doc.data())).toList());
 
 // class Endereco {
 //   final String cep;
