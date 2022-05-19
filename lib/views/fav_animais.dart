@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tier/models/pet_model.dart';
+import 'package:tier/models/users_model.dart';
 import 'package:tier/views/adocao-home.dart';
+import 'package:tier/views/perfil_usuario.dart';
 import '../colors.dart';
-import '../data/animais_fav.dart';
 import '../widgets/animais_fav_list.dart';
 import '../widgets/bottom_nav_bar.dart';
 import 'fav_lojas.dart';
@@ -17,15 +19,6 @@ class FavAnimais extends StatefulWidget {
 
 class _FavAnimaisState extends State<FavAnimais> {
   List<Map> favoritas = [];
-
-  initData(){
-    favoritas = AnimaisFav().animaisFavoritos;
-  }
-  @override
-  void initState() {
-    initData();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,118 +124,164 @@ class _FavAnimaisState extends State<FavAnimais> {
             ),
           ),
           Expanded(
-            child: (favoritas.isEmpty)?
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 200,
-                      width: 200,
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage(
-                                  "images/img_fav_animais.png"
-                              )
-                          )
-                      ),
-                    ),
-                    const SizedBox(height: 15,),
-                    Text(
-                      'Você ainda não tem favoritos...',
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                          text: 'Descubra seu novo\n',
-                          style: GoogleFonts.poppins(
-                              fontSize: 14,
-                              color: AppColor.textosPretos3),
-                          children: const [
-                            TextSpan(
-                              text: 'queridinho agora mesmo',
-                            )
-                          ]
-                      ),
-                    ),
-                    const SizedBox(height: 10,),
-                    GestureDetector(
-                      onTap: (){
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(
-                              builder: (context) => AdocaoHome(),
-                            )
-                        );
-                      },
-                      child: Container(
-                        width: 180,
-                        height: 40,
-                        decoration: BoxDecoration(
-                            color: AppColor.amareloPrincipal.withOpacity(0.7),
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColor.cinzaBranco,
-                                blurRadius: 0.8,
-                                offset: const Offset(2, 2),
-                              ),
-                            ]
-                        ),
-                        child: Column(
+            child: StreamBuilder<List<ModelFavoritosAnimais>>(
+              stream: readFavoritosAnimais('yE7Al0eRAnc59JdjfrNh'),
+              builder: (context, snapshot){
+                if (snapshot.hasError){
+                  return Text('Something went wrong! ${snapshot.error}');
+                }
+                else if (snapshot.hasData){
+                  final favoritas = snapshot.data;
+                  if (favoritas!.isEmpty) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Ir para Animais',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColor.textoBranco,
-                                  ),
-                                ),
-                              ],
+                            Container(
+                              height: 200,
+                              width: 200,
+                              decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          "images/img_fav_animais.png"
+                                      )
+                                  )
+                              ),
                             ),
+                            const SizedBox(height: 15,),
+                            Text(
+                              'Você ainda não tem favoritos...',
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                  text: 'Descubra seu novo\n',
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      color: AppColor.textosPretos3),
+                                  children: const [
+                                    TextSpan(
+                                      text: 'queridinho agora mesmo',
+                                    )
+                                  ]
+                              ),
+                            ),
+                            const SizedBox(height: 10,),
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(
+                                      builder: (context) => AdocaoHome(),//COLOCAR MAIN AQUI QUANDO COLOCAR NO OUTRO ARQUIVO
+                                    )
+                                );
+                              },
+                              child: Container(
+                                width: 180,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                    color: AppColor.amareloPrincipal.withOpacity(0.7),
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: AppColor.cinzaBranco,
+                                        blurRadius: 0.8,
+                                        offset: const Offset(2, 2),
+                                      ),
+                                    ]
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Ir para Animais',
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500,
+                                            color: AppColor.textoBranco,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
                           ],
                         ),
-                      ),
-                    )
-                  ],
-                ),
-              ],
-            ):
-            ListView.builder(
-              itemCount: (favoritas.length%2 == 0)? (favoritas.length)~/2: (favoritas.length)~/2 + 1,
-              itemBuilder: (context, index){
-                int a = 2 * index;
-                int b = a + 1;
-                return Row(
-                  children: [
-                    AnimaisList(
-                        nome: favoritas[a]['nome_pet'],
-                        imgUrl: favoritas[a]['foto_pet'],
-                        idade: favoritas[a]['idade'],
-                        direita: 10,
-                        esquerda: 15),
-                    (b <= favoritas.length - 1)?
-                    AnimaisList(
-                        nome: favoritas[b]['nome_pet'],
-                        imgUrl: favoritas[b]['foto_pet'],
-                        idade: favoritas[b]['idade'],
-                        direita: 15,
-                        esquerda: 10):
-                    Container(),
-                  ],
-                );
+                      ],
+                    );
+                  } else {
+                    return ListView.builder(
+                        itemCount: (favoritas.length%2 == 0)? ((favoritas.length)/2).toInt(): ((favoritas.length)/2).toInt() + 1,
+                        itemBuilder: (context, index) {
+                          int a = 2 * index;
+                          int b = a + 1;
+                          return Row(
+                            children: [
+                              FutureBuilder<ModelPet?>(
+                                future: readPet(favoritas[a].idDono, favoritas[a].idPet),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasError){
+                                    return Text('Something went wrong! ${snapshot.error}');
+                                  } else if (snapshot.hasData){
+                                    final pet = snapshot.data;
+                                    return AnimaisList(
+                                      nome: pet!.nomePet,
+                                      imgUrl: pet.fotoPet,
+                                      idade: pet.idadePet,
+                                      direita: 10,
+                                      esquerda: 15,
+                                      idFav: favoritas[a].idFav,
+                                      idUser: 'yE7Al0eRAnc59JdjfrNh',
+                                    );
+                                  } else{
+                                    return const Center(child: CircularProgressIndicator(),);
+                                  }
+                                },
+                              ),
+                              (b <= favoritas.length - 1)?
+                              FutureBuilder<ModelPet?>(
+                                future: readPet(favoritas[b].idDono, favoritas[b].idPet),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasError){
+                                    return Text('Something went wrong! ${snapshot.error}');
+                                  } else if (snapshot.hasData){
+                                    final pet = snapshot.data;
+                                    return AnimaisList(
+                                      nome: pet!.nomePet,
+                                      imgUrl: pet.fotoPet,
+                                      idade: pet.idadePet,
+                                      direita: 15,
+                                      esquerda: 10,
+                                      idFav: favoritas[a].idFav,
+                                      idUser: 'yE7Al0eRAnc59JdjfrNh',
+                                    );
+                                  } else{
+                                    return const Center(child: CircularProgressIndicator(),);
+                                  }
+                                },
+                              ):
+                              Container(),
+                            ],
+                          );
+                        }
+                    );
+                  }
+                }
+                else{
+                  return Center(child: CircularProgressIndicator(),);
+                }
               },
-            ),
+            )
           ),
         ],
       ),

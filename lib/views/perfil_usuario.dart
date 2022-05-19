@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';
+import 'package:tier/models/users_model.dart';
+import 'package:tier/views/login_page.dart';
+import 'package:tier/views/meu_perfil.dart';
 import 'package:tier/widgets/bottom_nav_bar.dart';
 import 'package:tier/views/configuracoes_perfil.dart';
 
@@ -16,6 +19,7 @@ class TelaPerfilUsuario extends StatefulWidget {
 }
 
 class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
+  String? idUsuario = 'yE7Al0eRAnc59JdjfrNh';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +28,6 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
           children: [
             Container(
               height: 200,
-              //color: Colors.amber.withOpacity(0.4),
               margin: const EdgeInsets.only(top: 25, bottom: 20, left: 20, right: 20),
               child: Column(
                 children: [
@@ -58,11 +61,32 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                             ),
                           ],
                         ),
-                        child: CircleAvatar(
+                        child: (idUsuario == null)? CircleAvatar(
                           backgroundColor: AppColor.background,
                           foregroundColor: AppColor.textosPretos2,
-                          child: Icon(Icons.perm_identity), //trocar firebase
-                          //imagem: colocar background imagem no lugar de child
+                          child: Icon(Icons.perm_identity),
+                        ):
+                        FutureBuilder<ModelUsers?>(
+                          future: readUser(idUsuario!),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError){
+                              print (snapshot.error);
+                              return Text('Something went wrong! ${snapshot.error}');
+                            } else if (snapshot.hasData){
+                              final user = snapshot.data;
+                              return (user!.fotoUsuario == null)?
+                              CircleAvatar(
+                                backgroundColor: AppColor.background,
+                                foregroundColor: AppColor.textosPretos2,
+                                child: Icon(Icons.perm_identity),
+                              ):
+                              CircleAvatar(
+                                backgroundImage: NetworkImage(user.fotoUsuario!),
+                              );
+                            } else{
+                              return const Center(child: CircularProgressIndicator(),);
+                            }
+                          },
                         ),
                       ),
                       const SizedBox(width: 15,),
@@ -70,10 +94,28 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                         height: 70,
                         width: MediaQuery.of(context).size.width - 125,
                         padding: EdgeInsets.symmetric(vertical: 20),
-                        child: Text(
-                          'Nome', //firebase aqui
+                        child: (idUsuario == null)? Text(
+                          'Nome',
                           style: GoogleFonts.poppins(fontSize: 20),
-                        ),),
+                        ):
+                        FutureBuilder<ModelUsers?>(
+                          future: readUser(idUsuario!),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError){
+                              print (snapshot.error);
+                              return Text('Something went wrong! ${snapshot.error}');
+                            } else if (snapshot.hasData){
+                              final user = snapshot.data;
+                              return Text(
+                                user!.nomeUsuario!,
+                                style: GoogleFonts.poppins(fontSize: 20),
+                              );
+                            } else{
+                              return const Center(child: CircularProgressIndicator(),);
+                            }
+                          },
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 15,),
@@ -200,7 +242,21 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               ),
             ),
             GestureDetector(
-              onTap: (){},
+              onTap: (){
+                if (idUsuario == null){
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginPage(),//COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
+                      )
+                  );
+                }else{
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(
+                        builder: (context) => MeuPerfil(idUsuario: idUsuario!,),//COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
+                      )
+                  );
+                }
+              },
               child: Container(
                 height: 60,
                 child: Column(
