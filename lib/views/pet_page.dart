@@ -155,8 +155,8 @@ class _PetPageState extends State<PetPage> {
                       child: Row(
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width/5,
-                            padding: EdgeInsets.all(30),
+                            width: MediaQuery.of(context).size.width/6,
+                            padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/50,right: MediaQuery.of(context).size.width/35,bottom: MediaQuery.of(context).size.width/15,top: MediaQuery.of(context).size.width/15),
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(100) ,
