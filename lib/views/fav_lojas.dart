@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tier/views/perfil_usuario.dart';
-
+import 'package:tier/views/main_lojas.dart';
 import '../colors.dart';
 import '../data/lojas_fav.dart';
 import '../widgets/bottom_nav_bar.dart';
@@ -145,7 +144,7 @@ class _FavLojasState extends State<FavLojas> {
                       decoration: const BoxDecoration(
                           image: DecorationImage(
                               image: AssetImage(
-                                  "assets/img_1.png"
+                                  "images/img_fav_lojas.png"
                               )
                           )
                       ),
@@ -177,7 +176,7 @@ class _FavLojasState extends State<FavLojas> {
                       onTap: (){
                         Navigator.pushReplacement(context,
                             MaterialPageRoute(
-                              builder: (context) => const TelaPerfilUsuario(), //COLOCAR MAIN AQUI QUANDO COLOCAR NO OUTRO ARQUIVO
+                              builder: (context) => const MainLojas(),
                             )
                         );
                       },
