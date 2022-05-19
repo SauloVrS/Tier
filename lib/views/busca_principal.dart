@@ -14,7 +14,7 @@ class BuscaPrincipal extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const Buscawidget(),
+            const BuscaWidget(),
             Carrousselimage(),
             const Experimentebuscar()
           ],

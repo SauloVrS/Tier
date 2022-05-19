@@ -1,8 +1,16 @@
+import 'package:tier/widgets/carroussel_image.dart';
+import 'package:tier/views/itens.dart';
 import 'package:flutter/material.dart';
 
-class Buscawidget extends StatelessWidget {
-  const Buscawidget({Key? key}) : super(key: key);
+class BuscaWidget extends StatefulWidget {
+  const BuscaWidget({Key? key}) : super(key: key);
 
+  @override
+  State<BuscaWidget> createState() => _BuscaWidgetState();
+}
+
+class _BuscaWidgetState extends State<BuscaWidget> {
+  String texto = '';
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -14,6 +22,13 @@ class Buscawidget extends StatelessWidget {
             color: const Color(0xFFFFFFFF),
           ),
           child: TextField(
+            textInputAction: TextInputAction.go,
+            onSubmitted: (texto) {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const BuscaItens()));
+            },
             cursorColor: Color(0xFFFFD595),
             decoration: InputDecoration(
               hintText: "Do que seu pet precisa?",
@@ -42,3 +57,4 @@ class Buscawidget extends StatelessWidget {
     );
   }
 }
+
