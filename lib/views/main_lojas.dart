@@ -8,6 +8,7 @@ import 'package:tier/data/produtos.dart';
 import 'package:tier/data/promocoes.dart';
 import 'package:tier/data/servicos.dart';
 import 'package:tier/firebase/loja_helper.dart';
+import 'package:tier/views/chat/screens/chat_home_screen.dart';
 
 // arquivos de widgets
 import 'package:tier/widgets/banners.dart';
@@ -89,8 +90,12 @@ class _MainLojasState extends State<MainLojas> {
                 size: 18,
               )),
           IconButton(
-              onPressed: () {
-              },
+             onPressed: 
+                   () => Navigator.push(context, 
+                          MaterialPageRoute(
+                            builder: (_) => HomeScreen(),
+                            )
+                         ),
               constraints: const BoxConstraints(),
               icon: const Icon(
                 Icons.chat_bubble_rounded,

@@ -1,11 +1,18 @@
-import 'package:flutter/cupertino.dart';
+//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:tier/models/users_model.dart';
 
 import '../../colors.dart';
 import '../meu_perfil.dart';
 import '../perfil_usuario.dart';
+import 'package:tier/views/meu_perfil.dart';
+import 'package:tier/views/perfil_usuario.dart';
+
+import 'package:tier/colors.dart';
+import 'package:tier/widgets/bottom_nav_bar.dart';
+
 
 
 class AdicionarPet extends StatefulWidget {
