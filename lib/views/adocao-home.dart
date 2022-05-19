@@ -89,7 +89,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
           SizedBox(height: 10,),
           // escolher os bixos
           Container(
-            margin: EdgeInsets.only(left:MediaQuery.of(context).size.width/20, top:MediaQuery.of(context).size.height/250,right:MediaQuery.of(context).size.width/20,bottom:MediaQuery.of(context).size.height/80),
+            margin: EdgeInsets.only(left:MediaQuery.of(context).size.width/20, top:MediaQuery.of(context).size.height/250,right:MediaQuery.of(context).size.width/20,bottom:MediaQuery.of(context).size.height/2080),
             child: Column(
 
               children: [

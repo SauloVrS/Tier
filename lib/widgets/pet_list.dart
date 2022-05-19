@@ -68,7 +68,7 @@ class _PetListState extends State<PetList> {
             padding: EdgeInsets.only(
                 left: 10, top: 4, right: 10, bottom: 3.8),
             width: MediaQuery.of(context).size.width/1.2,
-            height: MediaQuery.of(context).size.height/7.2,
+            height: MediaQuery.of(context).size.height/9,
             decoration: BoxDecoration(
               color: Color(0xffe5e5e5),
               borderRadius: BorderRadius.only(
