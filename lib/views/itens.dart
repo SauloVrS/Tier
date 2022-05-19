@@ -15,18 +15,14 @@ class BuscaItens extends StatefulWidget {
 
 class _BuscaItensState extends State<BuscaItens> {
   @override
-  Widget build(BuildContext context) =>
-      DefaultTabController(
+  Widget build(BuildContext context) => DefaultTabController(
         length: 2,
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
             title: const BuscaWidget(),
             elevation: 3,
-            toolbarHeight: MediaQuery
-                .of(context)
-                .size
-                .height / 10,
+            toolbarHeight: MediaQuery.of(context).size.height / 10,
             //centerTitle: true,
             backgroundColor: Colors.white,
             bottom: const TabBar(
@@ -61,7 +57,8 @@ class _BuscaItensState extends State<BuscaItens> {
               ListaLojas(),
               ListaItens(),
             ],
-          ), bottomNavigationBar: const BottomNavBar(pagina: 'perfil'),
-        ),);
+          ),
+          bottomNavigationBar: const BottomNavBar(pagina: 'search'),
+        ),
+      );
 }
-

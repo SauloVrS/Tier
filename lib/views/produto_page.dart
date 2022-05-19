@@ -9,14 +9,14 @@ import '../widgets/bottom_nav_bar.dart';
 class ProdutoPage extends StatefulWidget {
   final Produto produto;
   final String lojaId;
-  const ProdutoPage({Key? key, required this.produto, required this.lojaId}) : super(key: key);
+  const ProdutoPage({Key? key, required this.produto, required this.lojaId})
+      : super(key: key);
 
   @override
   State<ProdutoPage> createState() => _ProdutoPageState();
 }
 
 class _ProdutoPageState extends State<ProdutoPage> {
-
   int qnt = 1;
 
   aumentar() {
@@ -27,7 +27,7 @@ class _ProdutoPageState extends State<ProdutoPage> {
 
   diminuir() {
     setState(() {
-      if(qnt == 1){
+      if (qnt == 1) {
         qnt = 1;
       } else {
         qnt--;
@@ -52,7 +52,10 @@ class _ProdutoPageState extends State<ProdutoPage> {
               children: [
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Image.network(widget.produto.imgUrl, fit: BoxFit.cover,),
+                  child: Image.network(
+                    widget.produto.imgUrl,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 15),
@@ -67,26 +70,26 @@ class _ProdutoPageState extends State<ProdutoPage> {
                     widget.produto.nome,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 15
-                    ),
+                        fontWeight: FontWeight.w500, fontSize: 15),
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       widget.produto.promocao
                           ? Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text("R\$ ${widget.produto.valor.toString()}",
-                                style: GoogleFonts.poppins(
-                                  textStyle: const TextStyle(
-                                      fontSize: 13,
-                                      decoration: TextDecoration.lineThrough),
-                                )),
-                          )
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                  "R\$ ${widget.produto.valor.toStringAsFixed(2)}",
+                                  style: GoogleFonts.poppins(
+                                    textStyle: const TextStyle(
+                                        fontSize: 13,
+                                        decoration: TextDecoration.lineThrough),
+                                  )),
+                            )
                           : Container(),
                       const SizedBox(
                         width: 10,
@@ -98,48 +101,48 @@ class _ProdutoPageState extends State<ProdutoPage> {
                                 ? "R\$ ${widget.produto.novoValor.toStringAsFixed(2)}"
                                 : "R\$ ${widget.produto.valor.toStringAsFixed(2)}",
                             style: GoogleFonts.poppins(
-                              textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                              textStyle: const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w500),
                             )),
                       ),
                     ],
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 5),
+                  margin: const EdgeInsets.only(
+                      left: 15, right: 15, top: 15, bottom: 5),
                   child: StreamBuilder<Loja>(
                       stream: getLojaById(widget.lojaId),
-                      builder: (context, snapshot){
-                        if(snapshot.hasError){
-                          return Text('Something went wrong! ${snapshot.error}');
-                        } else if(snapshot.hasData){
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return Text(
+                              'Something went wrong! ${snapshot.error}');
+                        } else if (snapshot.hasData) {
                           final loja = snapshot.data!;
                           return lojaDados(loja);
                         } else {
-                          return const Center(child: CircularProgressIndicator());
+                          return const Center(
+                              child: CircularProgressIndicator());
                         }
-                      }
-                  ),
+                      }),
                 ),
                 GestureDetector(
-                  onTap: (){},
+                  onTap: () {},
                   child: Container(
-                    margin: const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 15),
+                    margin: const EdgeInsets.only(
+                        left: 15, right: 15, top: 5, bottom: 15),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Container(
                         alignment: Alignment.center,
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                        decoration: BoxDecoration(
-                          color: AppColor.cinzaBranco
-                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 15),
+                        decoration: BoxDecoration(color: AppColor.cinzaBranco),
                         child: Text(
                           'Adicionar à Assinatura',
                           style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500
-                            )
-                          ),
+                              textStyle: const TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.w500)),
                         ),
                       ),
                     ),
@@ -152,49 +155,53 @@ class _ProdutoPageState extends State<ProdutoPage> {
       ),
       bottomNavigationBar: Container(
         height: 70,
-        child: Column(
-          children: [
-            Container(
-              color: AppColor.cinzaBranco,
-              width: MediaQuery.of(context).size.width,
-              height: 1,
+        child: Column(children: [
+          Container(
+            color: AppColor.cinzaBranco,
+            width: MediaQuery.of(context).size.width,
+            height: 1,
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                qntProd(),
+                const SizedBox(
+                  width: 15,
+                ),
+                Expanded(child: addProd())
+              ],
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  qntProd(),
-                  const SizedBox(width: 15,),
-                  Expanded(child: addProd())
-                ],
-              ),
-            ),
-          ]
-        ),
+          ),
+        ]),
       ),
     );
   }
 
   Widget lojaDados(Loja loja) {
-
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-      decoration: BoxDecoration(border: Border.all(color: AppColor.cinzaBranco, style: BorderStyle.solid)),
+      decoration: BoxDecoration(
+          border: Border.all(
+              color: AppColor.cinzaBranco, style: BorderStyle.solid)),
       child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.shopping_bag, size: 18,),
-              const SizedBox(width: 5,),
+              const Icon(
+                Icons.shopping_bag,
+                size: 18,
+              ),
+              const SizedBox(
+                width: 5,
+              ),
               Text(
                 loja.nome,
                 style: GoogleFonts.poppins(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500
-                ),
+                    fontSize: 15, fontWeight: FontWeight.w500),
               ),
               Expanded(child: Container()),
               Icon(
@@ -205,36 +212,29 @@ class _ProdutoPageState extends State<ProdutoPage> {
               Text(
                 loja.avaliacao.toStringAsFixed(1),
                 style: GoogleFonts.poppins(
-                  color: AppColor.amareloPrincipal,
-                  fontSize: 12
-                ),
+                    color: AppColor.amareloPrincipal, fontSize: 12),
               )
             ],
           ),
-          const SizedBox(height: 8,),
+          const SizedBox(
+            height: 8,
+          ),
           Row(
             children: [
               Text(
                   '${loja.tempMin.toString()} - ${loja.tempMax.toString()} min',
                   style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey),
-                  )
-              ),
+                    textStyle:
+                        const TextStyle(fontSize: 12, color: Colors.grey),
+                  )),
               Container(
                   margin: const EdgeInsets.symmetric(horizontal: 5),
-                  child: const Icon(Icons.circle,
-                      color: Colors.grey,
-                      size: 5)),
-              Text(
-                  'R\$ ${loja.taxa.toStringAsFixed(2)}',
+                  child: const Icon(Icons.circle, color: Colors.grey, size: 5)),
+              Text('R\$ ${loja.taxa.toStringAsFixed(2)}',
                   style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey),
-                  )
-              ),
+                    textStyle:
+                        const TextStyle(fontSize: 12, color: Colors.grey),
+                  )),
             ],
           ),
         ],
@@ -242,26 +242,30 @@ class _ProdutoPageState extends State<ProdutoPage> {
     );
   }
 
-  Widget addProd(){
+  Widget addProd() {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
-      decoration: BoxDecoration(border: Border.all(color: AppColor.cinzaBranco, style: BorderStyle.solid)),
+      decoration: BoxDecoration(
+          border: Border.all(
+              color: AppColor.cinzaBranco, style: BorderStyle.solid)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GestureDetector(
-            onTap: (){},
+            onTap: () {},
             child: Text(
               'Adicionar',
               style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w600,
-                color: AppColor.cobre
-              ),
+                  fontWeight: FontWeight.w600, color: AppColor.cobre),
             ),
           ),
-          const SizedBox(width: 10,),
+          const SizedBox(
+            width: 10,
+          ),
           Text(
-            widget.produto.promocao ? 'R\$ ${(qnt * widget.produto.novoValor).toStringAsFixed(2)}' : 'R\$ ${(qnt * widget.produto.valor).toStringAsFixed(2)}',
+            widget.produto.promocao
+                ? 'R\$ ${(qnt * widget.produto.novoValor).toStringAsFixed(2)}'
+                : 'R\$ ${(qnt * widget.produto.valor).toStringAsFixed(2)}',
             style: GoogleFonts.poppins(),
           )
         ],
@@ -272,7 +276,9 @@ class _ProdutoPageState extends State<ProdutoPage> {
   Widget qntProd() {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-      decoration: BoxDecoration(border: Border.all(color: AppColor.cinzaBranco, style: BorderStyle.solid)),
+      decoration: BoxDecoration(
+          border: Border.all(
+              color: AppColor.cinzaBranco, style: BorderStyle.solid)),
       child: Row(
         children: [
           GestureDetector(
@@ -284,10 +290,9 @@ class _ProdutoPageState extends State<ProdutoPage> {
             child: Text(
               qnt.toString(),
               style: GoogleFonts.poppins(
-                textStyle: const TextStyle(
-                  fontSize: 15,
-                )
-              ),
+                  textStyle: const TextStyle(
+                fontSize: 15,
+              )),
             ),
           ),
           GestureDetector(
@@ -298,6 +303,4 @@ class _ProdutoPageState extends State<ProdutoPage> {
       ),
     );
   }
-
 }
-

@@ -6,21 +6,29 @@ import '../colors.dart';
 import '../views/pet_page.dart';
 
 class AnimaisDonoList extends StatelessWidget {
-  const AnimaisDonoList({Key? key, required this.nome, required this.imgUrl, required this.idade, required this.direita, required this.esquerda}) : super(key: key);
+  const AnimaisDonoList(
+      {Key? key,
+      required this.nome,
+      required this.imgUrl,
+      required this.idade,
+      required this.direita,
+      required this.esquerda})
+      : super(key: key);
   final String nome, imgUrl, idade;
   final double direita, esquerda;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: (MediaQuery.of(context).size.width - 50)/2.02,
+      width: (MediaQuery.of(context).size.width - 50) / 2.05,
       height: 150,
-      margin: EdgeInsets.only(left: esquerda, right: direita, top: 10, bottom: 10),
+      margin:
+          EdgeInsets.only(left: esquerda, right: direita, top: 10, bottom: 10),
       //color: AppColor.amareloPrincipal,
       child: Column(
         children: [
           Container(
-            width: (MediaQuery.of(context).size.width - 50)/2.2,
+            width: (MediaQuery.of(context).size.width - 50) / 2.4,
             height: 100,
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
@@ -28,28 +36,26 @@ class AnimaisDonoList extends StatelessWidget {
                   topLeft: Radius.circular(15),
                 ),
                 image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(imgUrl)
-                )
-            ),
+                    fit: BoxFit.cover, image: NetworkImage(imgUrl))),
           ),
           Container(
-            width: (MediaQuery.of(context).size.width - 50)/2.2,
+            width: (MediaQuery.of(context).size.width - 50) / 2.4,
             height: 50,
             decoration: BoxDecoration(
                 color: AppColor.cinzaBranco,
                 borderRadius: const BorderRadius.only(
                   bottomRight: Radius.circular(15),
                   bottomLeft: Radius.circular(15),
-                )
-            ),
+                )),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(width: 10,),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     Column(
                       children: [
                         Text(
@@ -69,9 +75,11 @@ class AnimaisDonoList extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const Expanded(child: SizedBox(),),
+                    const Expanded(
+                      child: SizedBox(),
+                    ),
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         //controlar favorito
                       },
                       child: Container(
@@ -90,8 +98,7 @@ class AnimaisDonoList extends StatelessWidget {
                                 blurRadius: 0.9,
                                 offset: const Offset(-1, 1),
                               ),
-                            ]
-                        ),
+                            ]),
                         child: const CircleAvatar(
                           backgroundColor: Colors.white,
                           child: Icon(
@@ -102,7 +109,9 @@ class AnimaisDonoList extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 7,),
+                    const SizedBox(
+                      width: 7,
+                    ),
                   ],
                 )
               ],

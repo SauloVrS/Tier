@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:tier/firebase/firebase_tier.dart';
-import 'package:tier/views/login_page.dart';
+import 'package:tier/widgets/login_page.dart';
 import 'package:tier/views/main_lojas.dart';
 
 import 'views/splash_screen.dart';
@@ -28,5 +28,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-

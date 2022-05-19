@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';
 import 'package:tier/models/users_model.dart';
-import 'package:tier/views/login_page.dart';
+import 'package:tier/widgets/login_page.dart';
 import 'package:tier/views/meu_perfil.dart';
 import 'package:tier/widgets/bottom_nav_bar.dart';
 import 'package:tier/views/configuracoes_perfil.dart';
@@ -577,7 +577,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(context,
+                Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => Configuracoes()));
               },
               child: Container(
