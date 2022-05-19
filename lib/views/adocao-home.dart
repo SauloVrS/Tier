@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/data/pet_data.dart';
+import 'package:tier/views/chat/screens/chat_home_screen.dart';
 import 'package:tier/widgets/pet_list.dart';
 import 'package:tier/widgets/pet_list2.dart';
 
@@ -69,8 +70,12 @@ class _AdocaoHomeState extends State<AdocaoHome> {
         backgroundColor: Colors.white,
         actions: [
           IconButton(
-              onPressed: () {
-              },
+              onPressed: 
+                   () => Navigator.push(context, 
+                          MaterialPageRoute(
+                            builder: (_) => HomeScreen(),
+                            )
+                         ),
               constraints: const BoxConstraints(),
               icon: const Icon(
                 Icons.chat_bubble_rounded,

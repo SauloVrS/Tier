@@ -3,6 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';
+import 'package:tier/views/chat/chatmodels/messages.dart';
+import 'package:tier/views/chat/chatmodels/user.dart';
+import 'package:tier/views/chat/screens/chat_screen.dart';
 import 'package:tier/views/pet_page.dart';
 
 import '../data/animais_fav.dart';
@@ -30,6 +33,7 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
 
   @override
   Widget build(BuildContext context) {
+    User user = chats[0].sender;
     return Scaffold(
       backgroundColor: Color(0xEFECECD5),
       body: Stack(
@@ -111,7 +115,20 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                        children: [
                          Text("Mandar mensagem",style: GoogleFonts.poppins(color: AppColor.textoBranco,fontSize: 16),),
-                         Icon(Icons.chat_bubble_rounded,size: 18,color: AppColor.textoBranco,)
+                         IconButton(
+                           onPressed: 
+                            () => Navigator.push(context, 
+                                  MaterialPageRoute(
+                                    
+                                     builder: (_) => ChatScreen(
+                                       user: user,
+                                    ),
+                                  )
+                            ), 
+                           icon: const Icon(Icons.chat_bubble_rounded),
+                           iconSize: 18,
+                           color: AppColor.textoBranco
+                           )
                        ],
                      ),
                    ),
