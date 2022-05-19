@@ -1,6 +1,5 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 
 class Loja {
   String id;
@@ -75,6 +74,14 @@ Stream<Loja> getLojaById(String id) => FirebaseFirestore.instance
     .map((snapshot) => Loja.fromJson(snapshot.data()!));
     //.map((snapshot) => snapshot.docs.map((doc) => Loja.fromJson(doc.data())).toList());
 
+
+Future<Loja?> readLoja(String idLoja) async{
+  final docUser = FirebaseFirestore.instance.collection('lojas').doc(idLoja);
+  final snapshot = await docUser.get();
+  if (snapshot.exists){
+    return Loja.fromJson(snapshot.data()!);
+  }
+}
 // class Endereco {
 //   final String cep;
 //   final String rua;

@@ -1,16 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ModelPet {
+  String id;
   final String? descricaoPet;
   final String? distancia;
   final String? fotoPet;
   final String? generoPet;
   final String? idadePet;
   final String? nomePet;
-
-  //int? favorite;
-
   final String? typePet;
 
   ModelPet({
+    this.id = '',
     required this.descricaoPet,
     required this.distancia,
     required this.fotoPet,
@@ -42,3 +43,15 @@ class ModelPet {
       typePet: json['typePet']
   );
 }
+Stream<List<ModelPet>> readPets() => FirebaseFirestore.instance
+    .collection('usuarios').doc().collection('pets')
+    .snapshots()
+    .map((snapshot) =>
+    snapshot.docs.map((doc) => ModelPet.fromJson(doc.data())).toList());
+
+Stream<List<ModelPet>> readPetsUser(String idUsuario) => FirebaseFirestore.instance
+    .collection('usuarios').doc(idUsuario).collection('pets')
+    .snapshots()
+    .map((snapshot) =>
+    snapshot.docs.map((doc) => ModelPet.fromJson(doc.data())).toList());
+

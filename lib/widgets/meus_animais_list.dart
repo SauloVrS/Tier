@@ -5,8 +5,16 @@ import 'package:google_fonts/google_fonts.dart';
 import '../colors.dart';
 
 class MeusAnimaisList extends StatelessWidget {
-  const MeusAnimaisList({Key? key, required this.nome, required this.imgUrl, required this.idade, required this.direita, required this.esquerda}) : super(key: key);
-  final String nome, imgUrl, idade;
+  const MeusAnimaisList(
+      {Key? key,
+        required this.nome,
+        required this.imgUrl,
+        required this.idade,
+        required this.direita,
+        required this.esquerda,
+        required this.idUser,
+      }) : super(key: key);
+  final String? nome, imgUrl, idade, idUser;
   final double direita, esquerda;
 
   @override
@@ -17,24 +25,19 @@ class MeusAnimaisList extends StatelessWidget {
       margin: EdgeInsets.only(left: esquerda, right: direita, top: 10, bottom: 10),
       child: Column(
         children: [
-          GestureDetector(
-              onTap: (){
-                //Abrir pagina pet
-              },
-              child: Container(
-                width: (MediaQuery.of(context).size.width - 50)/2,
-                height: 100,
-                decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(20),
-                      topLeft: Radius.circular(20),
-                    ),
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(imgUrl)
-                    )
+          Container(
+            width: (MediaQuery.of(context).size.width - 50)/2,
+            height: 100,
+            decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(20),
+                  topLeft: Radius.circular(20),
                 ),
-              )
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(imgUrl!)
+                )
+            ),
           ),
           Container(
             width: (MediaQuery.of(context).size.width - 50)/2,
@@ -56,7 +59,7 @@ class MeusAnimaisList extends StatelessWidget {
                     Column(
                       children: [
                         Text(
-                          nome,
+                          nome!,
                           style: GoogleFonts.poppins(
                             color: AppColor.textosPretos2,
                             fontSize: 14,
@@ -64,7 +67,7 @@ class MeusAnimaisList extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          idade,
+                          idade!,
                           style: GoogleFonts.poppins(
                             color: AppColor.textosPretos2,
                             fontSize: 12,

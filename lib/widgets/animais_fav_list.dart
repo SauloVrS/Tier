@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,8 +7,16 @@ import '../colors.dart';
 import '../views/pet_page.dart';
 
 class AnimaisList extends StatelessWidget {
-  const AnimaisList({Key? key, required this.nome, required this.imgUrl, required this.idade, required this.direita, required this.esquerda}) : super(key: key);
-  final String nome, imgUrl, idade;
+  const AnimaisList({Key? key,
+    required this.nome,
+    required this.imgUrl,
+    required this.idade,
+    required this.direita,
+    required this.esquerda,
+    required this.idFav,
+    required this.idUser,
+  }) : super(key: key);
+  final String? nome, imgUrl, idade, idFav, idUser;
   final double direita, esquerda;
 
   @override
@@ -16,7 +25,6 @@ class AnimaisList extends StatelessWidget {
       width: (MediaQuery.of(context).size.width - 50)/2,
       height: 150,
       margin: EdgeInsets.only(left: esquerda, right: direita, top: 10, bottom: 10),
-      //color: AppColor.amareloPrincipal,
       child: Column(
         children: [
           Container(
@@ -29,7 +37,7 @@ class AnimaisList extends StatelessWidget {
               ),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(imgUrl)
+                image: NetworkImage(imgUrl!)
               )
             ),
           ),
@@ -53,7 +61,7 @@ class AnimaisList extends StatelessWidget {
                     Column(
                       children: [
                         Text(
-                          nome,
+                          nome!,
                           style: GoogleFonts.poppins(
                             color: AppColor.textosPretos2,
                             fontSize: 14,
@@ -61,7 +69,7 @@ class AnimaisList extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          idade,
+                          idade!,
                           style: GoogleFonts.poppins(
                             color: AppColor.textosPretos2,
                             fontSize: 12,
@@ -72,7 +80,14 @@ class AnimaisList extends StatelessWidget {
                     const Expanded(child: SizedBox(),),
                     GestureDetector(
                       onTap: (){
-                        //controlar favorito
+                        //remover favorito
+                        final docUser = FirebaseFirestore.instance
+                            .collection('usuarios')
+                            .doc(idUser)
+                            .collection('favoritosPets')
+                            .doc(idFav)
+                        ;
+                        docUser.delete();
                       },
                       child: Container(
                         width: 25,
