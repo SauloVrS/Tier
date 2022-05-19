@@ -47,7 +47,7 @@ class _PetListState extends State<PetList> {
             onTap: (){
               Navigator.pushReplacement(context,
                   MaterialPageRoute(
-                  builder: (context) =>  PetPage(),
+                    builder: (context) =>  PetPage(),
                   )
               );
             },

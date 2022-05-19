@@ -214,7 +214,7 @@ class _PetPageState extends State<PetPage> {
 
                         )
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height/60,),
+                    SizedBox(height: MediaQuery.of(context).size.height/15,),
                     //botao de adotar
                     Container(
                       padding: EdgeInsets.only(top: 5,bottom: 5,left: 30,right: 30),
@@ -235,6 +235,4 @@ class _PetPageState extends State<PetPage> {
     );
   }
 }
-
-
 

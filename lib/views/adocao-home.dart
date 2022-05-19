@@ -1,4 +1,5 @@
 
+
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/data/pet_data.dart';
 import 'package:tier/views/chat/screens/chat_home_screen.dart';
 import 'package:tier/widgets/pet_list.dart';
-import 'package:tier/widgets/pet_list2.dart';
+
 
 import '../widgets/bottom_nav_bar.dart';
 
@@ -70,12 +71,12 @@ class _AdocaoHomeState extends State<AdocaoHome> {
         backgroundColor: Colors.white,
         actions: [
           IconButton(
-              onPressed: 
-                   () => Navigator.push(context, 
-                          MaterialPageRoute(
-                            builder: (_) => HomeScreen(),
-                            )
-                         ),
+              onPressed:
+                  () => Navigator.push(context,
+                  MaterialPageRoute(
+                    builder: (_) => HomeScreen(),
+                  )
+              ),
               constraints: const BoxConstraints(),
               icon: const Icon(
                 Icons.chat_bubble_rounded,
@@ -89,7 +90,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
           SizedBox(height: 10,),
           // escolher os bixos
           Container(
-            margin: EdgeInsets.only(left:MediaQuery.of(context).size.width/20, top:MediaQuery.of(context).size.height/250,right:MediaQuery.of(context).size.width/20,bottom:MediaQuery.of(context).size.height/2080),
+            margin: EdgeInsets.only(left:MediaQuery.of(context).size.width/20, top:MediaQuery.of(context).size.height/250,right:MediaQuery.of(context).size.width/20,bottom:MediaQuery.of(context).size.height/1000),
             child: Column(
 
               children: [
@@ -101,44 +102,44 @@ class _AdocaoHomeState extends State<AdocaoHome> {
                   color: Colors.white.withOpacity(0.3),
                   child: GridView.count(
 
-                      primary: true,
-                      crossAxisCount: 4,
-                      crossAxisSpacing: 10,
-                      childAspectRatio: 1,
-                      children:
-                      List.generate(isSelected.length, (index) => InkWell(
-                        splashColor: Colors.white54,
-                        onTap: (){
-                          setState(() {
-                            for( int indexBtn =0;
-                            indexBtn< isSelected.length;indexBtn++){
-                              if (indexBtn==index){
-                                isSelected[indexBtn] = true;
-                              } else {
-                                isSelected[indexBtn] =false;
-                              }
+                    primary: true,
+                    crossAxisCount: 4,
+                    crossAxisSpacing: 10,
+                    childAspectRatio: 1,
+                    children:
+                    List.generate(isSelected.length, (index) => InkWell(
+                      splashColor: Colors.white54,
+                      onTap: (){
+                        setState(() {
+                          for( int indexBtn =0;
+                          indexBtn< isSelected.length;indexBtn++){
+                            if (indexBtn==index){
+                              isSelected[indexBtn] = true;
+                            } else {
+                              isSelected[indexBtn] =false;
                             }
-                          });
-                        },
-                        child:
-                            Ink(
+                          }
+                        });
+                      },
+                      child:
+                      Ink(
 
-                              decoration: BoxDecoration(
-                                image:  DecorationImage(
-                                    opacity: 0.7,
-                                    image: NetworkImage(petIcons[index]))  ,
+                        decoration: BoxDecoration(
+                          image:  DecorationImage(
+                              opacity: 0.7,
+                              image: NetworkImage(petIcons[index]))  ,
 
-                                color: isSelected[index] ? Color(0xFFffb761) : Color(0xE6FFC368).withOpacity(0.6),
-                                borderRadius: BorderRadius.circular(30),
-
-
-                              ),
+                          color: isSelected[index] ? Color(0xFFffb761) : Color(0xE6FFC368).withOpacity(0.6),
+                          borderRadius: BorderRadius.circular(30),
 
 
-                            ),
+                        ),
 
 
-                      )),
+                      ),
+
+
+                    )),
 
 
                   ),
@@ -157,7 +158,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
           //escolher os filtros
           Container(
               height: MediaQuery.of(context).size.height/8,
-              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/20,top: MediaQuery.of(context).size.height/35,bottom: MediaQuery.of(context).size.height/35  ),
+              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/20,top: 0,bottom: MediaQuery.of(context).size.height/55  ),
               child:
               Row(
                 children: [

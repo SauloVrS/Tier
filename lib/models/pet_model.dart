@@ -1,19 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tier/models/users_model.dart';
 
 class ModelPet {
-  String id;
-  final String? descricaoPet;
-  final String? distancia;
-  final String? fotoPet;
-  final String? generoPet;
-  final String? idadePet;
-  final String? nomePet;
-  final String? typePet;
+  String idPet;
+  final String descricaoPet;
+  final String distanciaPet;
+  final String fotoPet;
+  final String generoPet;
+  final String idadePet;
+  final String nomePet;
+  final String typePet;
 
   ModelPet({
-    this.id = '',
+    this.idPet = '',
     required this.descricaoPet,
-    required this.distancia,
+    required this.distanciaPet,
     required this.fotoPet,
     required this.generoPet,
     required this.idadePet,
@@ -23,8 +25,9 @@ class ModelPet {
   });
 
   Map<String, dynamic> toJson() => {
+    'idPet' : idPet,
     'descricaoPet' : descricaoPet,
-    'distancia' : distancia,
+    'distanciaPet' : distanciaPet,
     'fotoPet' : fotoPet,
     'generoPet' : generoPet,
     'idadePet' : idadePet,
@@ -34,8 +37,9 @@ class ModelPet {
   };
 
   static ModelPet fromJson(Map<String, dynamic> json) => ModelPet(
+      idPet: json['idPet'],
       descricaoPet: json['descricaoPet'],
-      distancia: json['distancia'],
+      distanciaPet: json['distanciaPet'],
       fotoPet: json['fotoPet'],
       generoPet: json['generoPet'],
       idadePet:  json['idadePet'],
@@ -43,14 +47,28 @@ class ModelPet {
       typePet: json['typePet']
   );
 }
-Stream<List<ModelPet>> readPets() => FirebaseFirestore.instance
-    .collection('usuarios').doc().collection('pets')
+Stream<List<String>> getIds2() => FirebaseFirestore.instance
+    .collection("usuarios")
     .snapshots()
     .map((snapshot) =>
-    snapshot.docs.map((doc) => ModelPet.fromJson(doc.data())).toList());
+    snapshot.docs.map((doc) => ModelUsers.fromJson(doc.data()).idUser).toList());
+
+Stream<List<ModelPet>> getPets({required String idUser}) =>
+    FirebaseFirestore.instance
+        .collection("usuarios")
+        .doc(idUser)
+        .collection('produtos')
+        .snapshots()
+        .map((snapshot) =>
+        snapshot.docs.map((doc) => ModelPet.fromJson(doc.data())).toList());
+
+Stream<List<ModelPet>> readPets() => FirebaseFirestore.instance
+    .collection("usuarios")
+    .snapshots()
+    .map((snapshot) => snapshot.docs.map((doc) => ModelPet.fromJson(doc.data())).toList());
 
 Stream<List<ModelPet>> readPetsUser(String idUsuario) => FirebaseFirestore.instance
-    .collection('usuarios').doc(idUsuario).collection('pets')
+    .collection('usuarios').doc().collection('pets')
     .snapshots()
     .map((snapshot) =>
     snapshot.docs.map((doc) => ModelPet.fromJson(doc.data())).toList());
