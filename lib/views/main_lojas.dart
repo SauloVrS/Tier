@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // arquivos com exemplos:
 import 'package:tier/data/banners.dart';
@@ -6,6 +7,8 @@ import 'package:tier/data/lojas.dart';
 import 'package:tier/data/produtos.dart';
 import 'package:tier/data/promocoes.dart';
 import 'package:tier/data/servicos.dart';
+import 'package:tier/firebase/loja_helper.dart';
+import 'package:tier/views/chat/screens/chat_home_screen.dart';
 
 // arquivos de widgets
 import 'package:tier/widgets/banners.dart';
@@ -54,7 +57,9 @@ class _MainLojasState extends State<MainLojas> {
               width: location == null ? 65 : MediaQuery.of(context).size.width/2-23,
               child: Text(
                 location == null ? 'endereço' : location!,
-                style: const TextStyle(color: Colors.black, fontSize: 15),
+                style: GoogleFonts.poppins(
+                  textStyle: const TextStyle(color: Colors.black, fontSize: 13),
+                ),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
@@ -85,8 +90,12 @@ class _MainLojasState extends State<MainLojas> {
                 size: 18,
               )),
           IconButton(
-              onPressed: () {
-              },
+             onPressed: 
+                   () => Navigator.push(context, 
+                          MaterialPageRoute(
+                            builder: (_) => HomeScreen(),
+                            )
+                         ),
               constraints: const BoxConstraints(),
               icon: const Icon(
                 Icons.chat_bubble_rounded,
@@ -111,56 +120,36 @@ class _MainLojasState extends State<MainLojas> {
             const SizedBox(
               height: 15,
             ),
-            const Padding(
-              padding: EdgeInsets.only(
+            Padding(
+              padding: const EdgeInsets.only(
                 left: 15,
+                bottom: 15
               ),
               child: Text(
                 "Promoções",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500),
+                style: GoogleFonts.poppins(
+                  textStyle: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500),
+                )
               ),
             ),
-            SizedBox(
-                height: 235,
-                child: ListView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: promocoesFeed.length,
-                  itemBuilder: (context, index) {
-                    return PromoList(
-                        title: promocoesFeed[index]['title'],
-                        imgUrl: promocoesFeed[index]['url'],
-                        price: promocoesFeed[index]['price'],
-                        newPrice: promocoesFeed[index]['newPrice']);
-                  },
-                )
-            ),
+            streamIds(),
             BannerGeral(imgUrl: banners[1]),
             Padding(
               padding: const EdgeInsets.symmetric( horizontal: 15 ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     "Serviços",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  GestureDetector(
-                    onTap: (){},
-                    child: const Text(
-                      "Ver mais",
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400),
-                    ),
+                    style: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500),
+                    )
                   ),
                 ],
               ),
@@ -188,22 +177,14 @@ class _MainLojasState extends State<MainLojas> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     "Produtos",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  GestureDetector(
-                    onTap: (){},
-                    child: const Text(
-                      "Ver mais",
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400),
-                    ),
+                    style: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500),
+                    )
                   ),
                 ],
               ),
@@ -224,25 +205,35 @@ class _MainLojasState extends State<MainLojas> {
                 )
             ),
             BannerGeral(imgUrl: banners[0]),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Text(
                 "Lojas",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500),
+                style: GoogleFonts.poppins(
+                  textStyle: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500),
+                )
               ),
             ),
-            Column(
-              children: [
-                ListView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  children: lojas.map((e) => LojasList(name: e['name'], imgUrl: e['imgUrl'], stars: e['stars'], distancia: e['distancia'], tempoMin: e['tempoMin'], tempoMax: e['tempoMax'], taxa: e['taxa'], situacao: e['aberto'], espacamento: 30,)).toList(),
-                ),
-              ],
-            )
+            StreamBuilder<List<Loja>>(
+                stream: readUsers(),
+                builder: (context, snapshot){
+                  if(snapshot.hasError){
+                    return Text('Something went wrong! ${snapshot.error}');
+                  } else if(snapshot.hasData){
+                    final lojas = snapshot.data!;
+                    return ListView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      children: lojas.map((loja) => lojaList(loja, 30, context)).toList(),
+                    );
+                  } else {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                }
+            ),
           ],
         ),
       ),

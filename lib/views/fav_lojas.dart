@@ -8,6 +8,7 @@ import '../widgets/bottom_nav_bar.dart';
 import '../widgets/lojas_list.dart';
 import 'fav_animais.dart';
 
+
 class FavLojas extends StatefulWidget {
   const FavLojas({Key? key}) : super(key: key);
 
@@ -50,14 +51,14 @@ class _FavLojasState extends State<FavLojas> {
             height: 60,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-              color: AppColor.background,
-              boxShadow: [
-                BoxShadow(
-                  color: AppColor.cinzaBranco.withOpacity(0.6),
-                  offset: const Offset(0, 4),
-                  blurRadius: 0.8,
-                )
-              ]
+                color: AppColor.background,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColor.cinzaBranco.withOpacity(0.6),
+                    offset: const Offset(0, 4),
+                    blurRadius: 0.8,
+                  )
+                ]
             ),
             child: Column(
               children: [
@@ -141,11 +142,11 @@ class _FavLojasState extends State<FavLojas> {
                       height: 200,
                       width: 200,
                       decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                            "images/img_fav_lojas.png"
+                          image: DecorationImage(
+                              image: AssetImage(
+                                  "images/img_fav_lojas.png"
+                              )
                           )
-                        )
                       ),
                     ),
                     const SizedBox(height: 15,),
@@ -159,15 +160,15 @@ class _FavLojasState extends State<FavLojas> {
                     RichText(
                       textAlign: TextAlign.center,
                       text: TextSpan(
-                        text: 'Descubra seu novo\n',
-                        style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            color: AppColor.textosPretos3),
-                        children: const [
-                          TextSpan(
-                            text: 'queridinho agora mesmo',
-                          )
-                        ]
+                          text: 'Descubra seu novo\n',
+                          style: GoogleFonts.poppins(
+                              fontSize: 14,
+                              color: AppColor.textosPretos3),
+                          children: const [
+                            TextSpan(
+                              text: 'queridinho agora mesmo',
+                            )
+                          ]
                       ),
                     ),
                     const SizedBox(height: 10,),
@@ -183,15 +184,15 @@ class _FavLojasState extends State<FavLojas> {
                         width: 180,
                         height: 40,
                         decoration: BoxDecoration(
-                          color: AppColor.amareloPrincipal.withOpacity(0.7),
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColor.cinzaBranco,
-                              blurRadius: 0.8,
-                              offset: const Offset(2, 2),
-                            ),
-                          ]
+                            color: AppColor.amareloPrincipal.withOpacity(0.7),
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColor.cinzaBranco,
+                                blurRadius: 0.8,
+                                offset: const Offset(2, 2),
+                              ),
+                            ]
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -241,19 +242,19 @@ class _FavLojasState extends State<FavLojas> {
                         width: 30,
                         height: 30,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(60),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColor.cinzaBranco,
-                              blurRadius: 0.9,
-                              offset: const Offset(1, 1),
-                            ),
-                            BoxShadow(
-                              color: AppColor.cinzaBranco,
-                              blurRadius: 0.9,
-                              offset: const Offset(-1, 1),
-                            ),
-                          ]
+                            borderRadius: BorderRadius.circular(60),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColor.cinzaBranco,
+                                blurRadius: 0.9,
+                                offset: const Offset(1, 1),
+                              ),
+                              BoxShadow(
+                                color: AppColor.cinzaBranco,
+                                blurRadius: 0.9,
+                                offset: const Offset(-1, 1),
+                              ),
+                            ]
                         ),
                         child: const CircleAvatar(
                           backgroundColor: Colors.white,

@@ -24,7 +24,7 @@ class BottomNavBar extends StatelessWidget {
             onPressed: () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(
-                    builder: (context) => MainLojas(),//COLOCAR O CENTER SE NÂO TIVER ESSA PAGINA NO SEU ARQUIVO
+                    builder: (context) => MainLojas(),
                   )
               );
             },

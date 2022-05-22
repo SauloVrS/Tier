@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SPList extends StatelessWidget {
 
@@ -22,7 +23,10 @@ class SPList extends StatelessWidget {
                   margin: const EdgeInsets.only(top: 10),
                   width: 150,
                   alignment: Alignment.center,
-                  child: Text(name)
+                  child: Text(
+                    name,
+                    style: GoogleFonts.poppins(fontSize: 13),
+                  )
               ),
             ],
           ),

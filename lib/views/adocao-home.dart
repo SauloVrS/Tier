@@ -1,10 +1,13 @@
 
+
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/data/pet_data.dart';
+import 'package:tier/views/chat/screens/chat_home_screen.dart';
 import 'package:tier/widgets/pet_list.dart';
+
 
 import '../widgets/bottom_nav_bar.dart';
 
@@ -21,7 +24,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
   List<String> petIcons = ['https://cdn3.iconfinder.com/data/icons/font-awesome-solid/576/dog-256.png','https://cdn1.iconfinder.com/data/icons/pets-and-animals-5/96/cat-256.png','https://cdn-icons-png.flaticon.com/512/3969/3969770.png','https://cdn1.iconfinder.com/data/icons/animals-178/400/parrot-256.png'];
   String? location = "tomás rodrigues, 1361";
   List<Map>pets=[];
-  
+
 
   initData(){
     pets = Pets().pets;
@@ -68,8 +71,12 @@ class _AdocaoHomeState extends State<AdocaoHome> {
         backgroundColor: Colors.white,
         actions: [
           IconButton(
-              onPressed: () {
-              },
+              onPressed:
+                  () => Navigator.push(context,
+                  MaterialPageRoute(
+                    builder: (_) => HomeScreen(),
+                  )
+              ),
               constraints: const BoxConstraints(),
               icon: const Icon(
                 Icons.chat_bubble_rounded,
@@ -82,16 +89,18 @@ class _AdocaoHomeState extends State<AdocaoHome> {
         children: [
           SizedBox(height: 10,),
           // escolher os bixos
-          Column(
+          Container(
+            margin: EdgeInsets.only(left:MediaQuery.of(context).size.width/20, top:MediaQuery.of(context).size.height/250,right:MediaQuery.of(context).size.width/20,bottom:MediaQuery.of(context).size.height/1000),
+            child: Column(
 
-            children: [
-              Ink(
+              children: [
+                Ink(
 
 
-                width: MediaQuery.of(context).size.width/1.09,
-                height: MediaQuery.of(context).size.height/6,
-                color: Colors.white.withOpacity(0.3),
-                child: GridView.count(
+                  width: MediaQuery.of(context).size.width/1.09,
+                  height: MediaQuery.of(context).size.height/9.8,
+                  color: Colors.white.withOpacity(0.3),
+                  child: GridView.count(
 
                     primary: true,
                     crossAxisCount: 4,
@@ -113,33 +122,34 @@ class _AdocaoHomeState extends State<AdocaoHome> {
                         });
                       },
                       child:
-                          Ink(
+                      Ink(
 
-                            decoration: BoxDecoration(
-                              image:  DecorationImage(
-                                  opacity: 0.7,
-                                  image: NetworkImage(petIcons[index]))  ,
+                        decoration: BoxDecoration(
+                          image:  DecorationImage(
+                              opacity: 0.7,
+                              image: NetworkImage(petIcons[index]))  ,
 
-                              color: isSelected[index] ? Color(0xFFffb761) : Color(0xE6FFC368).withOpacity(0.6),
-                              borderRadius: BorderRadius.circular(30),
-
-
-                            ),
+                          color: isSelected[index] ? Color(0xFFffb761) : Color(0xE6FFC368).withOpacity(0.6),
+                          borderRadius: BorderRadius.circular(30),
 
 
-                          ),
+                        ),
+
+
+                      ),
 
 
                     )),
 
 
+                  ),
                 ),
-              ),
 
 
 
 
-            ],
+              ],
+            ),
           ),
 
 
@@ -148,7 +158,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
           //escolher os filtros
           Container(
               height: MediaQuery.of(context).size.height/8,
-              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/20,top: MediaQuery.of(context).size.height/35,bottom: MediaQuery.of(context).size.height/35  ),
+              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/20,top: 0,bottom: MediaQuery.of(context).size.height/55  ),
               child:
               Row(
                 children: [

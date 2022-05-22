@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tier/views/perfil_dono_pet.dart';
 
 import 'adocao-home.dart';
 
@@ -56,7 +57,7 @@ class _PetPageState extends State<PetPage> {
           Positioned(
               left: 0,
               right: 0,
-              top: MediaQuery.of(context).size.height/3.5,
+              top: MediaQuery.of(context).size.height/4.2,
               child: Container(
                 padding: EdgeInsets.only(left: 18, right: 18, top: 18,),
                 decoration: BoxDecoration(
@@ -83,7 +84,7 @@ class _PetPageState extends State<PetPage> {
                         ),
                         Container(
                           padding: EdgeInsets.only(left: 6,right: 6,bottom: 6,top: 6),
-                          child: Icon( Icons.star_outline,size: MediaQuery.of(context).size.width/11, ),
+                          child: Icon( Icons.star_outline,size: MediaQuery.of(context).size.width/11,color: Colors.amber, ),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(30),
@@ -94,7 +95,7 @@ class _PetPageState extends State<PetPage> {
                     ) ,
                     SizedBox(height: MediaQuery.of(context).size.width/18,),
                     Container(
-                      padding: EdgeInsets.only(left: 4,right: 4,bottom: 20),
+                      padding: EdgeInsets.only(left: 8,right: 8,bottom: 20),
                       child: Row(
                         children: [
                           Container(
@@ -114,7 +115,7 @@ class _PetPageState extends State<PetPage> {
                               ),
                             ),
                           ),
-                          SizedBox(width: MediaQuery.of(context).size.width/18,),
+                          SizedBox(width: MediaQuery.of(context).size.width/22,),
                           Container(
                             padding: EdgeInsets.only(top: MediaQuery.of(context).size.width/30,bottom: MediaQuery.of(context).size.width/30,left: MediaQuery.of(context).size.width/30,right: MediaQuery.of(context).size.width/30),
                             decoration: BoxDecoration(
@@ -129,7 +130,7 @@ class _PetPageState extends State<PetPage> {
                               ],
                             ),
                           ),
-                          SizedBox(width: MediaQuery.of(context).size.width/18,),
+                          SizedBox(width: MediaQuery.of(context).size.width/22,),
                           Container(
                             padding: EdgeInsets.only(top: MediaQuery.of(context).size.width/30,bottom: MediaQuery.of(context).size.width/30,left: MediaQuery.of(context).size.width/30,right: MediaQuery.of(context).size.width/30),
                             decoration: BoxDecoration(
@@ -150,12 +151,12 @@ class _PetPageState extends State<PetPage> {
 
                     //informacoes do dono
                     Padding(
-                      padding: const EdgeInsets.all(6.0),
+                      padding: EdgeInsets.only(top: MediaQuery.of(context).size.width/40,bottom: MediaQuery.of(context).size.width/40,left: MediaQuery.of(context).size.width/40,right: MediaQuery.of(context).size.width/40),
                       child: Row(
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width/5,
-                            padding: EdgeInsets.all(30),
+                            width: MediaQuery.of(context).size.width/6,
+                            padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/50,right: MediaQuery.of(context).size.width/35,bottom: MediaQuery.of(context).size.width/15,top: MediaQuery.of(context).size.width/15),
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(100) ,
@@ -175,14 +176,22 @@ class _PetPageState extends State<PetPage> {
 
                             ],
                           ),
-                          SizedBox(width: MediaQuery.of(context).size.width/9,),
+                          SizedBox(width: MediaQuery.of(context).size.width/8,),
                           Container(
                             padding: EdgeInsets.only(top: 10, bottom: 10, right: 10, left: 10),
                             decoration: BoxDecoration(
                                 color: Color(0xFFc4c4c4),
                                 borderRadius: BorderRadius.circular(10)
                             ),
-                            child: Text("Ver perfil",style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/30,fontWeight: FontWeight.w500),),
+                            child: GestureDetector(
+                                onTap: (){
+                                  Navigator.pushReplacement(context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>  PerfilDonoPet(),
+                                      )
+                                  );
+                                },
+                                child: Text("Ver perfil",style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/30,fontWeight: FontWeight.w500),)),
                           )
                         ],
                       ),
@@ -205,17 +214,17 @@ class _PetPageState extends State<PetPage> {
 
                         )
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height/1000,),
+                    SizedBox(height: MediaQuery.of(context).size.height/15,),
                     //botao de adotar
                     Container(
-                      padding: EdgeInsets.only(top: 10,bottom: 10,left: 40,right: 40),
+                      padding: EdgeInsets.only(top: 5,bottom: 5,left: 30,right: 30),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         color: Color(0xFFffb761),
                       ),
-                      child: Text("Adotar",style: GoogleFonts.poppins(fontSize:MediaQuery.of(context).size.width/28 ),),
+                      child: Text("Adotar",style: GoogleFonts.poppins(fontSize:MediaQuery.of(context).size.width/20 ),),
                     ),
-                    SizedBox(height: 100,)
+                    SizedBox(height: 500,)
                   ],
 
 
@@ -226,6 +235,4 @@ class _PetPageState extends State<PetPage> {
     );
   }
 }
-
-
 

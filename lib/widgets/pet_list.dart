@@ -43,23 +43,32 @@ class _PetListState extends State<PetList> {
       margin: EdgeInsets.only(bottom: 20),
       child: Column(
         children: [
-          Container(
-              width: MediaQuery.of(context).size.width/1.2,
-              height: MediaQuery.of(context).size.height/3.5,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(30),
-                    topLeft: Radius.circular(30)),
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(widget.foto_pet)),
-              )
+          GestureDetector(
+            onTap: (){
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(
+                    builder: (context) =>  PetPage(),
+                  )
+              );
+            },
+            child: Container(
+                width: MediaQuery.of(context).size.width/1.2,
+                height: MediaQuery.of(context).size.height/3.5,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(30),
+                      topLeft: Radius.circular(30)),
+                  image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(widget.foto_pet)),
+                )
+            ),
           ),
           Container(
             padding: EdgeInsets.only(
-                left: 10, top: 10, right: 10, bottom: 10),
+                left: 10, top: 4, right: 10, bottom: 3.8),
             width: MediaQuery.of(context).size.width/1.2,
-            height: MediaQuery.of(context).size.height/6,
+            height: MediaQuery.of(context).size.height/9,
             decoration: BoxDecoration(
               color: Color(0xffe5e5e5),
               borderRadius: BorderRadius.only(
@@ -76,13 +85,12 @@ class _PetListState extends State<PetList> {
                     Row(
                       children: [
                         Text(widget.nome_pet, style: GoogleFonts.poppins(
-                            fontSize: 23,
+                            fontSize: MediaQuery.of(context).size.width/15,
                             fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(width: 8,),
+                        SizedBox(width: MediaQuery.of(context).size.width/15,),
                         Text(widget.idade,
-                          style: GoogleFonts.poppins(fontSize: 12),),
-                        SizedBox(width: 8,),
+                          style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/22),),
                         Text(widget.typePet,style: GoogleFonts.poppins(fontSize: 0.1),)
 
 
@@ -91,12 +99,12 @@ class _PetListState extends State<PetList> {
 
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 6,
-                          right: 6,
-                          bottom: 6,
-                          top: 6),
+                      padding: EdgeInsets.only(left:1,
+                          right: 1,
+                          bottom: 1,
+                          top: 1),
                       child: Icon(
-                        Icons.star_outline, size: 26,color: Colors.amber,),
+                        Icons.star_outline, size: MediaQuery.of(context).size.width/12,color: Colors.amber,),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(
@@ -106,13 +114,13 @@ class _PetListState extends State<PetList> {
                     )
                   ],
                 ),
-                SizedBox(height: 3,),
+                SizedBox(height: 0,),
                 Row(
                   children: [
-                    Icon(Icons.place_outlined, size: 18,),
+                    Icon(Icons.place_outlined, size: MediaQuery.of(context).size.height/28,),
                     SizedBox(width: 4,),
                     Text(widget.distancia,
-                      style: GoogleFonts.poppins(fontSize: 16),)
+                      style: GoogleFonts.poppins(fontSize: MediaQuery.of(context).size.width/23),)
                   ],
                 )
               ],

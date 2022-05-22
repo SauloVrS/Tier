@@ -1,9 +1,15 @@
 import 'dart:ui';
-
+import 'package:tier/firebase/auth_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';
-import 'package:tier/views/login_page.dart';
+import 'package:tier/views/adocao-home.dart';
+import 'package:tier/views/auth_page.dart';
+import 'package:tier/views/recuperar_senha.dart';
+import 'package:tier/widgets/login_page.dart';
+import 'package:tier/views/splash_screen.dart';
 
 class CadastroPage extends StatefulWidget {
   const CadastroPage({Key? key}) : super(key: key);
@@ -13,8 +19,71 @@ class CadastroPage extends StatefulWidget {
 }
 
 class _CadastroPageState extends State<CadastroPage> {
-  String email = '';
-  String senha = '';
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordConfirmController =
+      TextEditingController();
+  String? _errorText;
+  bool _isLoading = false;
+
+  @override
+  void dispose() {
+    super.dispose();
+    _usernameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _passwordConfirmController.dispose();
+  }
+
+  String? TextErrorEmpty(String? Text) {
+    String? TextError;
+    if (Text == 'error-E') {
+      TextError = "Preencha todos os campos";
+    } else {
+      TextError = null;
+    }
+    return TextError;
+  }
+
+  String? TextErrorPassword(String? Text) {
+    String? TextError;
+    if (Text == 'error-P') {
+      TextError = "Senhas não coincidem";
+    } else if (Text == 'error-E') {
+      TextError = "Preencha todos os campos";
+    } else {
+      TextError = null;
+    }
+    return TextError;
+  }
+
+  void signUpUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String? res = await AuthMethod().signUpUser(
+      email: _emailController.text,
+      password: _passwordController.text,
+      passwordConfirm: _passwordConfirmController.text,
+      username: _usernameController.text,
+    );
+    setState(() {
+      _isLoading = false;
+    });
+    if (res != 'success') {
+      _emailController.text = '';
+      _usernameController.text = '';
+      _passwordController.text = '';
+      _passwordConfirmController.text = '';
+      setState(() {
+        _errorText = res;
+      });
+      Navigator.pop(context);
+    } else {
+      _errorText = res;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,72 +94,12 @@ class _CadastroPageState extends State<CadastroPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              height: MediaQuery.of(context).size.height / 1.9,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
-                ),
-                color: AppColor.textoBranco,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(0.0),
-                child: Column(
-                  children: [
-                    Container(
-                      height: 200,
-                      width: 300,
-                      child: Image.asset('images/img.png'),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          style: ButtonStyle(),
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginPage()));
-                          },
-                          child: Text(
-                            'Login',
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: AppColor.textosPretos3,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 100,
-                        ),
-                        TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Cadastro',
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: AppColor.textosPretos3,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
             SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 40.0, horizontal: 46.0),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 00.0, horizontal: 0.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -108,12 +117,17 @@ class _CadastroPageState extends State<CadastroPage> {
                           ),
                         ),
                         SizedBox(
-                          width: 13,
+                          width: MediaQuery.of(context).size.width / 12,
                         ),
                         SizedBox(
-                          height: 45,
-                          width: 45,
-                          child: FloatingActionButton(
+                          height: MediaQuery.of(context).size.height / 13,
+                          width: MediaQuery.of(context).size.width / 8,
+                          child: FloatingActionButton.extended(
+                            label: Image(
+                              height: MediaQuery.of(context).size.height / 13,
+                              width: MediaQuery.of(context).size.width / 8,
+                              image: AssetImage('images/google_icon.png'),
+                            ),
                             onPressed: () {},
                             backgroundColor: AppColor.textoBranco,
                             shape: new RoundedRectangleBorder(
@@ -122,12 +136,17 @@ class _CadastroPageState extends State<CadastroPage> {
                           ),
                         ),
                         SizedBox(
-                          width: 14,
+                          width: MediaQuery.of(context).size.width / 30,
                         ),
                         SizedBox(
-                          height: 45,
-                          width: 45,
-                          child: FloatingActionButton(
+                          height: MediaQuery.of(context).size.height / 13,
+                          width: MediaQuery.of(context).size.width / 8,
+                          child: FloatingActionButton.extended(
+                            label: Icon(
+                              Icons.facebook,
+                              color: Color(0xFF1877F2),
+                              size: MediaQuery.of(context).size.height / 17,
+                            ),
                             onPressed: () {},
                             backgroundColor: AppColor.textoBranco,
                             shape: new RoundedRectangleBorder(
@@ -144,11 +163,9 @@ class _CadastroPageState extends State<CadastroPage> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 8.0),
+                            horizontal: 20.0, vertical: 2.0),
                         child: TextField(
-                          onChanged: (text) {
-                            email = text;
-                          },
+                          controller: _usernameController,
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                             labelText: 'Nome',
@@ -169,11 +186,9 @@ class _CadastroPageState extends State<CadastroPage> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 8.0),
+                            horizontal: 20.0, vertical: 2.0),
                         child: TextField(
-                          onChanged: (text) {
-                            email = text;
-                          },
+                          controller: _emailController,
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                             labelText: 'E-mail',
@@ -194,11 +209,9 @@ class _CadastroPageState extends State<CadastroPage> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 8.0),
+                            horizontal: 20.0, vertical: 2.0),
                         child: TextField(
-                          onChanged: (text) {
-                            senha = text;
-                          },
+                          controller: _passwordController,
                           obscureText: true,
                           decoration: InputDecoration(
                             labelText: 'Senha',
@@ -219,69 +232,77 @@ class _CadastroPageState extends State<CadastroPage> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 8.0),
+                            horizontal: 20.0, vertical: 4.0),
                         child: TextField(
-                          onChanged: (text) {
-                            senha = text;
-                          },
+                          controller: _passwordConfirmController,
                           obscureText: true,
                           decoration: InputDecoration(
                             labelText: 'Confirmar senha',
-                            labelStyle: TextStyle(
-                                fontSize: 20, color: AppColor.cinzaclaroAppBar),
+                            labelStyle: GoogleFonts.poppins(
+                              fontSize: 20,
+                              color: AppColor.cinzaclaroAppBar,
+                            ),
                             border: InputBorder.none,
                           ),
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: 30,
+                      height: MediaQuery.of(context).size.height / 30,
                     ),
                     Row(
                       children: [
                         SizedBox(
-                          height: 60,
-                          width: 200,
-                          child: RaisedButton(
-                            onPressed: () {
-                              if (email == 'admin' && senha == 'admin') {
-                                print('logou');
-                              } else {
-                                print('login invalido');
-                              }
-                            },
-                            child: Text(
-                              'Entrar',
-                              style: TextStyle(
-                                fontSize: 20,
-                              ),
+                          height: MediaQuery.of(context).size.height / 13,
+                          width: MediaQuery.of(context).size.width / 3,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(90)),
+                              primary: AppColor.amareloEscuro,
                             ),
-                            shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(25.0),
-                            ),
-                            color: AppColor.amareloPrincipal,
-                            textColor: Colors.white,
+                            onPressed: signUpUser,
+                            child: _isLoading
+                                ? Center(
+                                    child: CircularProgressIndicator(
+                                      color: AppColor.textoBranco,
+                                    ),
+                                  )
+                                : Text(
+                                    "Cadastrar",
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 20,
+                                      color: AppColor.textoBranco,
+                                    ),
+                                  ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(32.0),
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LoginPage()));
-                            },
-                            child: Text(
-                              'Já é cadastrado?'
-                              '\nFaça o login',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Já cadastrado?",
+                              style: GoogleFonts.poppins(
+                                fontSize: 17,
                                 color: AppColor.cinzaescuroAppBar,
                               ),
                             ),
-                          ),
+                            TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                'Faça o login',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 15,
+                                  color: AppColor.cinzaescuroAppBar,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
