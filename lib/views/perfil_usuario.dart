@@ -1,16 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tier/views/meu_perfil_pages/cupom_perfil.dart';
+import 'package:tier/views/meu_perfil_pages/meu_codigo_perfil.dart';
+
+import '../colors.dart';
+import '../widgets/bottom_nav_bar.dart';
+
+
 import 'package:tier/colors.dart';
 import 'package:tier/models/users_model.dart';
 import 'package:tier/widgets/login_page.dart';
 import 'package:tier/views/meu_perfil.dart';
 import 'package:tier/widgets/bottom_nav_bar.dart';
 import 'package:tier/views/configuracoes_perfil.dart';
-
-import '../colors.dart';
-import '../widgets/bottom_nav_bar.dart';
 import 'nivel_usuario.dart';
+
 
 class TelaPerfilUsuario extends StatefulWidget {
   const TelaPerfilUsuario({Key? key}) : super(key: key);
@@ -341,7 +346,10 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => Cupons()));
+              },
               child: Container(
                 height: 59,
                 child: Column(
@@ -529,7 +537,10 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => Meu_cupom()));
+              },
               child: Container(
                 height: 59,
                 child: Column(
