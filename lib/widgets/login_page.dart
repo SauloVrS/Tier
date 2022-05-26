@@ -8,8 +8,8 @@ import 'package:tier/firebase/auth_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';
 
-import 'package:tier/views/meu_perfil.dart';
-import 'package:tier/views/perfil_usuario.dart';
+import 'package:tier/views/perfil_pages/meu_perfil.dart';
+import 'package:tier/views/perfil_pages/perfil_usuario.dart';
 import 'package:tier/views/recuperar_senha.dart';
 import 'package:tier/views/splash_screen.dart';
 import 'package:tier/widgets/cadastro_page.dart';

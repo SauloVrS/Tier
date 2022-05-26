@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tier/widgets/bottom_nav_bar.dart';
-import 'package:tier/views/perfil_usuario.dart';
+import 'package:tier/views/perfil_pages/perfil_usuario.dart';
 import 'package:tier/views/main_lojas.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';

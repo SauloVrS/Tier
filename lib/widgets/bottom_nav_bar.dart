@@ -3,7 +3,7 @@ import 'package:tier/views/adocao-home.dart';
 import 'package:tier/views/busca_principal.dart';
 import 'package:tier/views/fav_lojas.dart';
 import 'package:tier/views/main_lojas.dart';
-import 'package:tier/views/perfil_usuario.dart';
+import 'package:tier/views/perfil_pages/perfil_usuario.dart';
 
 class BottomNavBar extends StatelessWidget {
   final String pagina;
