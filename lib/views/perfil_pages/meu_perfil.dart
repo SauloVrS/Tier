@@ -2,18 +2,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:tier/views/perfil_usuario.dart';
+import 'package:tier/views/perfil_pages/perfil_usuario.dart';
 import 'package:tier/widgets/meus_animais_list.dart';
 
-import '../colors.dart';
-import '../models/pet_model.dart';
-import '../models/users_model.dart';
-import 'meu_perfil_pages/adicionar_pet.dart';
+import '../../colors.dart';
+import '../../models/pet_model.dart';
+import '../../models/users_model.dart';
+import 'adicionar_pet.dart';
 
 import 'package:tier/colors.dart';
 import 'package:tier/data/meus_animais.dart';
-import 'package:tier/views/meu_perfil_pages/adicionar_pet.dart';
-import 'package:tier/views/perfil_usuario.dart';
+import 'package:tier/views/perfil_pages/adicionar_pet.dart';
+import 'package:tier/views/perfil_pages/perfil_usuario.dart';
 import 'package:tier/widgets/meus_animais_list.dart';
 //import 'package:tier/widgets/bottom_nav_bar.dart';
 

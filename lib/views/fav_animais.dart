@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/models/pet_model.dart';
 import 'package:tier/models/users_model.dart';
 import 'package:tier/views/adocao-home.dart';
-import 'package:tier/views/perfil_usuario.dart';
+import 'package:tier/views/perfil_pages/perfil_usuario.dart';
 import '../colors.dart';
 import '../widgets/animais_fav_list.dart';
 import '../widgets/bottom_nav_bar.dart';

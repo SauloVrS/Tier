@@ -4,7 +4,7 @@ import 'package:tier/colors.dart';
 import 'package:tier/views/main_lojas.dart';
 import 'package:tier/widgets/bottom_nav_bar.dart';
 import 'package:tier/views/adocao-home.dart';
-import 'package:tier/views/perfil_usuario.dart';
+import 'package:tier/views/perfil_pages/perfil_usuario.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Meu_cupom extends StatefulWidget {

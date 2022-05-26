@@ -2,8 +2,8 @@ import 'dart:ffi';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:tier/views/perfil_usuario.dart';
-import '../widgets/bottom_nav_bar.dart';
+import 'package:tier/views/perfil_pages/perfil_usuario.dart';
+import '../../widgets/bottom_nav_bar.dart';
 
 class NivelUsuario extends StatefulWidget {
   const NivelUsuario({Key? key}) : super(key: key);
