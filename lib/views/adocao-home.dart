@@ -12,7 +12,6 @@ import 'package:tier/widgets/pet_list.dart';
 import '../models/pet_model.dart';
 import '../models/users_model.dart';
 import '../widgets/bottom_nav_bar.dart';
-
 class AdocaoHome extends StatefulWidget {
   AdocaoHome({Key? key,
   }) : super(key: key);
@@ -26,6 +25,11 @@ class _AdocaoHomeState extends State<AdocaoHome> {
   List<String> petIcons = ['https://cdn3.iconfinder.com/data/icons/font-awesome-solid/576/dog-256.png','https://cdn1.iconfinder.com/data/icons/pets-and-animals-5/96/cat-256.png','https://cdn-icons-png.flaticon.com/512/3969/3969770.png','https://cdn1.iconfinder.com/data/icons/animals-178/400/parrot-256.png'];
   String? location = "tomás rodrigues, 1361";
   List<Map>pets=[];
+  String dropdownValue = 'Fêmea';
+  String dropdownValue2 = 'Distantes';
+  String dropdownValue3 = 'Menor idade';
+
+
 
 
   initData(){
@@ -157,35 +161,26 @@ class _AdocaoHomeState extends State<AdocaoHome> {
           ///escolher os filtros
           Container(
               height: MediaQuery.of(context).size.height/8,
-              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/20,top: 0,bottom: MediaQuery.of(context).size.height/55  ),
+              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/28,top: 0,bottom: MediaQuery.of(context).size.height/55  ),
               child:
               Row(
                 children: [
                   Container(
-
-                    width: MediaQuery.of(context).size.width/5,
+                    padding: EdgeInsets.only(top: 8,bottom: 5,left: 7,right: 3),
+                    child: Text("Filtros" , style: GoogleFonts.poppins(color: Colors.white),),
+                    width: MediaQuery.of(context).size.width/6.5,
                     height: 40,
+
 
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: Color(0xFFffb761),
+                      color: Color(0xE6FFC368),
 
 
-                    ),
-
-                    padding: EdgeInsets.only(top: 8,bottom: 5,left: 5,right: 5),
-                    child: Text(
-                      "Filtros", style: GoogleFonts.poppins(
-
-                      color: Colors.white,
-                    ), textAlign:TextAlign.center ,
-                    ),
-
-                  ),
+                    ),),
                   SizedBox(width: MediaQuery.of(context).size.width/65,),
                   Container(
-
-                    width: MediaQuery.of(context).size.width/4,
+                    width: MediaQuery.of(context).size.width/4.1,
                     height: 40,
 
                     decoration: BoxDecoration(
@@ -195,18 +190,31 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
                     ),
 
-                    padding: EdgeInsets.only(top: 8,bottom: 5,left: 5,right: 5),
-                    child: Text(
-                      "Distância", style: GoogleFonts.poppins(
-                      color: Colors.black,
-                    ), textAlign:TextAlign.center ,
-                    ),
+                    padding: EdgeInsets.only(top: 5,bottom: 5,left: 7,right: 4),
+                    child: DropdownButton<String>(
+                      value: dropdownValue2,
 
+                      elevation: 16,
+                      style: const TextStyle(color: Colors.black),
+
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownValue2 = newValue!;
+                        });
+                      },
+                      items: <String>['Distantes', 'Próximos']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+
+                        );
+                      }).toList(),
+                    ),
                   ),
                   SizedBox(width:MediaQuery.of(context).size.width/65,),
                   Container(
-
-                    width: MediaQuery.of(context).size.width/5,
+                    width: MediaQuery.of(context).size.width/3.5,
                     height: 40,
 
                     decoration: BoxDecoration(
@@ -216,20 +224,32 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
                     ),
 
-                    padding: EdgeInsets.only(top: 8,bottom: 5,left: 5,right: 5),
-                    child: Text(
-                      "Idade", style: GoogleFonts.poppins(
+                    padding: EdgeInsets.only(top: 5,bottom: 5,left: 7,right: 3),
+                    child: DropdownButton<String>(
+                      value: dropdownValue3,
 
+                      elevation: 16,
+                      style: const TextStyle(color: Colors.black),
 
-                      color: Colors.black,
-                    ), textAlign:TextAlign.center ,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownValue3 = newValue!;
+                        });
+                      },
+                      items: <String>['Menor idade', 'Maior idade']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+
+                        );
+                      }).toList(),
                     ),
-
                   ),
+
                   SizedBox(width:MediaQuery.of(context).size.width/65 ),
                   Container(
-
-                    width: MediaQuery.of(context).size.width/5,
+                    width: MediaQuery.of(context).size.width/5.1,
                     height: 40,
 
                     decoration: BoxDecoration(
@@ -239,15 +259,28 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
                     ),
 
-                    padding: EdgeInsets.only(top: 8,bottom: 5,left: 5,right: 5),
-                    child: Text(
-                      "Gênero", style: GoogleFonts.poppins(
+                    padding: EdgeInsets.only(top: 5,bottom: 5,left: 7,right: 3),
+                    child: DropdownButton<String>(
+                      value: dropdownValue,
 
-                      color: Colors.black,
-                    ), textAlign:TextAlign.center ,
+                      elevation: 16,
+                      style: const TextStyle(color: Colors.black),
+
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownValue = newValue!;
+                        });
+                      },
+                      items: <String>[ 'Fêmea', 'Macho']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+
+                        );
+                      }).toList(),
                     ),
-
-                  ),
+                  )
 
                 ],
               )
@@ -256,7 +289,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
           /// feed adocao
           Expanded(
             child: StreamBuilder<List<ModelPet>>(
-                stream: readPets(isSelected),
+                stream: readPets(isSelected,dropdownValue,dropdownValue2),
                 builder: (context, snapshot){
                   if(snapshot.hasError){
                     return Text('Something went wrong! ${snapshot.error}');

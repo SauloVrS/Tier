@@ -92,7 +92,7 @@ class PetList extends StatelessWidget {
 
                               ///addicionar funcao p favoritar no firebase
                               if (_isStarred == true) {
-                                final docUser = FirebaseFirestore.instance.collection('usuarios').doc(idUsuario).collection('favoritosPets').doc();
+                                final docUser = FirebaseFirestore.instance.collection('favoritosPets').doc();
                                 final fav = ModelFavoritosAnimais(
                                   idFav: docUser.id,
                                   idDono: pet.idUsuario,
@@ -103,7 +103,11 @@ class PetList extends StatelessWidget {
 
                               }
                               else{
-
+                                final docUser = FirebaseFirestore.instance
+                                    .collection('favoritosPets')
+                                    .doc(pet.idPet)
+                                ;
+                                docUser.delete();
                               }
                             },
                           ),
