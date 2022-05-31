@@ -46,12 +46,13 @@ class StorageMethods{
       ref.child(id);
     }
     UploadTask uploadTask = ref.putFile(file);
-    //TaskSnapshot snap = await uploadTask; //dando erro aqui
+    //TaskSnapshot snap = await uploadTask;
     //String downloadUrl = await snap.ref.getDownloadURL();
     //return downloadUrl;
     String url = 'https://i.pinimg.com/474x/ab/0a/b7/ab0ab78441f6e2d77246401aac9e7cd3.jpg';
-    uploadTask.whenComplete(() async {//erro aqui
+    await uploadTask.whenComplete(() async {
       url = await ref.getDownloadURL();
+      print("arquivo salvo");
     }).catchError((onError) {
       print(onError);
     });
