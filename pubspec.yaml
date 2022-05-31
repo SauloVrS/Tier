@@ -41,6 +41,9 @@ dependencies:
   firebase_core: ^1.16.0
   cloud_firestore: ^3.1.14
   font_awesome_flutter: ^10.1.0
+  firebase_database: ^9.0.14
+  modal_bottom_sheet: ^2.0.1
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:
