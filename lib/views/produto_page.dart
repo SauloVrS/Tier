@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:tier/firebase/loja_helper.dart';
+import 'package:tier/widgets/carrinho_widgets/carrinho_functions.dart';
+import 'package:tier/widgets/carrinho_widgets/modal_loja_diferente.dart';
 
 import '../colors.dart';
 import '../firebase/produto_helper.dart';
-import '../widgets/bottom_nav_bar.dart';
+//import '../widgets/bottom_nav_bar.dart';
 
 class ProdutoPage extends StatefulWidget {
   final Produto produto;
@@ -171,7 +174,7 @@ class _ProdutoPageState extends State<ProdutoPage> {
                 const SizedBox(
                   width: 15,
                 ),
-                Expanded(child: addProd())
+                Expanded(child: addProd(context))
               ],
             ),
           ),
@@ -242,7 +245,7 @@ class _ProdutoPageState extends State<ProdutoPage> {
     );
   }
 
-  Widget addProd() {
+  Widget addProd(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
       decoration: BoxDecoration(
@@ -252,7 +255,30 @@ class _ProdutoPageState extends State<ProdutoPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GestureDetector(
-            onTap: () {},
+            onTap: () async {
+              final aux = await verificaLoja(widget.lojaId, "André");
+              final index = await verificaProduto(widget.produto.id, "André");
+              if (index >= 0) {
+                final num valor = widget.produto.promocao ? widget.produto.novoValor : widget.produto.valor;
+                final produto = ShopProd(idProduto: widget.produto.id, idLoja: widget.lojaId, quantidade: qnt, valor: valor);
+                mudarQnt('André', index, qnt, produto.toJson());
+                Navigator.of(context).pop();
+              } else {
+                if(aux == 1){
+                  final num valor = widget.produto.promocao ? widget.produto.novoValor : widget.produto.valor;
+                  final produto = ShopProd(idProduto: widget.produto.id, idLoja: widget.lojaId, quantidade: qnt, valor: valor);
+                  addCarrinho("André", produto.toJson());
+                  Navigator.of(context).pop();
+                } else {
+                  return showMaterialModalBottomSheet(
+                      expand: false,
+                      backgroundColor: Colors.transparent,
+                      context: context,
+                      builder: (context) => ModalLojaDiferente(user: 'André', qnt: qnt, lojaId: widget.lojaId, produto: widget.produto,)
+                  );
+                }
+              }
+            },
             child: Text(
               'Adicionar',
               style: GoogleFonts.poppins(

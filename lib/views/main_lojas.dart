@@ -8,11 +8,13 @@ import 'package:tier/data/produtos.dart';
 import 'package:tier/data/promocoes.dart';
 import 'package:tier/data/servicos.dart';
 import 'package:tier/firebase/loja_helper.dart';
+import 'package:tier/views/carrinho/carrinho_inicial.dart';
 import 'package:tier/views/chat/screens/chat_home_screen.dart';
 
 // arquivos de widgets
 import 'package:tier/widgets/banners.dart';
 import 'package:tier/widgets/bottom_nav_bar.dart';
+import 'package:tier/widgets/carrinho_widgets/icon_carrinho.dart';
 import 'package:tier/widgets/lojas_list.dart';
 import 'package:tier/widgets/promocoes_list.dart';
 import 'package:tier/widgets/servicos_produtos_list.dart';
@@ -82,18 +84,21 @@ class _MainLojasState extends State<MainLojas> {
         actions: [
           IconButton(
               onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const CarrinhoPage()));
               },
               constraints: const BoxConstraints(),
-              icon: const Icon(
-                Icons.shopping_cart,
-                color: Colors.black,
-                size: 18,
-              )),
+              icon: const IconCarrinho(),
+              // const Icon(
+              //   Icons.shopping_cart,
+              //   color: Colors.black,
+              //   size: 18,
+              // )
+          ),
           IconButton(
              onPressed: 
                    () => Navigator.push(context, 
                           MaterialPageRoute(
-                            builder: (_) => HomeScreen(),
+                            builder: (_) => const HomeScreen(),
                             )
                          ),
               constraints: const BoxConstraints(),
