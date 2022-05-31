@@ -117,7 +117,7 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
                                   MaterialPageRoute(
                                     
                                      builder: (_) => ChatScreen(
-                                       user: user,
+                                        friendUid: "h6djybClDTYhhsq3aYkL",friendName: "leticia",
                                     ),
                                   )
                             ), 
