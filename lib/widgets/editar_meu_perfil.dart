@@ -1,29 +1,59 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tier/views/perfil_pages/perfil_usuario.dart';
-import 'package:tier/views/pet_page.dart';
-import 'package:tier/widgets/editar_meu_perfil.dart';
-import 'package:tier/widgets/meus_animais_list.dart';
-import '../../colors.dart';
-import '../../models/pet_model.dart';
-import '../../models/users_model.dart';
-import 'adicionar_pet.dart';
-import 'package:tier/colors.dart';
-import 'package:tier/views/perfil_pages/adicionar_pet.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:tier/views/perfil_pages/meu_perfil.dart';
 
+import '../colors.dart';
+import '../firebase/adicionar_imagens.dart';
+import '../models/pet_model.dart';
+import '../models/users_model.dart';
+import 'meus_animais_list.dart';
+class EditarPerfil extends StatefulWidget {
+  const EditarPerfil({Key? key}) : super(key: key);
 
-
-class MeuPerfil extends StatefulWidget {
-  MeuPerfil({required this.idUsuario, Key? key}) : super(key: key);
-  String idUsuario;
   @override
-  _MeuPerfilState createState() => _MeuPerfilState(idUsuario: idUsuario);
+  _EditarPerfilState createState() => _EditarPerfilState();
 }
 
-class _MeuPerfilState extends State<MeuPerfil> {
-  _MeuPerfilState({required this.idUsuario,});
-  String idUsuario;
-  //List<Map> pets = [];
+class _EditarPerfilState extends State<EditarPerfil> {
+  String idUsuario = 'yE7Al0eRAnc59JdjfrNh';
+  Uint8List? _file;
+
+  adicionarImagem(BuildContext context){
+    return showDialog(context: context, builder: (context){
+      return SimpleDialog(
+        title: const Text('Escolha uma opcão'),
+        children: [
+          SimpleDialogOption(
+            padding: const EdgeInsets.all(20),
+            child: const Text('Tirar uma foto'),
+            onPressed: () async {
+              Navigator.of(context).pop();
+              Uint8List file = await pickImage(ImageSource.camera);
+              setState(() {
+                _file = file;
+              });
+            },
+          ),
+          SimpleDialogOption(
+            padding: const EdgeInsets.all(20),
+            child: const Text('Escolher uma foto'),
+            onPressed: () async {
+              Navigator.of(context).pop();
+              Uint8List file = await pickImage(ImageSource.gallery);
+              setState(() {
+                _file = file;
+              });
+            },
+          )
+
+        ],
+      );
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +85,7 @@ class _MeuPerfilState extends State<MeuPerfil> {
                                     onPressed: (){
                                       Navigator.pushReplacement(context,
                                           MaterialPageRoute(
-                                            builder: (context) => TelaPerfilUsuario(),
+                                            builder: (context) => MeuPerfil(idUsuario: idUsuario),
                                           )
                                       );
                                     },
@@ -96,14 +126,25 @@ class _MeuPerfilState extends State<MeuPerfil> {
                               ),
                               width: 100,
                               height: 100,
-                              child: (user!.fotoUsuario == null)?
-                              CircleAvatar(
-                                backgroundColor: AppColor.background,
-                                foregroundColor: AppColor.textosPretos2,
-                                child: Icon(Icons.perm_identity),
+                              child: (user!.fotoUsuario == null && _file == null)?
+                              GestureDetector(
+                                onTap: (){
+                                  adicionarImagem(context);
+                                },
+                                child: CircleAvatar(
+                                  backgroundColor: AppColor.background,
+                                  foregroundColor: AppColor.textosPretos2,
+                                  child: Icon(Icons.perm_identity),
+                                ),
                               ):
-                              CircleAvatar(
-                                backgroundImage: NetworkImage(user.fotoUsuario!),
+                              GestureDetector(
+                                onTap: (){
+                                  adicionarImagem(context);
+                                },
+                                child: CircleAvatar(
+                                  backgroundImage: _file == null ? NetworkImage(user.fotoUsuario!): null,
+                                  child: Icon(Icons.add),
+                                ),
                               ),
                             ),
                           ],
@@ -116,16 +157,6 @@ class _MeuPerfilState extends State<MeuPerfil> {
                               Row(
                                 children: [
                                   Expanded(child: Container()),
-                                  IconButton(
-                                    onPressed: (){
-                                      Navigator.pushReplacement(context,
-                                          MaterialPageRoute(
-                                            builder: (context) => EditarPerfil(),
-                                          )
-                                      );
-                                    },
-                                    icon: Icon(Icons.mode_edit_outlined),
-                                  ),
                                 ],
                               )
                             ],
@@ -163,13 +194,7 @@ class _MeuPerfilState extends State<MeuPerfil> {
                             ),
                           ),
                           GestureDetector(
-                            onTap: (){
-                              Navigator.pushReplacement(context,
-                                  MaterialPageRoute(
-                                    builder: (context) => AdicionarPet(),
-                                  )
-                              );
-                            },
+                            onTap: (){},
                             child: Container(
                               margin: EdgeInsets.symmetric(horizontal: 40),
                               width: MediaQuery.of(context).size.width - 80,
@@ -182,7 +207,7 @@ class _MeuPerfilState extends State<MeuPerfil> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'Adicionar novo Animal',
+                                    'Salvar Alterações',
                                     style: GoogleFonts.poppins(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600,
@@ -255,39 +280,21 @@ class _MeuPerfilState extends State<MeuPerfil> {
                                           int b = a + 1;
                                           return Row(
                                             children: [
-                                              GestureDetector(
-                                                onTap: (){
-                                                  Navigator.pushReplacement(context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) => PetPage(pet: pets[a], idUsuario: idUsuario),
-                                                      )
-                                                  );
-                                                },
-                                                child: MeusAnimaisList(
-                                                    nome: pets[a].nomePet,
-                                                    imgUrl: pets[a].fotoPet,
-                                                    idade: pets[a].idadePet,
-                                                    direita: 10,
-                                                    esquerda: 15,
-                                                    idUser: idUsuario),
-                                              ),
+                                              MeusAnimaisList(
+                                                  nome: pets[a].nomePet,
+                                                  imgUrl: pets[a].fotoPet,
+                                                  idade: pets[a].idadePet,
+                                                  direita: 10,
+                                                  esquerda: 15,
+                                                  idUser: idUsuario),
                                               (b <= pets.length - 1)?
-                                              GestureDetector(
-                                                onTap: (){
-                                                  Navigator.pushReplacement(context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) => PetPage(pet: pets[b], idUsuario: idUsuario),
-                                                      )
-                                                  );
-                                                },
-                                                child: MeusAnimaisList(
+                                              MeusAnimaisList(
                                                   nome: pets[b].nomePet,
                                                   imgUrl: pets[b].fotoPet,
                                                   idade: pets[b].idadePet,
                                                   direita: 10,
                                                   esquerda: 15,
-                                                  idUser: idUsuario),
-                                              ):
+                                                  idUser: idUsuario):
                                               Container(),
                                             ],
                                           );

@@ -80,6 +80,7 @@ class FireStoreMethods{
       String petId = const Uuid().v1();
       ModelPet pet = ModelPet(
         idPet: petId,
+        idUsuario: uid,
         descricaoPet: descricaoPet,
         distanciaPet: distanciaPet,
         fotoPet: photoUrl,
@@ -90,7 +91,7 @@ class FireStoreMethods{
       );
       
       _firestore.collection('usuarios').doc(uid).collection('pets').doc(petId).set(pet.toJson());
-
+      _firestore.collection('pets').doc(petId).set(pet.toJson());
       res = 'success';
     }catch(err){
       res = err.toString();
