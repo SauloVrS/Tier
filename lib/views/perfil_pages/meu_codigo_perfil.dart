@@ -6,14 +6,14 @@ import 'package:tier/widgets/bottom_nav_bar.dart';
 import 'package:tier/views/adocao-home.dart';
 import 'package:tier/views/perfil_pages/perfil_usuario.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:share_plus/share_plus.dart';
+//import 'package:share_plus/share_plus.dart';
 
 class Meu_cupom extends StatelessWidget {
   const Meu_cupom({Key? key}) : super(key: key);
 
 
   void share(){
-    Share.share("Share text");
+    //Share.share("Share text");
   }
 
   @override
@@ -153,7 +153,7 @@ class Meu_cupom extends StatelessWidget {
                       children: [
                         ElevatedButton(
                           onPressed: (){
-                            share();
+                            //share();
                           },
                           child: Text("Share Text"),
                         ),
