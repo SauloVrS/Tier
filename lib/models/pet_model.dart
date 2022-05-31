@@ -4,6 +4,7 @@ import 'package:tier/models/users_model.dart';
 
 class ModelPet {
   String idPet;
+  String idUsuario;
   final String descricaoPet;
   final String distanciaPet;
   final String fotoPet;
@@ -14,6 +15,7 @@ class ModelPet {
 
   ModelPet({
     this.idPet = '',
+    this.idUsuario = '',
     required this.descricaoPet,
     required this.distanciaPet,
     required this.fotoPet,
@@ -25,6 +27,7 @@ class ModelPet {
 
   Map<String, dynamic> toJson() => {
         'idPet': idPet,
+        'idUsuario': idUsuario,
         'descricaoPet': descricaoPet,
         'distanciaPet': distanciaPet,
         'fotoPet': fotoPet,
@@ -36,6 +39,7 @@ class ModelPet {
 
   static ModelPet fromJson(Map<String, dynamic> json) => ModelPet(
       idPet: json['idPet'],
+      idUsuario: json['idUsuario'],
       descricaoPet: json['descricaoPet'],
       distanciaPet: json['distanciaPet'],
       fotoPet: json['fotoPet'],
@@ -44,13 +48,13 @@ class ModelPet {
       nomePet: json['nomePet'],
       typePet: json['typePet']);
 }
-
+/*
 Stream<List<String>> getIds2() => FirebaseFirestore.instance
     .collection("usuarios")
     .snapshots()
     .map((snapshot) => snapshot.docs
         .map((doc) => ModelUsers.fromJson(doc.data()).idUser)
-        .toList());
+        .toList());*/
 
 Stream<List<ModelPet>> getPets({required String idUser}) =>
     FirebaseFirestore.instance
@@ -60,12 +64,12 @@ Stream<List<ModelPet>> getPets({required String idUser}) =>
         .snapshots()
         .map((snapshot) =>
             snapshot.docs.map((doc) => ModelPet.fromJson(doc.data())).toList());
-
+/*
 Stream<List<ModelPet>> readPets() => FirebaseFirestore.instance
     .collection("usuarios")
     .snapshots()
     .map((snapshot) =>
-        snapshot.docs.map((doc) => ModelPet.fromJson(doc.data())).toList());
+        snapshot.docs.map((doc) => ModelPet.fromJson(doc.data())).toList());*/
 
 Stream<List<ModelPet>> readPetsUser(String idUsuario) =>
     FirebaseFirestore.instance

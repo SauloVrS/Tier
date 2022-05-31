@@ -2,17 +2,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';
+import 'package:tier/models/users_model.dart';
 import 'package:tier/views/chat/chatmodels/messages.dart';
 import 'package:tier/views/chat/chatmodels/user.dart';
 import 'package:tier/views/chat/screens/chat_screen.dart';
 import 'package:tier/views/pet_page.dart';
 
 import '../data/animais_fav.dart';
+import '../models/pet_model.dart';
 import '../widgets/animais_dono_list.dart';
 import '../widgets/animais_fav_list.dart';
 
 class PerfilDonoPet extends StatefulWidget {
-  const PerfilDonoPet({Key? key}) : super(key: key);
+  final ModelUsers user;
+  final String idUsuario;
+  const PerfilDonoPet({Key? key, required this.user, required this.idUsuario}) : super(key: key,);
 
   @override
   State<PerfilDonoPet> createState() => _PerfilDonoPetState();
@@ -73,15 +77,7 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
               top: 45,
               left: 20,
               right: 330,
-              child: GestureDetector(
-                onTap: () {
-                 Navigator.pushReplacement(context,
-                     MaterialPageRoute(
-                         builder: (context) => PetPage()));
-                },
-
-                child: Icon(Icons.arrow_back_ios, color: Colors.white,size: 20,),
-              )
+              child: Icon(Icons.arrow_back_ios, color: Colors.white,size: 20,)
 
           ),
           //informacoes

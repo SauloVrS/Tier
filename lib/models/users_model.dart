@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tier/models/pet_model.dart';
 
 class ModelUsers {
-  String idUser;
+  String? idUsuario;
   final String? descricaoUsuario;
   final String? fotoUsuario;
   final String? nomeUsuario;
@@ -10,7 +10,7 @@ class ModelUsers {
   final int pontos;
 
   ModelUsers({
-    this.idUser = '',
+    this.idUsuario = '',
     required this.descricaoUsuario,
     required this.fotoUsuario,
     required this.nomeUsuario,
@@ -19,7 +19,7 @@ class ModelUsers {
   });
 
   Map<String, dynamic> toJson() => {
-    'idUsuario' : idUser,
+    'idUsuario' : idUsuario,
     'descricaoUsuario' : descricaoUsuario,
     'fotoUsuario': fotoUsuario,
     'nomeUsuario' : nomeUsuario,
@@ -28,7 +28,7 @@ class ModelUsers {
   };
 
   static ModelUsers fromJson(Map<String, dynamic> json) => ModelUsers(
-      idUser: json['idUsuario'],
+      idUsuario: json['idUsuario'],
       descricaoUsuario: json['descricaoUsuario'],
       fotoUsuario: json['fotoUsuario'],
       nomeUsuario: json['nomeUsuario'],
@@ -115,4 +115,38 @@ Future favoritarAnimal({
   );
   final json = fav.toJason();
   await docUser.set(json);
+}
+
+Stream<List<ModelPet>> readPets(isSelected) {
+
+  String typePet = "Cachorro";
+  if(isSelected[0] == true){
+    typePet = "Cachorro";
+  }else if(isSelected[1] == true){
+    typePet = "Gato";
+  }
+  else if(isSelected[2] == true){
+    typePet = "Rato";
+  }
+  else{
+    typePet = "Passaro";
+  }
+
+  return FirebaseFirestore.instance
+      .collection("pets")
+      .where("typePet", isEqualTo: typePet)
+      .snapshots()
+      .map((snapshot) =>
+      snapshot.docs.map((doc) => ModelPet.fromJson(doc.data())).toList());
+
+}
+
+Stream<List<ModelPet>> readPets2() {
+
+  return FirebaseFirestore.instance
+      .collection("pets")
+      .snapshots()
+      .map((snapshot) =>
+      snapshot.docs.map((doc) => ModelPet.fromJson(doc.data())).toList());
+
 }
