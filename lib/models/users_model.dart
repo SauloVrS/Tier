@@ -94,8 +94,8 @@ Stream<List<ModelFavoritosAnimais>> readFavoritosAnimais(String id) => FirebaseF
     .map((snapshot) =>
     snapshot.docs.map((doc) => ModelFavoritosAnimais.fromJson(doc.data())).toList());
 //ler pet especifico
-Future<ModelPet?> readPet(String idDono, String idPet) async{
-  final docUser = FirebaseFirestore.instance.collection('usuarios').doc(idDono).collection('pets').doc(idPet);
+Future<ModelPet?> readPet(String idPet) async{
+  final docUser = FirebaseFirestore.instance.collection('pets').doc(idPet);
   final snapshot = await docUser.get();
   if (snapshot.exists){
     return ModelPet.fromJson(snapshot.data()!);

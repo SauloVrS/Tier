@@ -228,7 +228,7 @@ class _FavAnimaisState extends State<FavAnimais> {
                           return Row(
                             children: [
                               FutureBuilder<ModelPet?>(
-                                future: readPet(favoritas[a].idDono, favoritas[a].idPet),
+                                future: readPet(favoritas[a].idPet),
                                 builder: (context, snapshot) {
                                   if (snapshot.hasError){
                                     return Text('Something went wrong! ${snapshot.error}');
@@ -250,7 +250,7 @@ class _FavAnimaisState extends State<FavAnimais> {
                               ),
                               (b <= favoritas.length - 1)?
                               FutureBuilder<ModelPet?>(
-                                future: readPet(favoritas[b].idDono, favoritas[b].idPet),
+                                future: readPet(favoritas[b].idPet),
                                 builder: (context, snapshot) {
                                   if (snapshot.hasError){
                                     return Text('Something went wrong! ${snapshot.error}');

@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:tier/views/perfil_pages/meu_perfil.dart';
 
 import '../colors.dart';
@@ -20,6 +21,8 @@ class EditarPerfil extends StatefulWidget {
 class _EditarPerfilState extends State<EditarPerfil> {
   String idUsuario = 'yE7Al0eRAnc59JdjfrNh';
   Uint8List? _file;
+  TextEditingController controllername = TextEditingController();
+  TextEditingController controllerdescricao = TextEditingController();
 
   adicionarImagem(BuildContext context){
     return showDialog(context: context, builder: (context){
@@ -165,12 +168,35 @@ class _EditarPerfilState extends State<EditarPerfil> {
                       ],
                     ),
                   ),
-                  Text(
-                    user.nomeUsuario!,
-                    style: GoogleFonts.poppins(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: AppColor.textosPretos2,
+                  Container(
+                    width: MediaQuery.of(context).size.width/2 + 30,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: AppColor.cinzaBranco,
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width/2,
+                          child: TextField(
+                            controller: controllername,
+                            textAlign: TextAlign.center,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: user.nomeUsuario,
+                              hintStyle: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: AppColor.textosPretos2,
+                              )
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 20,
+                          child: Icon(Icons.edit),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 10,),
@@ -186,10 +212,18 @@ class _EditarPerfilState extends State<EditarPerfil> {
                           Container(
                             margin: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
                             height: 80,
-                            child: Text(
-                              user.descricaoUsuario!,
-                              style: GoogleFonts.poppins(
-                                fontSize: 16,
+                            decoration: BoxDecoration(
+                              color: AppColor.cinzaBranco.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: TextField(
+                              controller: controllerdescricao,
+                              textAlign: TextAlign.center,
+                              maxLength: 100,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: user.descricaoUsuario,
+
                               ),
                             ),
                           ),
@@ -274,6 +308,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                                     );
                                   } else {
                                     return ListView.builder(
+                                      physics: NeverScrollableScrollPhysics(),
                                         itemCount: (pets.length%2 == 0)? (pets.length)~/2: (pets.length)~/2 + 1,
                                         itemBuilder: (context, index) {
                                           int a = 2 * index;

@@ -17,7 +17,6 @@ class PetList extends StatelessWidget {
   }) : super(key: key);
 
 
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -29,7 +28,7 @@ class PetList extends StatelessWidget {
             children: [
               Container(
                   width: MediaQuery.of(context).size.width / 1.15,
-                  height: MediaQuery.of(context).size.height / 5,
+                  height: MediaQuery.of(context).size.height / 4.2,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(30),
@@ -41,7 +40,7 @@ class PetList extends StatelessWidget {
                 padding:
                 EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 0),
                 width: MediaQuery.of(context).size.width / 1.15,
-                height: MediaQuery.of(context).size.height / 7.8,
+                height: MediaQuery.of(context).size.height / 6.7,
                 decoration: BoxDecoration(
                   color: Color(0xffe5e5e5).withOpacity(0.7),
                   borderRadius: BorderRadius.only(
@@ -86,13 +85,14 @@ class PetList extends StatelessWidget {
                             borderRadius: BorderRadius.circular(30),
                           ),
                           child: StarButton(
+
                             //isStarred: false,
                             // iconDisabledColor: Colors.white,
                             valueChanged: (_isStarred) {
 
                               ///addicionar funcao p favoritar no firebase
                               if (_isStarred == true) {
-                                final docUser = FirebaseFirestore.instance.collection('favoritosPets').doc();
+                                final docUser = FirebaseFirestore.instance.collection('usuarios').doc('yE7Al0eRAnc59JdjfrNh').collection('favoritosPets').doc();
                                 final fav = ModelFavoritosAnimais(
                                   idFav: docUser.id,
                                   idDono: pet.idUsuario,

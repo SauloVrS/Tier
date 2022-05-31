@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tier/colors.dart';
 import 'package:tier/models/users_model.dart';
 import 'package:tier/views/perfil_dono_pet.dart';
 import '../widgets/pet_list.dart';
@@ -79,7 +80,7 @@ class _PetPageState extends State<PetPage> {
                 padding: EdgeInsets.only(left: 18, right: 18, top: 18,),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
-                  color: Color(0xEFECECD5),
+                  color: Color(0xffe5e5e3),
                 ),
                 child: Column(
                   children: [
