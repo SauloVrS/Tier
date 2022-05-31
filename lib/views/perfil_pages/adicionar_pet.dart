@@ -1,36 +1,108 @@
-//import 'package:flutter/cupertino.dart';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:image_picker/image_picker.dart';
 import 'package:tier/models/users_model.dart';
-
 import '../../colors.dart';
+import '../../firebase/adicionar_imagens.dart';
 import 'meu_perfil.dart';
-import 'perfil_usuario.dart';
 import 'package:tier/views/perfil_pages/meu_perfil.dart';
-import 'package:tier/views/perfil_pages/perfil_usuario.dart';
-
 import 'package:tier/colors.dart';
-import 'package:tier/widgets/bottom_nav_bar.dart';
-
 
 
 class AdicionarPet extends StatefulWidget {
-  AdicionarPet({required this.idUsuario, Key? key}) : super(key: key);
-  String idUsuario;
+  const AdicionarPet({Key? key}) : super(key: key);
+
   @override
-  _AdicionarPetState createState() => _AdicionarPetState(idUsuario: idUsuario);
+  _AdicionarPetState createState() => _AdicionarPetState();
 }
 
 class _AdicionarPetState extends State<AdicionarPet> {
-  _AdicionarPetState({required this.idUsuario,});
-  String idUsuario;
-  String tipo = 'Tipo';
-  String genero = 'Gênero';
-  String porte = 'Porte';
+  String idUsuario = 'yE7Al0eRAnc59JdjfrNh';
+  String? tipo;
+  String? genero;
+  String? porte;
   final controllerIdade = TextEditingController();
   final controllerName = TextEditingController();
   final controllerDescricao = TextEditingController();
+  bool nomePreenchido = false;
+  bool idadePreenchido = false;
+  bool descricaoPreenchido = false;
+  Uint8List? _file;
+
+  void salvarAnimal(
+      String uid,
+      String distancia,
+      ) async {
+    try{
+      String res = await FireStoreMethods().adicionarPet(
+          _file!,
+          uid,
+          controllerDescricao.text,
+          distancia,
+          genero!,
+          controllerIdade.text,
+          controllerName.text,
+          tipo!,
+      );
+      if (res == 'success'){
+        showSnackBar('Animal adicionado!', context);
+      }else{
+        showSnackBar(res, context);
+      }
+    } catch (e){
+      showSnackBar(e.toString(), context);
+    }
+  }
+
+  adicionarImagem(BuildContext context){
+    return showDialog(context: context, builder: (context){
+      return SimpleDialog(
+        title: const Text('Escolha uma opcão'),
+        children: [
+          SimpleDialogOption(
+            padding: const EdgeInsets.all(20),
+            child: const Text('Tirar uma foto'),
+            onPressed: () async {
+              Navigator.of(context).pop();
+              Uint8List file = await pickImage(ImageSource.camera);
+              setState(() {
+                _file = file;
+              });
+            },
+          ),
+          SimpleDialogOption(
+            padding: const EdgeInsets.all(20),
+            child: const Text('Escolher uma foto'),
+            onPressed: () async {
+              Navigator.of(context).pop();
+              Uint8List file = await pickImage(ImageSource.gallery);
+              setState(() {
+                _file = file;
+              });
+            },
+          )
+
+        ],
+      );
+    });
+  }
+  String? erroSelecao(String? tipo, String? genero, String? porte){
+    if (tipo == null || genero == null || porte == null){
+      return 'Preencha todos os campos';
+    }else{
+      return null;
+    }
+  }
+
+  @override
+  void dispose(){
+    super.dispose();
+    controllerName.dispose();
+    controllerIdade.dispose();
+    controllerDescricao.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,50 +114,52 @@ class _AdicionarPetState extends State<AdicionarPet> {
             children: [
               GestureDetector(
                 onTap: (){
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(
-                        builder: (context) => TelaPerfilUsuario(),
-                      )
-                  );
+                  adicionarImagem(context);
                 },
                 child: Container(
-                  height: 250,
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: (){
-                              Navigator.pushReplacement(context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MeuPerfil(idUsuario: idUsuario,),
-                                  )
-                              );
-                            },
-                            icon: Icon(
-                              Icons.arrow_back_ios_outlined,
-                              size: 20,
+                        height: 250,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          image: _file == null? null: DecorationImage(
+                            image: MemoryImage(_file!),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                IconButton(
+                                  onPressed: (){
+                                    Navigator.pushReplacement(context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MeuPerfil(idUsuario: idUsuario,),
+                                        )
+                                    );
+                                  },
+                                  icon: Icon(
+                                    Icons.arrow_back_ios_outlined,
+                                    size: 20,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
+                            Container(
+                              height: 75,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.add_outlined,
+                                  size: 30,
+                                ),
+                              ],
+                            ),
+                            Expanded(child: Container()),
+                          ],
+                        ),
                       ),
-                      Container(
-                        height: 75,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.add_outlined,
-                            size: 30,
-                          ),
-                        ],
-                      ),
-                      Expanded(child: Container()),
-                    ],
-                  ),
-                ),
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
@@ -108,6 +182,7 @@ class _AdicionarPetState extends State<AdicionarPet> {
                           decoration: InputDecoration(
                             hintText: 'Adicionar nome',
                             border: InputBorder.none,
+                            errorText: nomePreenchido ? 'Preencha todos os campos': null,
                           ),
                         ),
                       ),
@@ -125,12 +200,13 @@ class _AdicionarPetState extends State<AdicionarPet> {
                               itemHeight: 50,
                               underline: Container(),
                               value: tipo,
+                              hint: Text('Tipo'),
                               isExpanded: true,
                               icon: const Icon(Icons.keyboard_arrow_down_outlined),
                               style: GoogleFonts.poppins(
                                 color: AppColor.textosPretos2,
                               ),
-                              items: <String>['Tipo', 'Gatos', 'Cachorros', 'Passaros', 'Roedores']
+                              items: <String>['Gatos', 'Cachorros', 'Passaros', 'Roedores']
                                   .map<DropdownMenuItem<String>>((String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
@@ -157,11 +233,12 @@ class _AdicionarPetState extends State<AdicionarPet> {
                               underline: Container(),
                               value: genero,
                               isExpanded: true,
+                              hint: Text('Gênero'),
                               icon: const Icon(Icons.keyboard_arrow_down_outlined),
                               style: GoogleFonts.poppins(
                                 color: AppColor.textosPretos2,
                               ),
-                              items: <String>['Gênero', 'Macho', 'Fêmea']
+                              items: <String>['Macho', 'Fêmea']
                                   .map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
@@ -192,6 +269,7 @@ class _AdicionarPetState extends State<AdicionarPet> {
                               decoration: InputDecoration(
                                 hintText: 'Idade',
                                 border: InputBorder.none,
+                                errorText: idadePreenchido ? 'Preencha todos os campos': null,
                               ),
                             ),
                           ),
@@ -208,11 +286,12 @@ class _AdicionarPetState extends State<AdicionarPet> {
                               underline: Container(),
                               value: porte,
                               isExpanded: true,
+                              hint: Text('Porte'),
                               icon: const Icon(Icons.keyboard_arrow_down_outlined),
                               style: GoogleFonts.poppins(
                                 color: AppColor.textosPretos2,
                               ),
-                              items: <String>['Porte', 'Pequeno', 'Medio', 'Grande']
+                              items: <String>['Pequeno', 'Medio', 'Grande']
                                   .map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
@@ -238,10 +317,11 @@ class _AdicionarPetState extends State<AdicionarPet> {
                         child: TextField(
                           controller: controllerDescricao,
                           maxLines: 3,
-                          maxLength: 100,
+                          maxLength: 120,
                           decoration: InputDecoration(
                             hintText: 'Adicionar descrição',
                             border: InputBorder.none,
+                            errorText: descricaoPreenchido ? 'Preencha todos os campos': null,
                           ),
                         ),
                       ),
@@ -255,7 +335,6 @@ class _AdicionarPetState extends State<AdicionarPet> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(color: AppColor.cinzaBranco),
-                            //color: AppColor.cinzaBranco,
                           ),
                           child: FutureBuilder<ModelUsers?>(
                            future: readUser(idUsuario),
@@ -269,7 +348,7 @@ class _AdicionarPetState extends State<AdicionarPet> {
                                  children: [
                                    Column(
                                      children: [
-                                       Container(
+                                       SizedBox(
                                          width: MediaQuery.of(context).size.width - 75,
                                          child: Row(
                                            mainAxisAlignment: MainAxisAlignment.start,
@@ -291,7 +370,7 @@ class _AdicionarPetState extends State<AdicionarPet> {
                                          ),
                                        ),
                                        const SizedBox(height: 50,),
-                                       Container(
+                                       SizedBox(
                                          width: MediaQuery.of(context).size.width - 75,
                                          child: Row(
                                            mainAxisAlignment: MainAxisAlignment.start,
@@ -338,6 +417,23 @@ class _AdicionarPetState extends State<AdicionarPet> {
                       const SizedBox(height: 15,),
                       GestureDetector(
                         onTap: (){
+                          if(erroSelecao(tipo, genero, porte) != null
+                              || controllerName.text.isEmpty
+                              || controllerDescricao.text.isEmpty
+                              || controllerIdade.text.isEmpty
+                              || _file == null){
+                            setState(() {
+                              controllerName.text.isEmpty ? nomePreenchido = true : nomePreenchido = false;
+                              controllerDescricao.text.isEmpty ? descricaoPreenchido = true : descricaoPreenchido = false;
+                              controllerIdade.text.isEmpty ? idadePreenchido = true : idadePreenchido = false;
+                            });
+                            if (erroSelecao(tipo, genero, porte) != null || _file == null) {
+                              final snackBar = SnackBar(content:  Text('Preencha todos os campos'));
+                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            }
+                          }else{
+                            salvarAnimal(idUsuario, '1km');
+                          }
                           //checar campos e adicionar no firebase
                         },
                         child: Container(
