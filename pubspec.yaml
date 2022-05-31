@@ -51,6 +51,8 @@ dependencies:
   mobx: ^2.0.6+1
   flutter_mobx: ^2.0.4
   intl: ^0.17.0
+  share_plus: ^4.0.5
+  flutter_phone_direct_caller: ^2.1.1
 
 dev_dependencies:
   flutter_test:
