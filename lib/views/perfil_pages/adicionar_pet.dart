@@ -206,7 +206,7 @@ class _AdicionarPetState extends State<AdicionarPet> {
                               style: GoogleFonts.poppins(
                                 color: AppColor.textosPretos2,
                               ),
-                              items: <String>['Gatos', 'Cachorros', 'Passaros', 'Roedores']
+                              items: <String>['Gato', 'Cachorro', 'Passaro', 'Rato']
                                   .map<DropdownMenuItem<String>>((String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
@@ -432,7 +432,7 @@ class _AdicionarPetState extends State<AdicionarPet> {
                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
                             }
                           }else{
-                            salvarAnimal(idUsuario, '1km');
+                            salvarAnimal(idUsuario, '1 km');
                           }
                           //checar campos e adicionar no firebase
                         },

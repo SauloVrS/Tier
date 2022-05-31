@@ -158,12 +158,14 @@ class _AdocaoHomeState extends State<AdocaoHome> {
             ),
           ),
 
+          SizedBox(height: MediaQuery.of(context).size.height/30),
           ///escolher os filtros
           Container(
-              height: MediaQuery.of(context).size.height/8,
-              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/28,top: 0,bottom: MediaQuery.of(context).size.height/55  ),
+              height: MediaQuery.of(context).size.height/13,
+              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/20,right: MediaQuery.of(context).size.width/28 ,top: 0,bottom: MediaQuery.of(context).size.height/55  ),
               child:
-              Row(
+              ListView(
+                scrollDirection: Axis.horizontal,
                 children: [
                   Container(
                     padding: EdgeInsets.only(top: 8,bottom: 5,left: 7,right: 3),
@@ -178,9 +180,10 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
 
                     ),),
-                  SizedBox(width: MediaQuery.of(context).size.width/65,),
+                  SizedBox(width: MediaQuery.of(context).size.width/45),
+
                   Container(
-                    width: MediaQuery.of(context).size.width/4.1,
+                    width: MediaQuery.of(context).size.width/3.6,
                     height: 40,
 
                     decoration: BoxDecoration(
@@ -190,7 +193,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
                     ),
 
-                    padding: EdgeInsets.only(top: 5,bottom: 5,left: 7,right: 4),
+                    padding: EdgeInsets.only(top: 5,bottom: 5,left: 12,right: 4),
                     child: DropdownButton<String>(
                       value: dropdownValue2,
 
@@ -212,9 +215,9 @@ class _AdocaoHomeState extends State<AdocaoHome> {
                       }).toList(),
                     ),
                   ),
-                  SizedBox(width:MediaQuery.of(context).size.width/65,),
+                  SizedBox(width: MediaQuery.of(context).size.width/45),
                   Container(
-                    width: MediaQuery.of(context).size.width/3.5,
+                    width: MediaQuery.of(context).size.width/3.1,
                     height: 40,
 
                     decoration: BoxDecoration(
@@ -224,7 +227,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
                     ),
 
-                    padding: EdgeInsets.only(top: 5,bottom: 5,left: 7,right: 3),
+                    padding: EdgeInsets.only(top: 5,bottom: 5,left: 10,right: 3),
                     child: DropdownButton<String>(
                       value: dropdownValue3,
 
@@ -246,10 +249,10 @@ class _AdocaoHomeState extends State<AdocaoHome> {
                       }).toList(),
                     ),
                   ),
+                  SizedBox(width: MediaQuery.of(context).size.width/45),
 
-                  SizedBox(width:MediaQuery.of(context).size.width/65 ),
                   Container(
-                    width: MediaQuery.of(context).size.width/5.1,
+                    width: MediaQuery.of(context).size.width/4.5,
                     height: 40,
 
                     decoration: BoxDecoration(
@@ -259,7 +262,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
                     ),
 
-                    padding: EdgeInsets.only(top: 5,bottom: 5,left: 7,right: 3),
+                    padding: EdgeInsets.only(top: 5,bottom: 5,left: 10,right: 3),
                     child: DropdownButton<String>(
                       value: dropdownValue,
 
