@@ -39,7 +39,7 @@ Widget carrinhoVazio(BuildContext context) {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const FavLojas()), (route) => false);
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const FavLojas2()), (route) => false);
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),

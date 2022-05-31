@@ -82,7 +82,7 @@ class _FavAnimaisState extends State<FavAnimais> {
                         onTap: (){
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(
-                                builder: (context) => const FavLojas(),
+                                builder: (context) => const FavLojas2(),
                               )
                           );
                         },//width: MediaQuery.of(context).size.width/2
