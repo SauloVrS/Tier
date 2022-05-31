@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import '../widgets/bottom_nav_bar.dart';
 
 class BuscaItens extends StatefulWidget {
-  //final String resultPesquisa;
-  const BuscaItens({Key? key}) : super(key: key);
+  final String text;
+  const BuscaItens({Key? key, required this.text}) : super(key: key);
 
   @override
   State<BuscaItens> createState() => _BuscaItensState();
@@ -52,10 +52,10 @@ class _BuscaItensState extends State<BuscaItens> {
               ],
             ),
           ),
-          body: const TabBarView(
+          body: TabBarView(
             children: [
-              ListaLojas(),
-              ListaItens(),
+              ListaLojas(text: widget.text,),
+              ListaItens(text: widget.text,),
             ],
           ),
           bottomNavigationBar: const BottomNavBar(pagina: 'search'),

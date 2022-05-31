@@ -10,7 +10,8 @@ class BuscaWidget extends StatefulWidget {
 }
 
 class _BuscaWidgetState extends State<BuscaWidget> {
-  String texto = '';
+  //String texto = '';
+  final searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -22,12 +23,15 @@ class _BuscaWidgetState extends State<BuscaWidget> {
             color: const Color(0xFFFFFFFF),
           ),
           child: TextField(
+            controller: searchController,
             textInputAction: TextInputAction.go,
-            onSubmitted: (texto) {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const BuscaItens()));
+            onSubmitted: (text) {
+              if(searchController.text.isNotEmpty){
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => BuscaItens(text: searchController.text,)));
+              }
             },
             cursorColor: Color(0xFFFFD595),
             decoration: InputDecoration(
@@ -36,11 +40,21 @@ class _BuscaWidgetState extends State<BuscaWidget> {
               icon: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 18),
-                    child: Icon(
-                      Icons.search,
-                      color: Color(0xFFFFD595),
+                  GestureDetector(
+                    onTap: () {
+                      if(searchController.text.isNotEmpty){
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                           builder: (context) => BuscaItens(text: searchController.text,)));
+                      }
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 18),
+                      child: Icon(
+                        Icons.search,
+                        color: Color(0xFFFFD595),
+                      ),
                     ),
                   ),
                   Container(
