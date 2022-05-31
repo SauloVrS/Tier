@@ -67,7 +67,7 @@ class BottomNavBar extends StatelessWidget {
             onPressed: () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(
-                    builder: (context) => const FavLojas(),
+                    builder: (context) => const FavLojas2(),
                   )
               );
             },

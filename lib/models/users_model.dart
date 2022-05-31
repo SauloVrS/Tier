@@ -48,7 +48,7 @@ class ModelFavoritosLojas {
     'idLoja': idLoja,
   };
   static ModelFavoritosLojas fromJson(Map<String, dynamic> json) => ModelFavoritosLojas(
-    idFav: json['idDono'],
+    idFav: json['idFav'],
     idLoja: json['idLoja'],
   );
 }
