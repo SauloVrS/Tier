@@ -127,7 +127,13 @@ class _PetPageState extends State<PetPage> {
                     .size
                     .width / 15,),
                 Container(
-                  padding: EdgeInsets.only(left: 8, right: 8, bottom: 20),
+                  padding: EdgeInsets.only(left: MediaQuery
+                      .of(context)
+                      .size
+                      .width / 30, right: MediaQuery
+                      .of(context)
+                      .size
+                      .width / 30, bottom: 20),
                   child: Row(
                     children: [
                       Container(
@@ -265,169 +271,18 @@ class _PetPageState extends State<PetPage> {
 
                 ///informacoes do dono
 
+                  streamInfoDono(id: widget.pet.idUsuario),
 
 
 
-            /*
-                    StreamBuilder<List<ModelPet>>(
-                      stream: readPets2(),
-                      builder: (context,snapshot){
-
-                        if(snapshot.hasError){
-                          return Text("Something went wrong 1 ");
-                        }
-                        else if(snapshot.hasData){
-                          final pets = snapshot.data!;
-
-                          return ListView.builder(
-                            itemBuilder: (BuildContext context, int index) {
-                              int a = index;
-                            return FutureBuilder<ModelUsers?>(
-                              future: readUser(pets[a].idUsuario),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasError){
-                                  return Text('Something went wrong! ${snapshot.error}');
-                                } else if (snapshot.hasData){
-                                  final users = snapshot.data;
-                                  return infoDono(users!, users.idUsuario!, context) ;
-                                } else{
-                                  return const Center(child: CircularProgressIndicator(),);
-                                }
-                              },
-                            ); },
-                          );
-                        }
-                        else{
-                          return Center(child: CircularProgressIndicator(),);
-                        }
-                      },
-
-                    ),*/
-            Padding(
-            padding: EdgeInsets.only(top: MediaQuery
-            .of(context)
-            .size
-            .width / 40,
-        bottom: MediaQuery
-            .of(context)
-            .size
-            .width / 40,
-        left: MediaQuery
-            .of(context)
-            .size
-            .width / 40,
-        right: MediaQuery
-            .of(context)
-            .size
-            .width / 40),
-    child: Row(
-    children: [
-    Container(
-    width: MediaQuery
-        .of(context)
-        .size
-        .width / 6,
-    padding: EdgeInsets.only(left: MediaQuery
-        .of(context)
-        .size
-        .width / 50, right: MediaQuery
-        .of(context)
-        .size
-        .width / 35, bottom: MediaQuery
-        .of(context)
-        .size
-        .width / 15, top: MediaQuery
-        .of(context)
-        .size
-        .width / 15),
-    decoration: BoxDecoration(
-    color: Colors.white,
-    borderRadius: BorderRadius.circular(100),
-    image: DecorationImage(
-    fit: BoxFit.cover,
-    image: NetworkImage(
-    'https://th.bing.com/th/id/OIP.ri6Xe7lAc79oh4m-5mNs-gHaEK?pid=ImgDet&rs=1'
-    )
-    )
-    ),
-    ),
-    SizedBox(width: MediaQuery
-        .of(context)
-        .size
-        .width / 35,),
-    Column(
-    children: [
-    Text("Vitor Rangel",
-    style: GoogleFonts.poppins(fontSize: MediaQuery
-        .of(context)
-        .size
-        .width / 20, fontWeight: FontWeight.w600),),
-    Text("Doador",
-    style: GoogleFonts.poppins(fontSize: MediaQuery
-        .of(context)
-        .size
-        .width / 33, fontWeight: FontWeight.w400),),
-
-    ],
-    ),
-    SizedBox(width: MediaQuery
-        .of(context)
-        .size
-        .width / 10,),
-    Container(
-    padding: EdgeInsets.only(
-    top: 10, bottom: 10, right: 10, left: 10),
-    decoration: BoxDecoration(
-    color: Color(0xFFc4c4c4),
-    borderRadius: BorderRadius.circular(10)
-    ),
-    child: Text("Ver perfil", style: GoogleFonts
-        .poppins(fontSize: MediaQuery
-        .of(context)
-        .size
-        .width / 30, fontWeight: FontWeight.w500),),
-    )
-    ],
-    ),
-    ),
-    SizedBox(height: 8,),
-    //descricao do dono
-    Padding(
-    padding: const EdgeInsets.only(
-    left: 11, right: 11, top: 11, bottom: 0),
-    child: Text("Tive muitos filhotes e só posso cuidar de 1",
-    style: GoogleFonts.poppins(fontSize: MediaQuery
-        .of(context)
-        .size
-        .width / 25),),
-    ),
-    Padding(
-    padding: const EdgeInsets.all(11.0),
-    child: Row(
-    children: [
-    Text(widget.pet.descricaoPet,
-    style: GoogleFonts.poppins(fontSize: MediaQuery
-        .of(context)
-        .size
-        .width / 25)),
-
-    SizedBox(width: 10,),
-    /*Text("Mostrar mais",
-                              style: GoogleFonts.poppins(color: Colors
-                                  .orangeAccent, fontSize: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width / 46),),*/
-    ],
-
-    )
-    ),
 
 
-    SizedBox(height: MediaQuery
-        .of(context)
-        .size
-        .height / 16,),
+
+
+
+
+
+
     //botao de adotar
     Container(
     padding: EdgeInsets.only(
@@ -454,6 +309,27 @@ class _PetPageState extends State<PetPage> {
   }
 
 
+  Widget streamInfoDono({required String id}) {
+    return FutureBuilder<ModelUsers?>(
+      future: readUser(id),
+      builder: (context, snapshot) {
+        if (snapshot.hasError){
+          return Text('Something went wrong! ${snapshot.error}');
+        } else if (snapshot.hasData){
+          final users = snapshot.data;
+          return infoDono(users!, users.idUsuario!, context) ;
+        } else{
+
+          return const Center(child: CircularProgressIndicator(),);
+        }
+      },
+    );
+  }
+
+
+
+
+
 
   Widget infoDono(ModelUsers user, String id, BuildContext context) {
     return Container(
@@ -476,6 +352,10 @@ class _PetPageState extends State<PetPage> {
             child: Row(
               children: [
                 Container(
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height / 13,
                   width: MediaQuery
                       .of(context)
                       .size
@@ -483,19 +363,19 @@ class _PetPageState extends State<PetPage> {
                   padding: EdgeInsets.only(left: MediaQuery
                       .of(context)
                       .size
-                      .width / 50, right: MediaQuery
+                      .width / 60, right: MediaQuery
                       .of(context)
                       .size
-                      .width / 35, bottom: MediaQuery
+                      .width / 25, bottom: MediaQuery
                       .of(context)
                       .size
-                      .width / 15, top: MediaQuery
+                      .width / 25, top: MediaQuery
                       .of(context)
                       .size
                       .width / 15),
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(100),
+                      borderRadius: BorderRadius.circular(300),
                       image: DecorationImage(
                           fit: BoxFit.cover,
                           image: NetworkImage(
@@ -531,7 +411,7 @@ class _PetPageState extends State<PetPage> {
                   onTap: () =>
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) =>
-                              PerfilDonoPet(idUsuario: id, user: user,))),
+                              PerfilDonoPet(idUsuario: user.idUsuario!, user: user,))),
                   child: Container(
                     padding: EdgeInsets.only(
                         top: 10, bottom: 10, right: 10, left: 10),

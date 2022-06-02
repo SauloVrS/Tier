@@ -296,7 +296,7 @@ Widget streamProdByType({required String id, required String type}) {
         }
       });
 }
-////// fzr isso
+
 Widget prodList(Produto produto, String id, BuildContext context) {
   return GestureDetector(
     onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ProdutoPage(produto: produto, lojaId: id,))),
