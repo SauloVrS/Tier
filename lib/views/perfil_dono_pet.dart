@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';
 import 'package:tier/models/users_model.dart';
+import 'package:tier/views/adocao-home.dart';
 import 'package:tier/views/chat/chatmodels/messages.dart';
 import 'package:tier/views/chat/chatmodels/user.dart';
 import 'package:tier/views/chat/screens/chat_screen.dart';
@@ -61,12 +62,12 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
                           borderRadius: BorderRadius.circular(100),
                           image: DecorationImage(
                             fit: BoxFit.cover,
-                            image: NetworkImage('https://th.bing.com/th/id/OIP.ri6Xe7lAc79oh4m-5mNs-gHaEK?pid=ImgDet&rs=1')
+                            image: NetworkImage(widget.user.fotoUsuario!)
                           )
                         ),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height/80),
-                      Text("Victor Rangel",style: GoogleFonts.poppins(fontSize:MediaQuery.of(context).size.width/22, fontWeight: FontWeight.w500  ),)
+                      Text(widget.user.nomeUsuario!,style: GoogleFonts.poppins(fontSize:MediaQuery.of(context).size.width/22, fontWeight: FontWeight.w500  ),)
                     ],
                   ),
                 ),
@@ -77,7 +78,15 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
               top: 45,
               left: 20,
               right: 330,
-              child: Icon(Icons.arrow_back_ios, color: Colors.white,size: 20,)
+              child: GestureDetector(
+                onTap: () =>
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) =>
+                            AdocaoHome())),
+                child: Container(
+
+                    child: Icon(Icons.arrow_back_ios, color: Colors.white,size: 20,)),
+              )
 
           ),
           //informacoes
@@ -95,7 +104,7 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
                ),
                child: Column(
                  children: [
-                   Text("Sou uma pessoa que legal que luta pela causa animal e blablabla",style: GoogleFonts.poppins(),),
+                   Text(widget.user.descricaoUsuario!,style: GoogleFonts.poppins(),),
                    SizedBox( height: MediaQuery.of(context).size.height/30),
                    Container(
                      width: MediaQuery.of(context).size.width/1.32,
@@ -131,37 +140,57 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
                    SizedBox( height: MediaQuery.of(context).size.height/30),
                    Text("Animais para adoção",textAlign: TextAlign.left,style: GoogleFonts.poppins(fontSize: 18,color: AppColor.textosPretos3)),
 
+
+
                    Expanded(
-                     child: ListView.builder(
-                       itemCount: (favoritas.length%2 == 0)? (favoritas.length)~/2: (favoritas.length)~/2 + 1,
-                       itemBuilder: (context, index){
-                         int a = 2 * index;
-                         int b = a + 1;
-                         return Row(
-                           children: [
-                             AnimaisDonoList(
-                                 nome: favoritas[a]['nome_pet'],
-                                 imgUrl: favoritas[a]['foto_pet'],
-                                 idade: favoritas[a]['idade'],
-                                 direita: 0,
-                                 esquerda: 0),
-                             (b <= favoritas.length - 1)?
-                             AnimaisDonoList(
-                                 nome: favoritas[b]['nome_pet'],
-                                 imgUrl: favoritas[b]['foto_pet'],
-                                 idade: favoritas[b]['idade'],
-                                 direita: 0,
-                                 esquerda: 0):
-                             Container(),
-                           ],
-                         );
-                       },
-                     ),
+                       child: StreamBuilder<List<ModelPet>>(
+                         stream: readPetsDono('yE7Al0eRAnc59JdjfrNh'),
+                         builder: (context, snapshot){
+                           if (snapshot.hasError){
+                             return Text('Something went wrong 1! ${snapshot.error}');
+                           }
+                           else if (snapshot.hasData){
+                             final petsDono = snapshot.data;
+                             if (petsDono!.isEmpty) {
+                               return Center();
+                             } else {
+                               return ListView.builder(
+                                   itemCount: (petsDono.length%2 == 0)? ((petsDono.length)/2).toInt(): ((petsDono.length)/2).toInt() + 1,
+                                   itemBuilder: (context, index) {
+                                     int a = 2 * index;
+                                     int b = a + 1;
+                                     return Row(
+                                       children: [
+                                         AnimaisDonoList(
+                                                   nome: petsDono[a].nomePet,
+                                                   imgUrl: petsDono[a].fotoPet,
+                                                   idade: petsDono[a].idadePet,
+                                                   direita: 0,
+                                                   esquerda: 0,
+                                                   idUser: widget.user.idUsuario!,
+
+                                               ),
+                                         (b <= petsDono.length - 1)?
+                                          AnimaisDonoList(
+                                                 nome: petsDono[b].nomePet,
+                                                 imgUrl: petsDono[b].fotoPet,
+                                                 idade: petsDono[b].idadePet,
+                                                 direita: 0,
+                                                 esquerda: 0,
+                                                 idUser: widget.user.idUsuario!,
+                                               ): Container()
+                                       ],
+                                     );
+                                   }
+                               );
+                             }
+                           }
+                           else{
+                             return Center(child: CircularProgressIndicator(),);
+                           }
+                         },
+                       )
                    ),
-
-
-
-
 
                  ],
                ),

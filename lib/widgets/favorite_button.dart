@@ -9,7 +9,7 @@ class StarButton extends StatefulWidget {
     Color? iconDisabledColor,
     required Function valueChanged,
     Key? key,
-  })  : _iconSize = iconSize ?? 60.0,
+  })  : _iconSize = iconSize ?? 40.0,
         _iconColor = iconColor ?? Colors.yellow,
         _iconDisabledColor = iconDisabledColor ?? Colors.grey[400],
         _isStarred = isStarred ?? false,
@@ -48,8 +48,8 @@ class _StarButtonState extends State<StarButton> with TickerProviderStateMixin {
     _isStarred = widget._isStarred;
     _maxIconSize = (widget._iconSize < 20.0)
         ? 20.0
-        : (widget._iconSize > 100.0)
-        ? 100.0
+        : (widget._iconSize > 80.0)
+        ? 80.0
         : widget._iconSize;
     final double _sizeDifference = _maxIconSize * 0.30;
     _minIconSize = _maxIconSize - _sizeDifference;

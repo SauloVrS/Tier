@@ -12,9 +12,11 @@ class AnimaisDonoList extends StatelessWidget {
       required this.imgUrl,
       required this.idade,
       required this.direita,
-      required this.esquerda})
+      required this.esquerda,
+      required this.idUser,
+      })
       : super(key: key);
-  final String nome, imgUrl, idade;
+  final String nome,idUser, imgUrl, idade;
   final double direita, esquerda;
 
   @override
