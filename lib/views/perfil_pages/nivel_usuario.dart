@@ -38,21 +38,6 @@ class _NivelUsuarioState extends State<NivelUsuario> {
                   width: (MediaQuery.of(context).size.width) * 0.1,
                   //color: Colors.black,
                   margin: const EdgeInsets.fromLTRB(0, 0, 0, 40),
-                  child: IconButton(
-                    //padding: const EdgeInsets.fromLTRB(20, 20, 0, 60),
-                    iconSize: (MediaQuery.of(context).size.width) * 0.06, //20,
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TelaPerfilUsuario(),
-                          ));
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back_ios,
-                      color: Color(0xFF6E6E6E),
-                    ),
-                  ),
                 ),
                 Container(
                   width: (MediaQuery.of(context).size.width) * 0.145,

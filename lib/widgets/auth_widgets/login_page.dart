@@ -7,12 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:tier/firebase/auth_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:tier/views/perfil_pages/meu_perfil.dart';
 import 'package:tier/views/perfil_pages/perfil_usuario.dart';
-import 'package:tier/views/recuperar_senha.dart';
+import 'package:tier/widgets/auth_widgets/recuperar_senha.dart';
 import 'package:tier/views/splash_screen.dart';
-import 'package:tier/widgets/cadastro_page.dart';
+import 'package:tier/widgets/auth_widgets/cadastro_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -74,6 +75,8 @@ class _LoginPageState extends State<LoginPage> {
       _errorText = res;
     }
   }
+
+  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
   @override
   Widget build(BuildContext context) {
@@ -234,7 +237,10 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(90)),
                   primary: AppColor.textoBranco,
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  await _googleSignIn.signIn();
+                  setState(() {});
+                },
                 label: Text(
                   'Entrar com o Google ',
                   style: GoogleFonts.poppins(

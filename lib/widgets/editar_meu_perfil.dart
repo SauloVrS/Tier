@@ -1,16 +1,21 @@
 import 'dart:typed_data';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:tier/views/perfil_pages/meu_perfil.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../colors.dart';
 import '../firebase/adicionar_imagens.dart';
 import '../models/pet_model.dart';
 import '../models/users_model.dart';
 import 'meus_animais_list.dart';
+
 class EditarPerfil extends StatefulWidget {
   const EditarPerfil({Key? key}) : super(key: key);
 
@@ -19,44 +24,44 @@ class EditarPerfil extends StatefulWidget {
 }
 
 class _EditarPerfilState extends State<EditarPerfil> {
-  String idUsuario = 'yE7Al0eRAnc59JdjfrNh';
+  String? idUsuario = FirebaseAuth.instance.currentUser?.uid;
   Uint8List? _file;
   TextEditingController controllername = TextEditingController();
   TextEditingController controllerdescricao = TextEditingController();
 
-  adicionarImagem(BuildContext context){
-    return showDialog(context: context, builder: (context){
-      return SimpleDialog(
-        title: const Text('Escolha uma opcão'),
-        children: [
-          SimpleDialogOption(
-            padding: const EdgeInsets.all(20),
-            child: const Text('Tirar uma foto'),
-            onPressed: () async {
-              Navigator.of(context).pop();
-              Uint8List file = await pickImage(ImageSource.camera);
-              setState(() {
-                _file = file;
-              });
-            },
-          ),
-          SimpleDialogOption(
-            padding: const EdgeInsets.all(20),
-            child: const Text('Escolher uma foto'),
-            onPressed: () async {
-              Navigator.of(context).pop();
-              Uint8List file = await pickImage(ImageSource.gallery);
-              setState(() {
-                _file = file;
-              });
-            },
-          )
-
-        ],
-      );
-    });
+  adicionarImagem(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return SimpleDialog(
+            title: const Text('Escolha uma opcão'),
+            children: [
+              SimpleDialogOption(
+                padding: const EdgeInsets.all(20),
+                child: const Text('Tirar uma foto'),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  Uint8List file = await pickImage(ImageSource.camera);
+                  setState(() {
+                    _file = file;
+                  });
+                },
+              ),
+              SimpleDialogOption(
+                padding: const EdgeInsets.all(20),
+                child: const Text('Escolher uma foto'),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  Uint8List file = await pickImage(ImageSource.gallery);
+                  setState(() {
+                    _file = file;
+                  });
+                },
+              )
+            ],
+          );
+        });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -64,33 +69,36 @@ class _EditarPerfilState extends State<EditarPerfil> {
       backgroundColor: AppColor.background.withOpacity(0.95),
       body: SafeArea(
         child: FutureBuilder<ModelUsers?>(
-          future: readUser(idUsuario),
+          future: readUser(idUsuario!),
           builder: (context, snapshot) {
-            if (snapshot.hasError){
-              print (snapshot.error);
+            if (snapshot.hasError) {
+              print(snapshot.error);
               return Text('Something went wrong! ${snapshot.error}');
-            } else if (snapshot.hasData){
+            } else if (snapshot.hasData) {
               final user = snapshot.data;
               return Column(
                 children: [
-                  const SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Container(
                     child: Row(
                       children: [
                         Container(
-                          width: (MediaQuery.of(context).size.width - 100)/2,
+                          width: (MediaQuery.of(context).size.width - 100) / 2,
                           height: 110,
                           child: Column(
                             children: [
                               Row(
                                 children: [
                                   IconButton(
-                                    onPressed: (){
-                                      Navigator.pushReplacement(context,
+                                    onPressed: () {
+                                      Navigator.pushReplacement(
+                                          context,
                                           MaterialPageRoute(
-                                            builder: (context) => MeuPerfil(idUsuario: idUsuario),
-                                          )
-                                      );
+                                            builder: (context) => MeuPerfil(
+                                                idUsuario: idUsuario!),
+                                          ));
                                     },
                                     icon: Icon(Icons.arrow_back_ios_outlined),
                                   ),
@@ -129,31 +137,34 @@ class _EditarPerfilState extends State<EditarPerfil> {
                               ),
                               width: 100,
                               height: 100,
-                              child: (user!.fotoUsuario == null && _file == null)?
-                              GestureDetector(
-                                onTap: (){
-                                  adicionarImagem(context);
-                                },
-                                child: CircleAvatar(
-                                  backgroundColor: AppColor.background,
-                                  foregroundColor: AppColor.textosPretos2,
-                                  child: Icon(Icons.perm_identity),
-                                ),
-                              ):
-                              GestureDetector(
-                                onTap: (){
-                                  adicionarImagem(context);
-                                },
-                                child: CircleAvatar(
-                                  backgroundImage: _file == null ? NetworkImage(user.fotoUsuario!): null,
-                                  child: Icon(Icons.add),
-                                ),
-                              ),
+                              child: (user!.fotoUsuario == null &&
+                                      _file == null)
+                                  ? GestureDetector(
+                                      onTap: () {
+                                        adicionarImagem(context);
+                                      },
+                                      child: CircleAvatar(
+                                        backgroundColor: AppColor.background,
+                                        foregroundColor: AppColor.textosPretos2,
+                                        child: Icon(Icons.perm_identity),
+                                      ),
+                                    )
+                                  : GestureDetector(
+                                      onTap: () {
+                                        adicionarImagem(context);
+                                      },
+                                      child: CircleAvatar(
+                                        backgroundImage: _file == null
+                                            ? NetworkImage(user.fotoUsuario!)
+                                            : null,
+                                        child: Icon(Icons.add),
+                                      ),
+                                    ),
                             ),
                           ],
                         ),
                         Container(
-                          width: (MediaQuery.of(context).size.width - 100)/2,
+                          width: (MediaQuery.of(context).size.width - 100) / 2,
                           height: 110,
                           child: Column(
                             children: [
@@ -169,7 +180,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                     ),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width/2 + 30,
+                    width: MediaQuery.of(context).size.width / 2 + 30,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: AppColor.cinzaBranco,
@@ -177,19 +188,18 @@ class _EditarPerfilState extends State<EditarPerfil> {
                     child: Row(
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width/2,
+                          width: MediaQuery.of(context).size.width / 2,
                           child: TextField(
                             controller: controllername,
                             textAlign: TextAlign.center,
                             decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: user.nomeUsuario,
-                              hintStyle: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: AppColor.textosPretos2,
-                              )
-                            ),
+                                border: InputBorder.none,
+                                hintText: user.nomeUsuario,
+                                hintStyle: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColor.textosPretos2,
+                                )),
                           ),
                         ),
                         SizedBox(
@@ -199,18 +209,23 @@ class _EditarPerfilState extends State<EditarPerfil> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Expanded(
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20)),
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(20),
+                            topLeft: Radius.circular(20)),
                         color: AppColor.background,
                       ),
                       child: Column(
                         children: [
                           Container(
-                            margin: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 15),
                             height: 80,
                             decoration: BoxDecoration(
                               color: AppColor.cinzaBranco.withOpacity(0.5),
@@ -223,12 +238,11 @@ class _EditarPerfilState extends State<EditarPerfil> {
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 hintText: user.descricaoUsuario,
-
                               ),
                             ),
                           ),
                           GestureDetector(
-                            onTap: (){},
+                            onTap: () {},
                             child: Container(
                               margin: EdgeInsets.symmetric(horizontal: 40),
                               width: MediaQuery.of(context).size.width - 80,
@@ -252,7 +266,9 @@ class _EditarPerfilState extends State<EditarPerfil> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 10,),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           Container(
                             margin: EdgeInsets.symmetric(horizontal: 25),
                             width: MediaQuery.of(context).size.width - 50,
@@ -263,25 +279,28 @@ class _EditarPerfilState extends State<EditarPerfil> {
                                 fontWeight: FontWeight.w600,
                                 color: AppColor.textosPretos2,
                               ),
-
                             ),
                           ),
-                          const SizedBox(height: 10,),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           Expanded(
                             child: StreamBuilder<List<ModelPet>>(
-                              stream: readPetsUser(idUsuario),
-                              builder: (context, snapshot){
-                                if (snapshot.hasError){
-                                  return Text('Something went wrong! ${snapshot.error}');
-                                }
-                                else if (snapshot.hasData){
+                              stream: readPetsUser(idUsuario!),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasError) {
+                                  return Text(
+                                      'Something went wrong! ${snapshot.error}');
+                                } else if (snapshot.hasData) {
                                   final pets = snapshot.data;
                                   if (pets!.isEmpty) {
                                     return Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: [
                                             Container(
                                               height: 200,
@@ -289,10 +308,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                                               decoration: const BoxDecoration(
                                                   image: DecorationImage(
                                                       image: AssetImage(
-                                                          "images/img_meus_animais.png"
-                                                      )
-                                                  )
-                                              ),
+                                                          "images/img_meus_animais.png"))),
                                             ),
                                             Text(
                                               'Não há animais para adoção',
@@ -301,15 +317,19 @@ class _EditarPerfilState extends State<EditarPerfil> {
                                                 fontWeight: FontWeight.w500,
                                               ),
                                             ),
-                                            const SizedBox(height: 15,),
+                                            const SizedBox(
+                                              height: 15,
+                                            ),
                                           ],
                                         ),
                                       ],
                                     );
                                   } else {
                                     return ListView.builder(
-                                      physics: NeverScrollableScrollPhysics(),
-                                        itemCount: (pets.length%2 == 0)? (pets.length)~/2: (pets.length)~/2 + 1,
+                                        physics: NeverScrollableScrollPhysics(),
+                                        itemCount: (pets.length % 2 == 0)
+                                            ? (pets.length) ~/ 2
+                                            : (pets.length) ~/ 2 + 1,
                                         itemBuilder: (context, index) {
                                           int a = 2 * index;
                                           int b = a + 1;
@@ -322,27 +342,26 @@ class _EditarPerfilState extends State<EditarPerfil> {
                                                   direita: 10,
                                                   esquerda: 15,
                                                   idUser: idUsuario),
-                                              (b <= pets.length - 1)?
-                                              MeusAnimaisList(
-                                                  nome: pets[b].nomePet,
-                                                  imgUrl: pets[b].fotoPet,
-                                                  idade: pets[b].idadePet,
-                                                  direita: 10,
-                                                  esquerda: 15,
-                                                  idUser: idUsuario):
-                                              Container(),
+                                              (b <= pets.length - 1)
+                                                  ? MeusAnimaisList(
+                                                      nome: pets[b].nomePet,
+                                                      imgUrl: pets[b].fotoPet,
+                                                      idade: pets[b].idadePet,
+                                                      direita: 10,
+                                                      esquerda: 15,
+                                                      idUser: idUsuario)
+                                                  : Container(),
                                             ],
                                           );
-                                        }
-                                    );
+                                        });
                                   }
-                                }
-                                else{
-                                  return Center(child: CircularProgressIndicator(),);
+                                } else {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
                                 }
                               },
-                            )
-                            ,
+                            ),
                           ),
                         ],
                       ),
@@ -350,8 +369,10 @@ class _EditarPerfilState extends State<EditarPerfil> {
                   ),
                 ],
               );
-            } else{
-              return const Center(child: CircularProgressIndicator(),);
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
             }
           },
         ),

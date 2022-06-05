@@ -1,14 +1,15 @@
 import 'dart:ffi';
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';
 import 'package:tier/views/auth_page.dart';
-import 'package:tier/widgets/cadastro_page.dart';
-import 'package:tier/widgets/login_page.dart';
+import 'package:tier/widgets/auth_widgets/cadastro_page.dart';
+import 'package:tier/widgets/auth_widgets/login_page.dart';
 
 class RecuperarSenha extends StatefulWidget {
   const RecuperarSenha({Key? key}) : super(key: key);
@@ -18,8 +19,7 @@ class RecuperarSenha extends StatefulWidget {
 }
 
 class _RecuperarSenhaState extends State<RecuperarSenha> {
-  String email = '';
-  String senha = '';
+  final TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) => DefaultTabController(
@@ -114,9 +114,8 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 0.0, vertical: 0.0),
                         child: TextField(
-                          onChanged: (text) {
-                            senha = text;
-                          },
+                          controller: _emailController,
+                          keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                             prefixIcon: Icon(Icons.mail,
@@ -171,7 +170,13 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
                     ),
                     IconButton(
                         iconSize: MediaQuery.of(context).size.height / 12,
-                        onPressed: () {},
+                        onPressed: () {
+                          FirebaseAuth.instance
+                              .sendPasswordResetEmail(
+                                  email: _emailController.text)
+                              .then((value) => print("email enviado!"))
+                              .catchError((e) => print(e.toString()));
+                        },
                         icon: Icon(
                           Icons.arrow_circle_right_sharp,
                           color: AppColor.amareloEscuro,
