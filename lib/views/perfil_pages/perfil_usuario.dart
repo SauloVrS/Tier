@@ -1,21 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tier/views/auth_page.dart';
 import 'package:tier/views/perfil_pages/cupom_perfil.dart';
 import 'package:tier/views/perfil_pages/meu_codigo_perfil.dart';
 
 import '../../colors.dart';
 import '../../widgets/bottom_nav_bar.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:tier/colors.dart';
 import 'package:tier/models/users_model.dart';
-import 'package:tier/widgets/login_page.dart';
+import 'package:tier/widgets/auth_widgets/login_page.dart';
 import 'package:tier/views/perfil_pages/meu_perfil.dart';
 import 'package:tier/widgets/bottom_nav_bar.dart';
 import 'package:tier/views/perfil_pages/configuracoes_perfil.dart';
 import 'nivel_usuario.dart';
-
 
 class TelaPerfilUsuario extends StatefulWidget {
   const TelaPerfilUsuario({Key? key}) : super(key: key);
@@ -25,7 +27,7 @@ class TelaPerfilUsuario extends StatefulWidget {
 }
 
 class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
-  String? idUsuario = 'yE7Al0eRAnc59JdjfrNh';
+  String? idUsuario = FirebaseAuth.instance.currentUser?.uid;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,8 +95,8 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                                               child: Icon(Icons.perm_identity),
                                             )
                                           : CircleAvatar(
-                                              backgroundImage:
-                                                  NetworkImage(user.fotoUsuario!),
+                                              backgroundImage: NetworkImage(
+                                                  user.fotoUsuario!),
                                             );
                                     } else {
                                       return const Center(
@@ -127,7 +129,8 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                                       final user = snapshot.data;
                                       return Text(
                                         user!.nomeUsuario!,
-                                        style: GoogleFonts.poppins(fontSize: 20),
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 20),
                                       );
                                     } else {
                                       return const Center(
@@ -210,7 +213,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.pushReplacement(
+                            Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => NivelUsuario(),
@@ -281,14 +284,14 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               GestureDetector(
                 onTap: () {
                   if (idUsuario == null) {
-                    Navigator.pushReplacement(
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              LoginPage(), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
+                              authPage(), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
                         ));
                   } else {
-                    Navigator.pushReplacement(
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => MeuPerfil(
@@ -348,7 +351,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushReplacement(context,
+                  Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Cupons()));
                 },
                 child: Container(
@@ -539,7 +542,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushReplacement(context,
+                  Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Meu_cupom()));
                 },
                 child: Container(
@@ -589,7 +592,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushReplacement(context,
+                  Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Configuracoes()));
                 },
                 child: Container(

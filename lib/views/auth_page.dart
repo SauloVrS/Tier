@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';
-import 'package:tier/widgets/cadastro_page.dart';
-import 'package:tier/widgets/login_page.dart';
+import 'package:tier/widgets/auth_widgets/cadastro_page.dart';
+import 'package:tier/widgets/auth_widgets/login_page.dart';
 
 class authPage extends StatefulWidget {
   const authPage({Key? key}) : super(key: key);
@@ -77,7 +77,7 @@ class _authPageState extends State<authPage> {
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: 40,
-                vertical: 0,
+                vertical: 10,
               ),
               child: CadastroPage(),
             ),

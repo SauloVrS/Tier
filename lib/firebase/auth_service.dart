@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthMethod {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -25,11 +26,14 @@ class AuthMethod {
           );
           print(userCredential.user!.uid);
 
-          _firestore.collection('buyerUser').doc(userCredential.user!.uid).set({
-            "username": username,
+          _firestore.collection('usuario').doc(userCredential.user!.uid).set({
+            'nomeUsuario': username,
             "email": email,
-            "uid": userCredential.user!.uid,
-            'salesman': false,
+            'idUsuario': userCredential.user!.uid,
+            'pontos': 0,
+            'descricaoUsuario': "nenhuma descrição",
+            'enderecoUsuario': [""],
+            'fotoUsuario': null,
           });
         } else {
           return res = 'error-P';

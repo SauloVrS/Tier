@@ -3,12 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';
 import 'package:tier/views/auth_page.dart';
+import 'package:tier/firebase/auth_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tier/views/configuracoes_pages/ajuda.dart';
 import 'package:tier/views/configuracoes_pages/cadastre_sua_loja.dart';
 import 'package:tier/views/configuracoes_pages/idiomas.dart';
 import 'package:tier/views/configuracoes_pages/politicas_de_uso.dart';
 import 'package:tier/views/configuracoes_pages/sobre.dart';
 import 'package:tier/widgets/bottom_nav_bar.dart';
+import 'package:tier/models/users_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class Configuracoes extends StatefulWidget {
   const Configuracoes({Key? key}) : super(key: key);
@@ -18,6 +23,7 @@ class Configuracoes extends StatefulWidget {
 }
 
 class _Configuracoes extends State<Configuracoes> {
+  String? idUsuario = FirebaseAuth.instance.currentUser?.uid;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,12 +67,40 @@ class _Configuracoes extends State<Configuracoes> {
                             ),
                           ],
                         ),
-                        child: CircleAvatar(
-                          backgroundColor: AppColor.background,
-                          foregroundColor: AppColor.textosPretos2,
-                          child: Icon(Icons.perm_identity), //trocar firebase
-                          //imagem: colocar background imagem no lugar de child
-                        ),
+                        child: (idUsuario == null)
+                            ? CircleAvatar(
+                                backgroundColor: AppColor.background,
+                                foregroundColor: AppColor.textosPretos2,
+                                child: Icon(Icons.perm_identity),
+                              )
+                            : FutureBuilder<ModelUsers?>(
+                                future: readUser(idUsuario!),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasError) {
+                                    print(snapshot.error);
+                                    return Text(
+                                        'Something went wrong! ${snapshot.error}');
+                                  } else if (snapshot.hasData) {
+                                    final user = snapshot.data;
+                                    return (user!.fotoUsuario == null)
+                                        ? CircleAvatar(
+                                            backgroundColor:
+                                                AppColor.background,
+                                            foregroundColor:
+                                                AppColor.textosPretos2,
+                                            child: Icon(Icons.perm_identity),
+                                          )
+                                        : CircleAvatar(
+                                            backgroundImage:
+                                                NetworkImage(user.fotoUsuario!),
+                                          );
+                                  } else {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                                },
+                              ),
                       ),
                       SizedBox(
                         width: 15,
@@ -75,10 +109,31 @@ class _Configuracoes extends State<Configuracoes> {
                         height: 70,
                         width: MediaQuery.of(context).size.width - 125,
                         padding: EdgeInsets.symmetric(vertical: 20),
-                        child: Text(
-                          'Nome', //firebase aqui
-                          style: GoogleFonts.poppins(fontSize: 20),
-                        ),
+                        child: (idUsuario == null)
+                            ? Text(
+                                'Nome',
+                                style: GoogleFonts.poppins(fontSize: 20),
+                              )
+                            : FutureBuilder<ModelUsers?>(
+                                future: readUser(idUsuario!),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasError) {
+                                    print(snapshot.error);
+                                    return Text(
+                                        'Something went wrong! ${snapshot.error}');
+                                  } else if (snapshot.hasData) {
+                                    final user = snapshot.data;
+                                    return Text(
+                                      user!.nomeUsuario!,
+                                      style: GoogleFonts.poppins(fontSize: 20),
+                                    );
+                                  } else {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                                },
+                              ),
                       ),
                     ],
                   ),
@@ -90,7 +145,7 @@ class _Configuracoes extends State<Configuracoes> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(context,
+                Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => Idiomas()));
               },
               child: Container(
@@ -140,7 +195,7 @@ class _Configuracoes extends State<Configuracoes> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                     context, MaterialPageRoute(builder: (context) => Ajuda()));
               },
               child: Container(
@@ -186,7 +241,7 @@ class _Configuracoes extends State<Configuracoes> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(context,
+                Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => Politicas_uso()));
               },
               child: Container(
@@ -232,7 +287,7 @@ class _Configuracoes extends State<Configuracoes> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(context,
+                Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => Cadastro_Loja()));
               },
               child: Container(
@@ -278,7 +333,7 @@ class _Configuracoes extends State<Configuracoes> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                     context, MaterialPageRoute(builder: (context) => Sobre()));
               },
               child: Container(
@@ -324,8 +379,9 @@ class _Configuracoes extends State<Configuracoes> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => authPage()));
+                setState(() {
+                  FirebaseAuth.instance.signOut();
+                });
               },
               child: Container(
                 height: 59,
