@@ -213,7 +213,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(
+                            Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => NivelUsuario(),
@@ -284,14 +284,14 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               GestureDetector(
                 onTap: () {
                   if (idUsuario == null) {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
                               authPage(), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
                         ));
                   } else {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) => MeuPerfil(
@@ -351,7 +351,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
+                  Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => Cupons()));
                 },
                 child: Container(
@@ -542,7 +542,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
+                  Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => Meu_cupom()));
                 },
                 child: Container(
@@ -592,7 +592,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
+                  Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => Configuracoes()));
                 },
                 child: Container(

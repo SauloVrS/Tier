@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';
+import 'package:tier/main.dart';
 import 'package:tier/views/auth_page.dart';
 import 'package:tier/firebase/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,6 +11,7 @@ import 'package:tier/views/configuracoes_pages/cadastre_sua_loja.dart';
 import 'package:tier/views/configuracoes_pages/idiomas.dart';
 import 'package:tier/views/configuracoes_pages/politicas_de_uso.dart';
 import 'package:tier/views/configuracoes_pages/sobre.dart';
+import 'package:tier/views/splash_screen.dart';
 import 'package:tier/widgets/bottom_nav_bar.dart';
 import 'package:tier/models/users_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,6 +26,16 @@ class Configuracoes extends StatefulWidget {
 
 class _Configuracoes extends State<Configuracoes> {
   String? idUsuario = FirebaseAuth.instance.currentUser?.uid;
+  void signOut() async {
+    await AuthMethod().logOut();
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => SplashScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -378,11 +390,7 @@ class _Configuracoes extends State<Configuracoes> {
               ),
             ),
             GestureDetector(
-              onTap: () {
-                setState(() {
-                  FirebaseAuth.instance.signOut();
-                });
-              },
+              onTap: signOut,
               child: Container(
                 height: 59,
                 child: Column(
