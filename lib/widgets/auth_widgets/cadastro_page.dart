@@ -1,4 +1,6 @@
 import 'dart:ui';
+
+import 'package:tier/firebase/adicionar_imagens.dart';
 import 'package:tier/firebase/auth_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,7 @@ import 'package:tier/widgets/auth_widgets/login_page.dart';
 import 'package:tier/views/splash_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:email_validator/email_validator.dart';
+import 'package:tier/widgets/editar_meu_perfil.dart';
 
 class CadastroPage extends StatefulWidget {
   const CadastroPage({Key? key}) : super(key: key);
@@ -32,6 +34,7 @@ class _CadastroPageState extends State<CadastroPage> {
   final TextEditingController _passwordConfirmController =
       TextEditingController();
   String? _errorText;
+  String errorText = "";
   bool _isLoading = false;
 
   @override
@@ -75,25 +78,40 @@ class _CadastroPageState extends State<CadastroPage> {
       passwordConfirm: _passwordConfirmController.text,
       username: _usernameController.text,
     );
-    String? resultSin = await AuthMethod().loginUser(
-      email: _emailController.text,
-      password: _passwordController.text,
-    );
+
     setState(() {
       _isLoading = false;
     });
-    if (resultSup == 'success') {
+    if (resultSup == 'Cadastro concluido com sucesso!') {
       _emailController.text = '';
       _usernameController.text = '';
       _passwordController.text = '';
       _passwordConfirmController.text = '';
 
       setState(() {
-        _errorText = resultSup;
+        errorText = resultSup;
+        showSnackBar(errorText, context);
       });
     } else {
-      _errorText = resultSup;
+      errorText = resultSup;
+      showSnackBar(errorText, context);
     }
+  }
+
+  void loginGoogle() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String? res = await AuthMethod().googleLogin();
+
+    setState(() {
+      _isLoading = false;
+    });
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => EditarPerfil(),
+      ),
+    );
   }
 
   String? email;
@@ -129,7 +147,7 @@ class _CadastroPageState extends State<CadastroPage> {
                       width: MediaQuery.of(context).size.width / 7,
                       image: AssetImage('images/google_icon.png'),
                     ),
-                    onPressed: () {},
+                    onPressed: loginGoogle,
                     backgroundColor: AppColor.textoBranco,
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(10.0),
@@ -190,6 +208,11 @@ class _CadastroPageState extends State<CadastroPage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 2.0),
                 child: TextFormField(
+                  /* autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (email) =>
+                      email != null && EmailValidator.validate(email)
+                          ? 'Insira um email valido'
+                          : null,*/
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(

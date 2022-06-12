@@ -11,8 +11,6 @@ import 'adicionar_pet.dart';
 import 'package:tier/colors.dart';
 import 'package:tier/views/perfil_pages/adicionar_pet.dart';
 
-
-
 class MeuPerfil extends StatefulWidget {
   MeuPerfil({required this.idUsuario, Key? key}) : super(key: key);
   String idUsuario;
@@ -21,43 +19,49 @@ class MeuPerfil extends StatefulWidget {
 }
 
 class _MeuPerfilState extends State<MeuPerfil> {
-  _MeuPerfilState({required this.idUsuario,});
+  _MeuPerfilState({
+    required this.idUsuario,
+  });
   String idUsuario;
   //List<Map> pets = [];
 
   @override
   Widget build(BuildContext context) {
+    setState(() {});
     return Scaffold(
       backgroundColor: AppColor.background.withOpacity(0.95),
       body: SafeArea(
         child: FutureBuilder<ModelUsers?>(
           future: readUser(idUsuario),
           builder: (context, snapshot) {
-            if (snapshot.hasError){
-              print (snapshot.error);
+            if (snapshot.hasError) {
+              print(snapshot.error);
               return Text('Something went wrong! ${snapshot.error}');
-            } else if (snapshot.hasData){
+            } else if (snapshot.hasData) {
               final user = snapshot.data;
               return Column(
                 children: [
-                  const SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Container(
                     child: Row(
                       children: [
                         Container(
-                          width: (MediaQuery.of(context).size.width - 100)/2,
+                          width: (MediaQuery.of(context).size.width - 100) / 2,
                           height: 110,
                           child: Column(
                             children: [
                               Row(
                                 children: [
                                   IconButton(
-                                    onPressed: (){
-                                      Navigator.pushReplacement(context,
+                                    onPressed: () {
+                                      Navigator.pushReplacement(
+                                          context,
                                           MaterialPageRoute(
-                                            builder: (context) => TelaPerfilUsuario(),
-                                          )
-                                      );
+                                            builder: (context) =>
+                                                TelaPerfilUsuario(),
+                                          ));
                                     },
                                     icon: Icon(Icons.arrow_back_ios_outlined),
                                   ),
@@ -96,20 +100,21 @@ class _MeuPerfilState extends State<MeuPerfil> {
                               ),
                               width: 100,
                               height: 100,
-                              child: (user!.fotoUsuario == null)?
-                              CircleAvatar(
-                                backgroundColor: AppColor.background,
-                                foregroundColor: AppColor.textosPretos2,
-                                child: Icon(Icons.perm_identity),
-                              ):
-                              CircleAvatar(
-                                backgroundImage: NetworkImage(user.fotoUsuario!),
-                              ),
+                              child: (user!.fotoUsuario == null)
+                                  ? CircleAvatar(
+                                      backgroundColor: AppColor.background,
+                                      foregroundColor: AppColor.textosPretos2,
+                                      child: Icon(Icons.perm_identity),
+                                    )
+                                  : CircleAvatar(
+                                      backgroundImage:
+                                          NetworkImage(user.fotoUsuario!),
+                                    ),
                             ),
                           ],
                         ),
                         Container(
-                          width: (MediaQuery.of(context).size.width - 100)/2,
+                          width: (MediaQuery.of(context).size.width - 100) / 2,
                           height: 110,
                           child: Column(
                             children: [
@@ -117,12 +122,13 @@ class _MeuPerfilState extends State<MeuPerfil> {
                                 children: [
                                   Expanded(child: Container()),
                                   IconButton(
-                                    onPressed: (){
-                                      Navigator.pushReplacement(context,
+                                    onPressed: () {
+                                      Navigator.pushReplacement(
+                                          context,
                                           MaterialPageRoute(
-                                            builder: (context) => EditarPerfil(),
-                                          )
-                                      );
+                                            builder: (context) =>
+                                                EditarPerfil(),
+                                          ));
                                     },
                                     icon: Icon(Icons.mode_edit_outlined),
                                   ),
@@ -142,18 +148,23 @@ class _MeuPerfilState extends State<MeuPerfil> {
                       color: AppColor.textosPretos2,
                     ),
                   ),
-                  const SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Expanded(
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20)),
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(20),
+                            topLeft: Radius.circular(20)),
                         color: AppColor.background,
                       ),
                       child: Column(
                         children: [
                           Container(
-                            margin: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 15),
                             height: 80,
                             child: Text(
                               user.descricaoUsuario!,
@@ -163,12 +174,12 @@ class _MeuPerfilState extends State<MeuPerfil> {
                             ),
                           ),
                           GestureDetector(
-                            onTap: (){
-                              Navigator.pushReplacement(context,
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                  context,
                                   MaterialPageRoute(
                                     builder: (context) => AdicionarPet(),
-                                  )
-                              );
+                                  ));
                             },
                             child: Container(
                               margin: EdgeInsets.symmetric(horizontal: 40),
@@ -193,7 +204,9 @@ class _MeuPerfilState extends State<MeuPerfil> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 10,),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           Container(
                             margin: EdgeInsets.symmetric(horizontal: 25),
                             width: MediaQuery.of(context).size.width - 50,
@@ -204,25 +217,28 @@ class _MeuPerfilState extends State<MeuPerfil> {
                                 fontWeight: FontWeight.w600,
                                 color: AppColor.textosPretos2,
                               ),
-
                             ),
                           ),
-                          const SizedBox(height: 10,),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           Expanded(
                             child: StreamBuilder<List<ModelPet>>(
                               stream: readPetsUser(idUsuario),
-                              builder: (context, snapshot){
-                                if (snapshot.hasError){
-                                  return Text('Something went wrong! ${snapshot.error}');
-                                }
-                                else if (snapshot.hasData){
+                              builder: (context, snapshot) {
+                                if (snapshot.hasError) {
+                                  return Text(
+                                      'Something went wrong! ${snapshot.error}');
+                                } else if (snapshot.hasData) {
                                   final pets = snapshot.data;
                                   if (pets!.isEmpty) {
                                     return Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: [
                                             Container(
                                               height: 200,
@@ -230,10 +246,7 @@ class _MeuPerfilState extends State<MeuPerfil> {
                                               decoration: const BoxDecoration(
                                                   image: DecorationImage(
                                                       image: AssetImage(
-                                                          "images/img_meus_animais.png"
-                                                      )
-                                                  )
-                                              ),
+                                                          "images/img_meus_animais.png"))),
                                             ),
                                             Text(
                                               'Não há animais para adoção',
@@ -242,26 +255,34 @@ class _MeuPerfilState extends State<MeuPerfil> {
                                                 fontWeight: FontWeight.w500,
                                               ),
                                             ),
-                                            const SizedBox(height: 15,),
+                                            const SizedBox(
+                                              height: 15,
+                                            ),
                                           ],
                                         ),
                                       ],
                                     );
                                   } else {
                                     return ListView.builder(
-                                        itemCount: (pets.length%2 == 0)? (pets.length)~/2: (pets.length)~/2 + 1,
+                                        itemCount: (pets.length % 2 == 0)
+                                            ? (pets.length) ~/ 2
+                                            : (pets.length) ~/ 2 + 1,
                                         itemBuilder: (context, index) {
                                           int a = 2 * index;
                                           int b = a + 1;
                                           return Row(
                                             children: [
                                               GestureDetector(
-                                                onTap: (){
-                                                  Navigator.pushReplacement(context,
+                                                onTap: () {
+                                                  Navigator.pushReplacement(
+                                                      context,
                                                       MaterialPageRoute(
-                                                        builder: (context) => PetPage(pet: pets[a], idUsuario: idUsuario),
-                                                      )
-                                                  );
+                                                        builder: (context) =>
+                                                            PetPage(
+                                                                pet: pets[a],
+                                                                idUsuario:
+                                                                    idUsuario),
+                                                      ));
                                                 },
                                                 child: MeusAnimaisList(
                                                     nome: pets[a].nomePet,
@@ -271,36 +292,42 @@ class _MeuPerfilState extends State<MeuPerfil> {
                                                     esquerda: 15,
                                                     idUser: idUsuario),
                                               ),
-                                              (b <= pets.length - 1)?
-                                              GestureDetector(
-                                                onTap: (){
-                                                  Navigator.pushReplacement(context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) => PetPage(pet: pets[b], idUsuario: idUsuario),
-                                                      )
-                                                  );
-                                                },
-                                                child: MeusAnimaisList(
-                                                  nome: pets[b].nomePet,
-                                                  imgUrl: pets[b].fotoPet,
-                                                  idade: pets[b].idadePet,
-                                                  direita: 10,
-                                                  esquerda: 15,
-                                                  idUser: idUsuario),
-                                              ):
-                                              Container(),
+                                              (b <= pets.length - 1)
+                                                  ? GestureDetector(
+                                                      onTap: () {
+                                                        Navigator.pushReplacement(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  PetPage(
+                                                                      pet: pets[
+                                                                          b],
+                                                                      idUsuario:
+                                                                          idUsuario),
+                                                            ));
+                                                      },
+                                                      child: MeusAnimaisList(
+                                                          nome: pets[b].nomePet,
+                                                          imgUrl:
+                                                              pets[b].fotoPet,
+                                                          idade:
+                                                              pets[b].idadePet,
+                                                          direita: 10,
+                                                          esquerda: 15,
+                                                          idUser: idUsuario),
+                                                    )
+                                                  : Container(),
                                             ],
                                           );
-                                        }
-                                    );
+                                        });
                                   }
-                                }
-                                else{
-                                  return Center(child: CircularProgressIndicator(),);
+                                } else {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
                                 }
                               },
-                            )
-                            ,
+                            ),
                           ),
                         ],
                       ),
@@ -308,8 +335,10 @@ class _MeuPerfilState extends State<MeuPerfil> {
                   ),
                 ],
               );
-            } else{
-              return const Center(child: CircularProgressIndicator(),);
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
             }
           },
         ),

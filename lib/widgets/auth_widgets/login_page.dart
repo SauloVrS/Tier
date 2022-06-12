@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tier/firebase/adicionar_imagens.dart';
 import 'package:tier/firebase/auth_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';
@@ -26,6 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   String? _errorText;
+  String errorText = "";
   bool _isLoading = false;
 
   @override
@@ -59,10 +61,12 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       _isLoading = false;
     });
-    if (res == 'success') {
+    if (res == 'Login efetuado com sucesso!') {
       _emailController.text = '';
       _passwordController.text = '';
       _errorText = res;
+      showSnackBar(errorText, context);
+
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => TelaPerfilUsuario(),
@@ -70,13 +74,30 @@ class _LoginPageState extends State<LoginPage> {
       );
     } else if (res ==
         'The password is invalid or the user does not have a password') {
-      _errorText = res;
-    } else if (res == 'error-E') {
-      _errorText = res;
+      errorText = 'Senha incorreta';
+      showSnackBar(res, context);
+    } else if (res == 'Preencha os campos!') {
+      errorText = res;
+      showSnackBar(errorText, context);
     }
+    showSnackBar(res, context);
   }
 
-  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+  void loginGoogle() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String? res = await AuthMethod().googleLogin();
+
+    setState(() {
+      _isLoading = false;
+    });
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => TelaPerfilUsuario(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -237,10 +258,7 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(90)),
                   primary: AppColor.textoBranco,
                 ),
-                onPressed: () async {
-                  await _googleSignIn.signIn();
-                  setState(() {});
-                },
+                onPressed: loginGoogle,
                 label: Text(
                   'Entrar com o Google ',
                   style: GoogleFonts.poppins(
