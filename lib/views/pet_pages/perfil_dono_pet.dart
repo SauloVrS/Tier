@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';
 import 'package:tier/models/users_model.dart';
-import 'package:tier/views/adocao-home.dart';
+import 'package:tier/views/pet_pages/adocao-home.dart';
 import 'package:tier/views/chat/chatmodels/messages.dart';
 import 'package:tier/views/chat/chatmodels/user.dart';
 import 'package:tier/views/chat/screens/chat_screen.dart';
-import 'package:tier/views/pet_page.dart';
 
-import '../data/animais_fav.dart';
-import '../models/pet_model.dart';
-import '../widgets/animais_dono_list.dart';
-import '../widgets/animais_fav_list.dart';
+
+import '../../data/animais_fav.dart';
+import '../../models/pet_model.dart';
+import '../../widgets/animais_dono_list.dart';
+import '../../widgets/animais_fav_list.dart';
 
 class PerfilDonoPet extends StatefulWidget {
   final ModelUsers user;
@@ -144,7 +144,7 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
 
                    Expanded(
                        child: StreamBuilder<List<ModelPet>>(
-                         stream: readPetsDono('yE7Al0eRAnc59JdjfrNh'),
+                         stream: readPetsDono(widget.user.idUsuario!),
                          builder: (context, snapshot){
                            if (snapshot.hasError){
                              return Text('Something went wrong 1! ${snapshot.error}');

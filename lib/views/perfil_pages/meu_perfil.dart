@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/views/perfil_pages/perfil_usuario.dart';
-import 'package:tier/views/pet_page.dart';
+
 import 'package:tier/widgets/editar_meu_perfil.dart';
 import 'package:tier/widgets/meus_animais_list.dart';
 import '../../colors.dart';
 import '../../models/pet_model.dart';
 import '../../models/users_model.dart';
+import '../pet_pages/pet_page.dart';
 import 'adicionar_pet.dart';
 import 'package:tier/colors.dart';
 import 'package:tier/views/perfil_pages/adicionar_pet.dart';

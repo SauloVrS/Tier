@@ -36,15 +36,15 @@ class ModelPet {
       };
 
   static ModelPet fromJson(Map<String, dynamic> json) => ModelPet(
-      idPet: json['idPet'],
-      idUsuario: json['idUsuario'],
-      descricaoPet: json['descricaoPet'],
-      distanciaPet: json['distanciaPet'],
-      fotoPet: json['fotoPet'],
-      generoPet: json['generoPet'],
-      idadePet: json['idadePet'],
-      nomePet: json['nomePet'],
-      typePet: json['typePet']);
+      idPet: json['idPet'] ?? "",
+      idUsuario: json['idUsuario'] ?? "",
+      descricaoPet: json['descricaoPet'] ?? "",
+      distanciaPet: json['distanciaPet'] ?? "",
+      fotoPet: json['fotoPet'] ?? "",
+      generoPet: json['generoPet'] ?? "",
+      idadePet: json['idadePet'] ?? "",
+      nomePet: json['nomePet'] ?? "",
+      typePet: json['typePet'] ?? "");
 }
 /*
 Stream<List<String>> getIds2() => FirebaseFirestore.instance

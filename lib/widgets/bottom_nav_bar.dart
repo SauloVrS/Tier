@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tier/views/adocao-home.dart';
+import 'package:tier/views/pet_pages/adocao-home.dart';
 import 'package:tier/views/busca_principal.dart';
 import 'package:tier/views/fav_lojas.dart';
 import 'package:tier/views/main_lojas.dart';

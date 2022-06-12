@@ -5,7 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../models/pet_model.dart';
 import '../models/users_model.dart';
-import '../views/pet_page.dart';
+
+import '../views/pet_pages/pet_page.dart';
 import 'favorite_button.dart';
 
 class PetList extends StatelessWidget {
@@ -22,124 +23,136 @@ class PetList extends StatelessWidget {
     return GestureDetector(
       onTap: () => Navigator.push(
           context, MaterialPageRoute(builder: (context) => PetPage(pet: pet, idUsuario: idUsuario,))),
-        child: Container(
-          margin: EdgeInsets.only(bottom: 20),
-          child: Column(
-            children: [
-              Container(
-                  width: MediaQuery.of(context).size.width / 1.15,
-                  height: MediaQuery.of(context).size.height / 5.5,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(30),
-                        topLeft: Radius.circular(30)),
-                    image: DecorationImage(
-                        fit: BoxFit.cover, image: NetworkImage(pet.fotoPet)),
-                  )),
-              Container(
-                padding:
-                EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 0),
+      child: Container(
+        margin: EdgeInsets.only(bottom: 20),
+        child: Column(
+          children: [
+            Container(
                 width: MediaQuery.of(context).size.width / 1.15,
-                height: MediaQuery.of(context).size.height / 10,
+                height: MediaQuery.of(context).size.height / 5.5,
                 decoration: BoxDecoration(
-                  color: Color(0xffe5e5e5).withOpacity(0.7),
                   borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(30),
-                      bottomLeft: Radius.circular(30)),
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              pet.nomePet,
-                              style: GoogleFonts.poppins(
-                                  fontSize:
-                                  MediaQuery.of(context).size.width / 18,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 15,
-                            ),
-                            Text(
-                              pet.idadePet,
-                              style: GoogleFonts.poppins(
-                                  fontSize:
-                                  MediaQuery.of(context).size.width / 25),
-                            ),
-                            Text(
-                              pet.typePet,
-                              style: GoogleFonts.poppins(fontSize: 0.1),
-                            ),
-
-                          ],
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(
-                              left: 1, right: 1, bottom: 1, top: 1),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(30),
+                      topRight: Radius.circular(30),
+                      topLeft: Radius.circular(30)),
+                  image: DecorationImage(
+                      fit: BoxFit.cover, image: NetworkImage(pet.fotoPet)),
+                )),
+            Container(
+              padding:
+              EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 0),
+              width: MediaQuery.of(context).size.width / 1.15,
+              height: MediaQuery.of(context).size.height / 10,
+              decoration: BoxDecoration(
+                color: Color(0xffe5e5e5).withOpacity(0.7),
+                borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(30),
+                    bottomLeft: Radius.circular(30)),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            pet.nomePet,
+                            style: GoogleFonts.poppins(
+                                fontSize:
+                                MediaQuery.of(context).size.width / 18,
+                                fontWeight: FontWeight.bold),
                           ),
-                          child: StarButton(
-
-                            //isStarred: false,
-                            // iconDisabledColor: Colors.white,
-                            valueChanged: (_isStarred) {
-
-                              ///addicionar funcao p favoritar no firebase
-                              if (_isStarred == true) {
-                                final docUser = FirebaseFirestore.instance.collection('usuarios').doc('yE7Al0eRAnc59JdjfrNh').collection('favoritosPets').doc();
-                                final fav = ModelFavoritosAnimais(
-                                  idFav: docUser.id,
-                                  idDono: pet.idUsuario,
-                                  idPet: pet.idPet,
-                                );
-                                final json = fav.toJason();
-                                docUser.set(json);
-
-                              }
-                              else{
-                                final docUser = FirebaseFirestore.instance
-                                    .collection('favoritosPets')
-                                    .doc(pet.idPet)
-                                ;
-                                docUser.delete();
-                              }
-                            },
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 15,
                           ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 0,
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.place_outlined,
-                          size: MediaQuery.of(context).size.height / 38,
+                          Row(
+                            children: [
+                              Text(
+                                pet.idadePet,
+                                style: GoogleFonts.poppins(
+                                    fontSize:
+                                    MediaQuery.of(context).size.width / 25),
+                              ),
+                              SizedBox(width: 4,),
+                              Text(pet.idadePet == "1" ? "mês" : "meses",style: GoogleFonts.poppins(
+                                fontSize: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width / 25,
+
+                              ),),
+                            ],
+                          ),
+                          Text(
+                            pet.typePet,
+                            style: GoogleFonts.poppins(fontSize: 0.1),
+                          ),
+
+                        ],
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(
+                            left: 1, right: 1, bottom: 1, top: 1),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30),
                         ),
-                        SizedBox(
-                          width: 4,
+                        child: StarButton(
+
+                          //isStarred: false,
+                          // iconDisabledColor: Colors.white,
+                          valueChanged: (_isStarred) {
+
+                            ///addicionar funcao p favoritar no firebase
+                            if (_isStarred == true) {
+                              final docUser = FirebaseFirestore.instance.collection('usuarios').doc('yE7Al0eRAnc59JdjfrNh').collection('favoritosPets').doc();
+                              final fav = ModelFavoritosAnimais(
+                                idFav: docUser.id,
+                                idDono: pet.idUsuario,
+                                idPet: pet.idPet,
+                              );
+                              final json = fav.toJason();
+                              docUser.set(json);
+
+                            }
+                            else{
+                              final docUser = FirebaseFirestore.instance
+                                  .collection('favoritosPets')
+                                  .doc(pet.idPet)
+                              ;
+                              docUser.delete();
+                            }
+                          },
                         ),
-                        Text(
-                          pet.distanciaPet,
-                          style: GoogleFonts.poppins(
-                              fontSize: MediaQuery.of(context).size.width / 26),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 0,
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.place_outlined,
+                        size: MediaQuery.of(context).size.height / 38,
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Text(
+                        pet.distanciaPet,
+                        style: GoogleFonts.poppins(
+                            fontSize: MediaQuery.of(context).size.width / 26),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
         ),
-      
+      ),
+
     );
   }
 

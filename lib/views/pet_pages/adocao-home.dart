@@ -6,12 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/data/pet_data.dart';
 import 'package:tier/views/chat/screens/chat_home_screen.dart';
+import 'package:tier/views/perfil_pages/adicionar_pet.dart';
 import 'package:tier/widgets/pet_list.dart';
 
 
-import '../models/pet_model.dart';
-import '../models/users_model.dart';
-import '../widgets/bottom_nav_bar.dart';
+import '../../models/pet_model.dart';
+import '../../models/users_model.dart';
+import '../../widgets/bottom_nav_bar.dart';
 class AdocaoHome extends StatefulWidget {
   AdocaoHome({Key? key,
   }) : super(key: key);
@@ -25,9 +26,9 @@ class _AdocaoHomeState extends State<AdocaoHome> {
   List<String> petIcons = ['https://cdn3.iconfinder.com/data/icons/font-awesome-solid/576/dog-256.png','https://cdn1.iconfinder.com/data/icons/pets-and-animals-5/96/cat-256.png','https://cdn-icons-png.flaticon.com/512/3969/3969770.png','https://cdn1.iconfinder.com/data/icons/animals-178/400/parrot-256.png'];
   String? location = "tomás rodrigues, 1361";
   List<Map>pets=[];
-  String dropdownValue = 'Fêmea';
-  String dropdownValue2 = 'Distantes';
-  String dropdownValue3 = 'Menor idade';
+  String dropdownValueGenero = 'Fêmea';
+  String dropdownValueDistancia = 'Distantes';
+  String dropdownValueIdade = 'Menor idade';
 
 
 
@@ -167,19 +168,28 @@ class _AdocaoHomeState extends State<AdocaoHome> {
               ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  Container(
-                    padding: EdgeInsets.only(top: 8,bottom: 5,left: 7,right: 3),
-                    child: Text("Filtros" , style: GoogleFonts.poppins(color: Colors.white),),
-                    width: MediaQuery.of(context).size.width/6.5,
-                    height: 40,
+                  GestureDetector(
+                    onTap: (){
+
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(
+                                builder: (context) => AdicionarPet()));
+
+                    },
+                    child: Container(
+                      padding: EdgeInsets.only(top: 8,bottom: 5,left: 7,right: 3),
+                      child: Text("Filtros" , style: GoogleFonts.poppins(color: Colors.white),),
+                      width: MediaQuery.of(context).size.width/6.5,
+                      height: 40,
 
 
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Color(0xE6FFC368),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Color(0xE6FFC368),
 
 
-                    ),),
+                      ),),
+                  ),
                   SizedBox(width: MediaQuery.of(context).size.width/45),
 
                   Container(
@@ -195,14 +205,14 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
                     padding: EdgeInsets.only(top: 5,bottom: 5,left: 12,right: 4),
                     child: DropdownButton<String>(
-                      value: dropdownValue2,
+                      value: dropdownValueDistancia,
 
                       elevation: 16,
                       style: const TextStyle(color: Colors.black),
 
                       onChanged: (String? newValue) {
                         setState(() {
-                          dropdownValue2 = newValue!;
+                          dropdownValueDistancia = newValue!;
                         });
                       },
                       items: <String>['Distantes', 'Próximos']
@@ -229,14 +239,14 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
                     padding: EdgeInsets.only(top: 5,bottom: 5,left: 10,right: 3),
                     child: DropdownButton<String>(
-                      value: dropdownValue3,
+                      value: dropdownValueIdade,
 
                       elevation: 16,
                       style: const TextStyle(color: Colors.black),
 
                       onChanged: (String? newValue) {
                         setState(() {
-                          dropdownValue3 = newValue!;
+                          dropdownValueIdade = newValue!;
                         });
                       },
                       items: <String>['Menor idade', 'Maior idade']
@@ -264,14 +274,14 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
                     padding: EdgeInsets.only(top: 5,bottom: 5,left: 10,right: 3),
                     child: DropdownButton<String>(
-                      value: dropdownValue,
+                      value: dropdownValueGenero,
 
                       elevation: 16,
                       style: const TextStyle(color: Colors.black),
 
                       onChanged: (String? newValue) {
                         setState(() {
-                          dropdownValue = newValue!;
+                          dropdownValueGenero = newValue!;
                         });
                       },
                       items: <String>[ 'Fêmea', 'Macho']
@@ -290,9 +300,10 @@ class _AdocaoHomeState extends State<AdocaoHome> {
           ),
 
           /// feed adocao
+
           Expanded(
             child: StreamBuilder<List<ModelPet>>(
-                stream: readPets(isSelected,dropdownValue,dropdownValue2),
+                stream: readPets(isSelected,dropdownValueGenero,dropdownValueDistancia,dropdownValueIdade),
                 builder: (context, snapshot){
                   if(snapshot.hasError){
                     return Text('Something went wrong! ${snapshot.error}');

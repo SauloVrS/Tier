@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../colors.dart';
-import '../views/pet_page.dart';
+
 
 class AnimaisList extends StatelessWidget {
   const AnimaisList({Key? key,

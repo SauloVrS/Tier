@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tier/colors.dart';
 import 'package:tier/views/main_lojas.dart';
 import 'package:tier/widgets/bottom_nav_bar.dart';
-import 'package:tier/views/adocao-home.dart';
+import 'package:tier/views/pet_pages/adocao-home.dart';
 import 'package:tier/views/perfil_pages/perfil_usuario.dart';
 import 'package:google_fonts/google_fonts.dart';
 //import 'package:share_plus/share_plus.dart';

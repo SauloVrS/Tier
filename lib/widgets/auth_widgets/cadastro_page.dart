@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';
-import 'package:tier/views/adocao-home.dart';
+import 'package:tier/views/pet_pages/adocao-home.dart';
 import 'package:tier/views/auth_page.dart';
 import 'package:tier/views/chat/screens/chat_home_screen.dart';
 import 'package:tier/views/perfil_pages/configuracoes_perfil.dart';
