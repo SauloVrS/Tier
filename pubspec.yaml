@@ -53,7 +53,7 @@ dependencies:
   intl: ^0.17.0
   flutter_phone_direct_caller: ^2.1.1
   google_sign_in: ^5.3.2
-  
+  email_validator: ^2.0.1
 
 dev_dependencies:
   flutter_test:

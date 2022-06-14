@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';
+import 'package:tier/views/carrinho/finalizar_pagamento.dart';
+
+import '../../firebase/pedido_helper.dart';
 
 class MetodoDePagamento extends StatefulWidget {
-  const MetodoDePagamento({Key? key}) : super(key: key);
+  final Pedido pedido;
+  const MetodoDePagamento({Key? key, required this.pedido}) : super(key: key);
 
   @override
   State<MetodoDePagamento> createState() => _MetodoDePagamentoState();
@@ -32,15 +36,30 @@ class _MetodoDePagamentoState extends State<MetodoDePagamento> {
         child: Column(
           children: [
             GestureDetector(
-              onTap: (){},
+              onTap: (){
+                widget.pedido.pagamento = 'Cartão de crédito/débito';
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) =>  FinalPagamento(pedido: widget.pedido, icon: Icons.credit_card,))
+                );
+              },
               child: pagamentoType(Icons.credit_card, 'Cartão de crédito/débito')
             ),
             GestureDetector(
-                onTap: (){},
+                onTap: (){
+                  widget.pedido.pagamento = 'Pix';
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) =>  FinalPagamento(pedido: widget.pedido, icon: Icons.pix,))
+                  );
+                },
                 child: pagamentoType(Icons.pix, 'Pix')
             ),
             GestureDetector(
-                onTap: (){},
+                onTap: (){
+                  widget.pedido.pagamento = 'Dinheiro';
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) =>  FinalPagamento(pedido: widget.pedido, icon: Icons.local_atm,))
+                  );
+                },
                 child: pagamentoType(Icons.local_atm, 'Dinheiro')
             ),
           ],
