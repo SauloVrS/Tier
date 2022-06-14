@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../colors.dart';
+import '../../colors.dart';
 
 class MeusAnimaisList extends StatelessWidget {
   const MeusAnimaisList(
@@ -56,7 +56,7 @@ class MeusAnimaisList extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const SizedBox(width: 10,),
-                    Column(
+                    Row(
                       children: [
                         Text(
                           nome!,
@@ -66,6 +66,7 @@ class MeusAnimaisList extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        const SizedBox(width: 5,),
                         Text(
                           idade!,
                           style: GoogleFonts.poppins(

@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/views/auth_page.dart';
 import 'package:tier/views/perfil_pages/cupom_perfil.dart';
 import 'package:tier/views/perfil_pages/meu_codigo_perfil.dart';
-import 'package:tier/widgets/editar_meu_perfil.dart';
+import 'package:tier/widgets/perfil_pages/editar_meu_perfil.dart';
 
 import '../../colors.dart';
 import '../../widgets/bottom_nav_bar.dart';
@@ -145,12 +145,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                     Row(
                       children: [
                         GestureDetector(
-                          onTap: () {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                builder: (context) => EditarPerfil()));
-                          },
+                          onTap: () {},
                           child: Container(
                             width: (MediaQuery.of(context).size.width - 60) / 2,
                             height: 110,

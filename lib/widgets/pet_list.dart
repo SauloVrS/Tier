@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,11 +14,11 @@ class PetList extends StatelessWidget {
   final ModelPet pet;
   final String idUsuario;
 
-  const PetList({Key? key,required this.pet, required this.idUsuario
+  PetList({Key? key,required this.pet, required this.idUsuario
 
   }) : super(key: key);
 
-
+  String? idUsuarioatual = FirebaseAuth.instance.currentUser?.uid;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -105,7 +106,7 @@ class PetList extends StatelessWidget {
 
                             ///addicionar funcao p favoritar no firebase
                             if (_isStarred == true) {
-                              final docUser = FirebaseFirestore.instance.collection('usuarios').doc('yE7Al0eRAnc59JdjfrNh').collection('favoritosPets').doc();
+                              final docUser = FirebaseFirestore.instance.collection('usuarios').doc(idUsuarioatual).collection('favoritosPets').doc();
                               final fav = ModelFavoritosAnimais(
                                 idFav: docUser.id,
                                 idDono: pet.idUsuario,
