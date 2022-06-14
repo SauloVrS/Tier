@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';
-import 'package:tier/views/main_lojas.dart';
 import 'package:tier/widgets/carrinho_widgets/carrinho_functions.dart';
 
 import '../../firebase/produto_helper.dart';
