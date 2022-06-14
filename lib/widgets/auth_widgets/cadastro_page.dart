@@ -18,7 +18,7 @@ import 'package:tier/widgets/auth_widgets/login_page.dart';
 import 'package:tier/views/splash_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tier/widgets/editar_meu_perfil.dart';
+import 'package:tier/widgets/perfil_pages/editar_meu_perfil.dart';
 
 class CadastroPage extends StatefulWidget {
   const CadastroPage({Key? key}) : super(key: key);

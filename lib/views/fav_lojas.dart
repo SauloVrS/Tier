@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,6 +20,7 @@ class FavLojas2 extends StatefulWidget {
 
 class _FavLojas2State extends State<FavLojas2> {
   List<Map> favoritas = [];
+  String? idUsuario = FirebaseAuth.instance.currentUser?.uid;
 
 
   @override
@@ -124,160 +126,247 @@ class _FavLojas2State extends State<FavLojas2> {
             ),
           ),
           Expanded(
-            child: StreamBuilder<List<ModelFavoritosLojas>>(
-              stream: readFavoritosLojas('yE7Al0eRAnc59JdjfrNh'),
-              builder: (context, snapshot){
-                if (snapshot.hasError){
-                  return Text('Something went wrong! ${snapshot.error}');
-                }else if (snapshot.hasData){
-                  final favoritas = snapshot.data;
-                  if (favoritas!.isEmpty){
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 200,
-                              width: 200,
-                              decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          "images/img_fav_lojas.png"
-                                      )
-                                  )
-                              ),
-                            ),
-                            const SizedBox(height: 15,),
-                            Text(
-                              'Você ainda não tem favoritos...',
-                              style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                  text: 'Descubra seu novo\n',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 14,
-                                      color: AppColor.textosPretos3),
-                                  children: const [
-                                    TextSpan(
-                                      text: 'queridinho agora mesmo',
-                                    )
-                                  ]
-                              ),
-                            ),
-                            const SizedBox(height: 10,),
-                            GestureDetector(
-                              onTap: (){
-                                Navigator.pushReplacement(context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const MainLojas(),
-                                    )
-                                );
-                              },
-                              child: Container(
-                                width: 180,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                    color: AppColor.amareloPrincipal.withOpacity(0.7),
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: AppColor.cinzaBranco,
-                                        blurRadius: 0.8,
-                                        offset: const Offset(2, 2),
-                                      ),
-                                    ]
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Ir para Lojas',
-                                          style: GoogleFonts.poppins(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500,
-                                            color: AppColor.textoBranco,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
+            child: (idUsuario == null)
+                ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                  Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 200,
+                      width: 200,
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage(
+                                  "images/img_fav_lojas.png"
+                              )
+                          )
+                      ),
+                    ),
+                    const SizedBox(height: 15,),
+                    Text(
+                      'Você ainda não tem favoritos...',
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                          text: 'Descubra seu novo\n',
+                          style: GoogleFonts.poppins(
+                              fontSize: 14,
+                              color: AppColor.textosPretos3),
+                          children: const [
+                            TextSpan(
+                              text: 'queridinho agora mesmo',
                             )
-                          ],
-                        ),
-                      ],
-                    );
-                  }
-                  else {
-                    return ListView.builder(
-                      itemCount: favoritas.length,
-                      itemBuilder: (context, index){
-                        return FutureBuilder<Loja?>(
-                            future: readLoja(favoritas[index].idLoja),
-                            builder: (context, snapshot){
-                              if (snapshot.hasError){
-                                return Text('Something went wrong! ${snapshot.error}');
-                              } else if (snapshot.hasData){
-                                final lojas = snapshot.data;
-                                return Row(
-                                  children: [
-                                    lojaList(lojas!, 70, context),
-                                    GestureDetector(
-                                      onTap: (){},
-                                      child: Container(
-                                        width: 30,
-                                        height: 30,
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(60),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: AppColor.cinzaBranco,
-                                                blurRadius: 0.9,
-                                                offset: const Offset(1, 1),
-                                              ),
-                                              BoxShadow(
-                                                color: AppColor.cinzaBranco,
-                                                blurRadius: 0.9,
-                                                offset: const Offset(-1, 1),
-                                              ),
-                                            ]
-                                        ),
-                                        child: const CircleAvatar(
-                                          backgroundColor: Colors.white,
-                                          child: Icon(
-                                            Icons.star,
-                                            color: Colors.amber,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 10,),
-                                  ],
-                                );
-                              } else{
-                                return const Center(child: CircularProgressIndicator(),);
-                              }
-                            }
+                          ]
+                      ),
+                    ),
+                    const SizedBox(height: 10,),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(
+                              builder: (context) => const MainLojas(),
+                            )
                         );
                       },
-                    );
+                      child: Container(
+                        width: 180,
+                        height: 40,
+                        decoration: BoxDecoration(
+                            color: AppColor.amareloPrincipal.withOpacity(0.7),
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColor.cinzaBranco,
+                                blurRadius: 0.8,
+                                offset: const Offset(2, 2),
+                              ),
+                            ]
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Ir para Lojas',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColor.textoBranco,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            )
+                :StreamBuilder<List<ModelFavoritosLojas>>(
+                 stream: readFavoritosLojas(idUsuario!),
+                  builder: (context, snapshot){
+                  if (snapshot.hasError){
+                    return Text('Something went wrong! ${snapshot.error}');
+                  }else if (snapshot.hasData){
+                    final favoritas = snapshot.data;
+                    if (favoritas!.isEmpty){
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: 200,
+                                width: 200,
+                                decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            "images/img_fav_lojas.png"
+                                        )
+                                    )
+                                ),
+                              ),
+                              const SizedBox(height: 15,),
+                              Text(
+                                'Você ainda não tem favoritos...',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              RichText(
+                                textAlign: TextAlign.center,
+                                text: TextSpan(
+                                    text: 'Descubra seu novo\n',
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 14,
+                                        color: AppColor.textosPretos3),
+                                    children: const [
+                                      TextSpan(
+                                        text: 'queridinho agora mesmo',
+                                      )
+                                    ]
+                                ),
+                              ),
+                              const SizedBox(height: 10,),
+                              GestureDetector(
+                                onTap: (){
+                                  Navigator.pushReplacement(context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const MainLojas(),
+                                      )
+                                  );
+                                },
+                                child: Container(
+                                  width: 180,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                      color: AppColor.amareloPrincipal.withOpacity(0.7),
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: AppColor.cinzaBranco,
+                                          blurRadius: 0.8,
+                                          offset: const Offset(2, 2),
+                                        ),
+                                      ]
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Ir para Lojas',
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w500,
+                                              color: AppColor.textoBranco,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      );
+                    }
+                    else {
+                      return ListView.builder(
+                        itemCount: favoritas.length,
+                        itemBuilder: (context, index){
+                          return FutureBuilder<Loja?>(
+                              future: readLoja(favoritas[index].idLoja),
+                              builder: (context, snapshot){
+                                if (snapshot.hasError){
+                                  return Text('Something went wrong! ${snapshot.error}');
+                                } else if (snapshot.hasData){
+                                  final lojas = snapshot.data;
+                                  return Row(
+                                    children: [
+                                      lojaList(lojas!, 70, context),
+                                      GestureDetector(
+                                        onTap: (){},
+                                        child: Container(
+                                          width: 30,
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(60),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: AppColor.cinzaBranco,
+                                                  blurRadius: 0.9,
+                                                  offset: const Offset(1, 1),
+                                                ),
+                                                BoxShadow(
+                                                  color: AppColor.cinzaBranco,
+                                                  blurRadius: 0.9,
+                                                  offset: const Offset(-1, 1),
+                                                ),
+                                              ]
+                                          ),
+                                          child: const CircleAvatar(
+                                            backgroundColor: Colors.white,
+                                            child: Icon(
+                                              Icons.star,
+                                              color: Colors.amber,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10,),
+                                    ],
+                                  );
+                                } else{
+                                  return const Center(child: CircularProgressIndicator(),);
+                                }
+                              }
+                          );
+                        },
+                      );
+                    }
+                  }else{
+                    return const Center(child: CircularProgressIndicator(),);
                   }
-                }else{
-                  return const Center(child: CircularProgressIndicator(),);
-                }
-              },
-            ),
+                },
+              ),
           ),
         ],
       ),

@@ -36,6 +36,7 @@ class _AdicionarPetState extends State<AdicionarPet> {
   bool idadePreenchido = false;
   bool descricaoPreenchido = false;
   Uint8List? _file;
+  bool _isLoading = false;
 
 
   //DateTime idadeconvert =  AgeCalculator.age(selectedBithDate, today: selectedCurrentDate).months.toString() as DateTime;
@@ -79,7 +80,9 @@ class _AdicionarPetState extends State<AdicionarPet> {
   void salvarAnimal(String uid,
       String distancia) async {
     try {
-
+      setState(() {
+        _isLoading = true;
+      });
       String res = await FireStoreMethods().adicionarPet(
         _file!,
         uid,
@@ -90,6 +93,9 @@ class _AdicionarPetState extends State<AdicionarPet> {
         controllerName.text,
         tipo!,
       );
+      setState(() {
+        _isLoading = false;
+      });
       if (res == 'success') {
         showSnackBar('Animal adicionado!', context);
       } else {
@@ -234,6 +240,7 @@ class _AdicionarPetState extends State<AdicionarPet> {
                         ),
                         child: TextField(
                           controller: controllerName,
+                          maxLength: 16,
                           decoration: InputDecoration(
                             hintText: 'Adicionar nome',
                             border: InputBorder.none,
@@ -555,7 +562,7 @@ class _AdicionarPetState extends State<AdicionarPet> {
                             });
                             if (erroSelecao(tipo, genero, porte) != null ||
                                 _file == null) {
-                              final snackBar = SnackBar(
+                              final snackBar =  SnackBar(
                                   content: Text('Preencha todos os campos'));
                               ScaffoldMessenger.of(context).showSnackBar(
                                   snackBar);
@@ -564,7 +571,6 @@ class _AdicionarPetState extends State<AdicionarPet> {
                             idade = AgeCalculator.age(selectedBithDate, today: selectedCurrentDate).months.toString();
                             print(idade);
                             salvarAnimal(idUsuario!, '1 km' );
-
                           }
                           //checar campos e adicionar no firebase
                         },
@@ -579,19 +585,25 @@ class _AdicionarPetState extends State<AdicionarPet> {
                             borderRadius: BorderRadius.circular(20),
                             color: AppColor.amareloPrincipal,
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Salvar alterações',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
+                          child: _isLoading
+                              ? Center(
+                                child: CircularProgressIndicator(
                                   color: AppColor.textoBranco,
-                                ),
                               ),
-                            ],
+                              )
+                              : Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                      'Salvar alterações',
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColor.textoBranco,
+                                        ),
                           ),
+                                ],
+                              ),
                         ),
                       ),
 

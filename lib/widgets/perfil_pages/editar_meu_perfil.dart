@@ -1,19 +1,22 @@
 import 'dart:typed_data';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:tier/views/perfil_pages/meu_perfil.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tier/widgets/perfil_pages/modal_excluir_editar_pet.dart';
 
-import '../colors.dart';
-import '../firebase/adicionar_imagens.dart';
-import '../models/pet_model.dart';
-import '../models/users_model.dart';
+import '../../colors.dart';
+import '../../firebase/adicionar_imagens.dart';
+import '../../models/pet_model.dart';
+import '../../models/users_model.dart';
 import 'meus_animais_list.dart';
 
 class EditarPerfil extends StatefulWidget {
@@ -162,14 +165,14 @@ class _EditarPerfilState extends State<EditarPerfil> {
                               ),
                               width: 100,
                               height: 100,
-                              child: (user!.fotoUsuario == null &&
+                              child: ((removeuFoto == true) ||user!.fotoUsuario == null &&
                                       _file == null)
                                   ? GestureDetector(
                                       onTap: () {
                                         adicionarImagem(context);
                                       },
                                       child: CircleAvatar(
-                                        backgroundColor: AppColor.background,
+                                        backgroundColor: AppColor.background.withOpacity(0.8),
                                         foregroundColor: AppColor.textosPretos2,
                                         child: Icon(Icons.add),
                                       ),
@@ -227,7 +230,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                             textAlign: TextAlign.center,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintText: user.nomeUsuario,
+                                hintText: user!.nomeUsuario,
                                 hintStyle: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -257,8 +260,8 @@ class _EditarPerfilState extends State<EditarPerfil> {
                       child: ListView(
                         children: [
                           Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: 25, vertical: 15),
+                            margin: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
                             height: 80,
                             decoration: BoxDecoration(
                               color: AppColor.cinzaBranco.withOpacity(0.5),
@@ -271,6 +274,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 hintText: user.descricaoUsuario,
+                                hintMaxLines: 3,
                               ),
                             ),
                           ),
@@ -398,7 +402,14 @@ class _EditarPerfilState extends State<EditarPerfil> {
                                           return Row(
                                             children: [
                                               GestureDetector(
-                                                onTap:(){},
+                                                onTap:() async{
+                                                  return showMaterialModalBottomSheet(
+                                                      expand: false,
+                                                      backgroundColor: Colors.transparent,
+                                                      context: context,
+                                                      builder: (context) =>  ModalEditPet(idPet: pets[a].idPet,)
+                                                  );
+                                                },
                                                 child: MeusAnimaisList(
                                                     nome: pets[a].nomePet,
                                                     imgUrl: pets[a].fotoPet,
@@ -409,7 +420,14 @@ class _EditarPerfilState extends State<EditarPerfil> {
                                               ),
                                               (b <= pets.length - 1) ?
                                               GestureDetector(
-                                                onTap: (){},
+                                                onTap: ()async{
+                                                  return showMaterialModalBottomSheet(
+                                                      expand: false,
+                                                      backgroundColor: Colors.transparent,
+                                                      context: context,
+                                                      builder: (context) =>  ModalEditPet(idPet: pets[b].idPet,)
+                                                  );
+                                                },
                                                 child: MeusAnimaisList(
                                                         nome: pets[b].nomePet,
                                                         imgUrl: pets[b].fotoPet,

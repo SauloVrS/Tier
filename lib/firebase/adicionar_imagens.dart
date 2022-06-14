@@ -39,7 +39,8 @@ class StorageMethods{
     File file = await File('${tempDir.path}/image.png').create();
     file.writeAsBytesSync(imageInUnit8List);
 
-    Reference ref = _storage.ref().child(childName).child(_auth.currentUser!.uid);
+    String fotoid = const Uuid().v1();
+    Reference ref = _storage.ref().child(childName).child(fotoid);
 
     if(isPost) {
       String id = const Uuid().v1();
