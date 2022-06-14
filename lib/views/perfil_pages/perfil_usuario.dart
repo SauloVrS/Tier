@@ -4,16 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/views/auth_page.dart';
 import 'package:tier/views/perfil_pages/cupom_perfil.dart';
 import 'package:tier/views/perfil_pages/meu_codigo_perfil.dart';
+import 'package:tier/widgets/editar_meu_perfil.dart';
 
 import '../../colors.dart';
 import '../../widgets/bottom_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:tier/colors.dart';
 import 'package:tier/models/users_model.dart';
-import 'package:tier/widgets/auth_widgets/login_page.dart';
 import 'package:tier/views/perfil_pages/meu_perfil.dart';
 import 'package:tier/widgets/bottom_nav_bar.dart';
 import 'package:tier/views/perfil_pages/configuracoes_perfil.dart';
@@ -148,7 +145,12 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                     Row(
                       children: [
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                builder: (context) => EditarPerfil()));
+                          },
                           child: Container(
                             width: (MediaQuery.of(context).size.width - 60) / 2,
                             height: 110,
@@ -294,9 +296,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => MeuPerfil(
-                            idUsuario: idUsuario!,
-                          ), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
+                          builder: (context) => MeuPerfil(), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
                         ));
                   }
                 },

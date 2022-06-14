@@ -99,4 +99,22 @@ class FireStoreMethods{
     }
     return res;
   }
+
+  Future<String> adicionarFotoPerfil(
+      Uint8List file,
+      String uid,
+      ) async {
+    String res = 'ocorreu um erro';
+    try{
+      String photoUrl = await StorageMethods().uploadImageToStorage('fotosPerfil/', file, true);
+      final docUser = FirebaseFirestore.instance.collection('usuarios').doc(uid);
+      docUser.update({
+        'fotoUsuario' : photoUrl,
+      });
+      res = 'sucess';
+    }catch(err){
+      res = err.toString();
+    }
+    return res;
+  }
 }

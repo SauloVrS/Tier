@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -24,11 +25,10 @@ class AdicionarPet extends StatefulWidget {
 }
 
 class _AdicionarPetState extends State<AdicionarPet> {
-  String idUsuario = 'yE7Al0eRAnc59JdjfrNh';
+  String? idUsuario = FirebaseAuth.instance.currentUser?.uid;
   String? tipo;
   String? genero;
   String? porte;
-  //final controllerIdade = TextEditingController();
   String? idade;
   final controllerName = TextEditingController();
   final controllerDescricao = TextEditingController();
@@ -41,8 +41,6 @@ class _AdicionarPetState extends State<AdicionarPet> {
   //DateTime idadeconvert =  AgeCalculator.age(selectedBithDate, today: selectedCurrentDate).months.toString() as DateTime;
   //String? idade = idadeconvert as String;
   //DateTime idade =  AgeCalculator.age(selectedBithDate, today: selectedCurrentDate).months.toString() as DateTime;
-
-
 
 
 
@@ -77,8 +75,6 @@ class _AdicionarPetState extends State<AdicionarPet> {
 
     }
   }
-
-
 
   void salvarAnimal(String uid,
       String distancia) async {
@@ -149,7 +145,6 @@ class _AdicionarPetState extends State<AdicionarPet> {
   void dispose() {
     super.dispose();
     controllerName.dispose();
-    //controllerIdade.dispose();
     controllerDescricao.dispose();
   }
 
@@ -160,7 +155,6 @@ class _AdicionarPetState extends State<AdicionarPet> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-
             children: [
               GestureDetector(
                 onTap: () {
@@ -187,7 +181,7 @@ class _AdicionarPetState extends State<AdicionarPet> {
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        MeuPerfil(idUsuario: idUsuario,),
+                                        MeuPerfil(),
                                   )
                               );
                             },
@@ -450,7 +444,7 @@ class _AdicionarPetState extends State<AdicionarPet> {
                               border: Border.all(color: AppColor.cinzaBranco),
                             ),
                             child: FutureBuilder<ModelUsers?>(
-                              future: readUser(idUsuario),
+                              future: readUser(idUsuario!),
                               builder: (context, snapshot) {
                                 if (snapshot.hasError) {
                                   return Text('Something went wrong! ${snapshot
@@ -569,7 +563,7 @@ class _AdicionarPetState extends State<AdicionarPet> {
                           } else {
                             idade = AgeCalculator.age(selectedBithDate, today: selectedCurrentDate).months.toString();
                             print(idade);
-                            salvarAnimal(idUsuario, '1 km' );
+                            salvarAnimal(idUsuario!, '1 km' );
 
                           }
                           //checar campos e adicionar no firebase

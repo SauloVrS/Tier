@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/views/perfil_pages/perfil_usuario.dart';
@@ -13,18 +14,13 @@ import 'package:tier/colors.dart';
 import 'package:tier/views/perfil_pages/adicionar_pet.dart';
 
 class MeuPerfil extends StatefulWidget {
-  MeuPerfil({required this.idUsuario, Key? key}) : super(key: key);
-  String idUsuario;
+  MeuPerfil({ Key? key}) : super(key: key);
   @override
-  _MeuPerfilState createState() => _MeuPerfilState(idUsuario: idUsuario);
+  _MeuPerfilState createState() => _MeuPerfilState();
 }
 
 class _MeuPerfilState extends State<MeuPerfil> {
-  _MeuPerfilState({
-    required this.idUsuario,
-  });
-  String idUsuario;
-  //List<Map> pets = [];
+  String? idUsuario = FirebaseAuth.instance.currentUser?.uid;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +29,7 @@ class _MeuPerfilState extends State<MeuPerfil> {
       backgroundColor: AppColor.background.withOpacity(0.95),
       body: SafeArea(
         child: FutureBuilder<ModelUsers?>(
-          future: readUser(idUsuario),
+          future: readUser(idUsuario!),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               print(snapshot.error);
@@ -152,7 +148,7 @@ class _MeuPerfilState extends State<MeuPerfil> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Expanded(
+                  Flexible(
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
@@ -161,16 +157,18 @@ class _MeuPerfilState extends State<MeuPerfil> {
                             topLeft: Radius.circular(20)),
                         color: AppColor.background,
                       ),
-                      child: Column(
+                      child: ListView(
                         children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: 25, vertical: 15),
-                            height: 80,
-                            child: Text(
-                              user.descricaoUsuario!,
-                              style: GoogleFonts.poppins(
-                                fontSize: 16,
+                          Center(
+                            child: Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 25, vertical: 15),
+                              height: 80,
+                              child: Text(
+                                user.descricaoUsuario!,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                ),
                               ),
                             ),
                           ),
@@ -223,48 +221,51 @@ class _MeuPerfilState extends State<MeuPerfil> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Expanded(
-                            child: StreamBuilder<List<ModelPet>>(
-                              stream: readPetsUser(idUsuario),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasError) {
-                                  return Text(
-                                      'Something went wrong! ${snapshot.error}');
-                                } else if (snapshot.hasData) {
-                                  final pets = snapshot.data;
-                                  if (pets!.isEmpty) {
-                                    return Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              height: 200,
-                                              width: 200,
-                                              decoration: const BoxDecoration(
-                                                  image: DecorationImage(
-                                                      image: AssetImage(
-                                                          "images/img_meus_animais.png"))),
+                          StreamBuilder<List<ModelPet>>(
+                            stream: readPetsUser(idUsuario!),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasError) {
+                                return Text(
+                                    'Something went wrong! ${snapshot.error}');
+                              } else if (snapshot.hasData) {
+                                final pets = snapshot.data;
+                                if (pets!.isEmpty) {
+                                  return Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            height: 200,
+                                            width: 200,
+                                            decoration: const BoxDecoration(
+                                                image: DecorationImage(
+                                                    image: AssetImage(
+                                                        "images/img_meus_animais.png"))),
+                                          ),
+                                          Text(
+                                            'Não há animais para adoção',
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500,
                                             ),
-                                            Text(
-                                              'Não há animais para adoção',
-                                              style: GoogleFonts.poppins(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: 15,
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    );
-                                  } else {
-                                    return ListView.builder(
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  );
+                                } else {
+                                  return SizedBox(
+                                    //height: 100,
+                                    child: ListView.builder(
+                                        physics: const NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
                                         itemCount: (pets.length % 2 == 0)
                                             ? (pets.length) ~/ 2
                                             : (pets.length) ~/ 2 + 1,
@@ -281,8 +282,7 @@ class _MeuPerfilState extends State<MeuPerfil> {
                                                         builder: (context) =>
                                                             PetPage(
                                                                 pet: pets[a],
-                                                                idUsuario:
-                                                                    idUsuario),
+                                                                idUsuario: idUsuario!),
                                                       ));
                                                 },
                                                 child: MeusAnimaisList(
@@ -301,10 +301,8 @@ class _MeuPerfilState extends State<MeuPerfil> {
                                                             MaterialPageRoute(
                                                               builder: (context) =>
                                                                   PetPage(
-                                                                      pet: pets[
-                                                                          b],
-                                                                      idUsuario:
-                                                                          idUsuario),
+                                                                      pet: pets[b],
+                                                                      idUsuario: idUsuario!),
                                                             ));
                                                       },
                                                       child: MeusAnimaisList(
@@ -320,15 +318,15 @@ class _MeuPerfilState extends State<MeuPerfil> {
                                                   : Container(),
                                             ],
                                           );
-                                        });
-                                  }
-                                } else {
-                                  return Center(
-                                    child: CircularProgressIndicator(),
+                                        }),
                                   );
                                 }
-                              },
-                            ),
+                              } else {
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                            },
                           ),
                         ],
                       ),
