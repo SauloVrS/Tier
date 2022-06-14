@@ -49,6 +49,18 @@ class _AjudaState extends State<Ajuda> {
         body:  Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Container(
+              height: 250,
+              width:  300,
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(
+                        "images/central_atendimento.png",
+                      )
+                  )
+              ),
+            ),
+            const SizedBox(height: 30,),
             Center(
               child: RichText(
                 textAlign: TextAlign.center,
@@ -57,52 +69,23 @@ class _AjudaState extends State<Ajuda> {
             ),
             const SizedBox(height: 30,),
 
-            GestureDetector(
-              onTap: (){
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(
-                      builder: (widget) => _callNumber(),//colocar opção de ligar
-                    )
-                );
-              },
-              child: Container(
-                width: 150,
-                height: 40,
-                decoration: BoxDecoration(
-                    color: AppColor.amareloPrincipal.withOpacity(0.7),
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColor.cinzaBranco,
-                        blurRadius: 0.8,
-                        offset: const Offset(2, 2),
-                      ),
-                    ]
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Ligar',
-                          style: GoogleFonts.poppins(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            color: AppColor.textoBranco,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+              ElevatedButton(
+                child: Text("Ligar"),
+                onPressed: (){
+                  _callNumber();
+                },
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.orangeAccent,
+                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                    textStyle:
+                    GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: AppColor.textoBranco,)),
               ),
-            )
 
           ],
         )
-
     );
 
   }

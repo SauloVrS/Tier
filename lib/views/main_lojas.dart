@@ -10,6 +10,7 @@ import 'package:tier/data/servicos.dart';
 import 'package:tier/firebase/loja_helper.dart';
 import 'package:tier/views/carrinho/carrinho_inicial.dart';
 import 'package:tier/views/chat/screens/chat_home_screen.dart';
+import 'package:tier/views/pet_pages/location_provider.dart';
 
 // arquivos de widgets
 import 'package:tier/widgets/banners.dart';
@@ -47,6 +48,7 @@ class _MainLojasState extends State<MainLojas> {
     initData();
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {

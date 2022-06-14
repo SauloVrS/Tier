@@ -1,0 +1,9 @@
+
+{
+    "language": "português",
+    "helloWorld": "Olá mundo",
+    "title" : "Aplicativo em Português",
+    "@helloWorld": {
+      "description": "Hello, Subscribe the Daves Tecnologia Channel"
+    }
+}

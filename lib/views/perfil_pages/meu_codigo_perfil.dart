@@ -6,14 +6,14 @@ import 'package:tier/widgets/bottom_nav_bar.dart';
 import 'package:tier/views/pet_pages/adocao-home.dart';
 import 'package:tier/views/perfil_pages/perfil_usuario.dart';
 import 'package:google_fonts/google_fonts.dart';
-//import 'package:share_plus/share_plus.dart';
+import 'package:share_plus/share_plus.dart';
 
 class Meu_cupom extends StatelessWidget {
   const Meu_cupom({Key? key}) : super(key: key);
 
 
   void share(){
-    //Share.share("Share text");
+    Share.share("Compartilhar");
   }
 
   @override
@@ -152,11 +152,20 @@ class Meu_cupom extends StatelessWidget {
                     child: Column(
                       children: [
                         ElevatedButton(
+                          child: Text("Compartilhar"),
                           onPressed: (){
-                            //share();
+                            share();
                           },
-                          child: Text("Share Text"),
-                        ),
+                        style: ElevatedButton.styleFrom(
+                        primary: Colors.orangeAccent,
+                        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                        textStyle:
+                         GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: AppColor.textoBranco,)),
+                  ),
+
                       ],
                     ),
                   )
