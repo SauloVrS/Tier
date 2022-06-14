@@ -27,7 +27,7 @@ class _ListaItensState extends State<ListaItens> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Text('Resultados Semelhantes a ${widget.text}',
-              style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 18.0),),
+              style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18.0),),
           ),
           streamIdsBusca(widget.text)
           //streamProdByType(id: 'gWPjxX3aRPSOykSLQbfg', type: 'Ração')

@@ -26,7 +26,7 @@ class _ListaLojasState extends State<ListaLojas> {
           //Filtro(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: Text('Resultados Semelhantes a ${widget.text}',style: TextStyle(fontWeight: FontWeight.w800, fontSize: 18.0),),
+            child: Text('Resultados Semelhantes a ${widget.text}',style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18.0),),
           ),
           streamLojasBusca(widget.text),
           // ListView(

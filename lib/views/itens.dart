@@ -35,7 +35,7 @@ class _BuscaItensState extends State<BuscaItens> {
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.black,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
@@ -45,7 +45,7 @@ class _BuscaItensState extends State<BuscaItens> {
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.black,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
