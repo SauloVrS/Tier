@@ -4,16 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/views/auth_page.dart';
 import 'package:tier/views/perfil_pages/cupom_perfil.dart';
 import 'package:tier/views/perfil_pages/meu_codigo_perfil.dart';
+import 'package:tier/widgets/perfil_pages/editar_meu_perfil.dart';
 
 import '../../colors.dart';
 import '../../widgets/bottom_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:tier/colors.dart';
 import 'package:tier/models/users_model.dart';
-import 'package:tier/widgets/auth_widgets/login_page.dart';
 import 'package:tier/views/perfil_pages/meu_perfil.dart';
 import 'package:tier/widgets/bottom_nav_bar.dart';
 import 'package:tier/views/perfil_pages/configuracoes_perfil.dart';
@@ -213,7 +210,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(
+                            Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => NivelUsuario(),
@@ -284,19 +281,17 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               GestureDetector(
                 onTap: () {
                   if (idUsuario == null) {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
                               authPage(), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
                         ));
                   } else {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => MeuPerfil(
-                            idUsuario: idUsuario!,
-                          ), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
+                          builder: (context) => MeuPerfil(), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
                         ));
                   }
                 },
@@ -351,7 +346,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
+                  Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => Cupons()));
                 },
                 child: Container(
@@ -542,7 +537,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
+                  Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => Meu_cupom()));
                 },
                 child: Container(
@@ -592,7 +587,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
+                  Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => Configuracoes()));
                 },
                 child: Container(

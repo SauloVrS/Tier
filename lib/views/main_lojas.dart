@@ -142,41 +142,41 @@ class _MainLojasState extends State<MainLojas> {
             ),
             streamIds(),
             BannerGeral(imgUrl: banners[1]),
-            Padding(
-              padding: const EdgeInsets.symmetric( horizontal: 15 ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Serviços",
-                    style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500),
-                    )
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-                height: 125,
-                child: ListView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: servicos.length,
-                  itemBuilder: (context, index) {
-                    return SPList(
-                        name: servicos[index]['name'],
-                        imgUrl: servicos[index]['imgUrl'],
-                        );
-                  },
-                )
-            ),
-            const SizedBox(
-              height: 15,
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric( horizontal: 15 ),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       Text(
+            //         "Serviços",
+            //         style: GoogleFonts.poppins(
+            //           textStyle: const TextStyle(
+            //               color: Colors.black,
+            //               fontSize: 20,
+            //               fontWeight: FontWeight.w500),
+            //         )
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            // SizedBox(
+            //     height: 125,
+            //     child: ListView.builder(
+            //       padding: const EdgeInsets.symmetric(horizontal: 15),
+            //       shrinkWrap: true,
+            //       scrollDirection: Axis.horizontal,
+            //       itemCount: servicos.length,
+            //       itemBuilder: (context, index) {
+            //         return SPList(
+            //             name: servicos[index]['name'],
+            //             imgUrl: servicos[index]['imgUrl'],
+            //             );
+            //       },
+            //     )
+            // ),
+            // const SizedBox(
+            //   height: 15,
+            // ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(

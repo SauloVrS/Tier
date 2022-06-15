@@ -1,10 +1,10 @@
 
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:tier/firebase/pedido_helper.dart';
 import 'package:tier/widgets/carrinho_widgets/carrinho_functions.dart';
 import 'package:tier/widgets/carrinho_widgets/metodo_pagamento.dart';
 import 'package:tier/widgets/carrinho_widgets/modal_excluir_item.dart';
@@ -135,7 +135,9 @@ class _CarrinhoState extends State<Carrinho> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const MetodoDePagamento()));
+                Endereco endereco = Endereco(cidade: 'Fortaleza', bairro: 'Antonio Bezerra', cep: '60000000', numero: 60, rua: 'Rua das margaridas');
+                Pedido pedido = Pedido(carrinho: widget.list, idLoja: widget.list[0]['idLoja'], idUser: 'test', valor: total, endereco: endereco);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => MetodoDePagamento(pedido: pedido)));
               },
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),

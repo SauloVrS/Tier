@@ -6,7 +6,7 @@ class ModelUsers {
   final String? descricaoUsuario;
   final String? fotoUsuario;
   final String? nomeUsuario;
-  //final List? enderecoUsuario; //mudar de string p matriz
+  final List? enderecoUsuario; //mudar de string p matriz
   final int pontos;
 
   ModelUsers({
@@ -14,7 +14,7 @@ class ModelUsers {
     required this.descricaoUsuario,
     required this.fotoUsuario,
     required this.nomeUsuario,
-    //this.enderecoUsuario,
+    required this.enderecoUsuario,
     required this.pontos,
   });
 
@@ -23,7 +23,7 @@ class ModelUsers {
         'descricaoUsuario': descricaoUsuario,
         'fotoUsuario': fotoUsuario,
         'nomeUsuario': nomeUsuario,
-        // 'enderecoUsuario': enderecoUsuario,
+        'enderecoUsuario': enderecoUsuario,
         'pontos': pontos,
       };
 
@@ -32,7 +32,7 @@ class ModelUsers {
         descricaoUsuario: json['descricaoUsuario'],
         fotoUsuario: json['fotoUsuario'],
         nomeUsuario: json['nomeUsuario'],
-        // enderecoUsuario: json['enderecoUsuario'],
+        enderecoUsuario: json['enderecoUsuario'],
         pontos: json['pontos'],
       );
 }

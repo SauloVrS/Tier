@@ -39,7 +39,8 @@ class StorageMethods{
     File file = await File('${tempDir.path}/image.png').create();
     file.writeAsBytesSync(imageInUnit8List);
 
-    Reference ref = _storage.ref().child(childName).child(_auth.currentUser!.uid);
+    String fotoid = const Uuid().v1();
+    Reference ref = _storage.ref().child(childName).child(fotoid);
 
     if(isPost) {
       String id = const Uuid().v1();
@@ -94,6 +95,24 @@ class FireStoreMethods{
       _firestore.collection('usuarios').doc(uid).collection('pets').doc(petId).set(pet.toJson());
       _firestore.collection('pets').doc(petId).set(pet.toJson());
       res = 'success';
+    }catch(err){
+      res = err.toString();
+    }
+    return res;
+  }
+
+  Future<String> adicionarFotoPerfil(
+      Uint8List file,
+      String uid,
+      ) async {
+    String res = 'ocorreu um erro';
+    try{
+      String photoUrl = await StorageMethods().uploadImageToStorage('fotosPerfil/', file, true);
+      final docUser = FirebaseFirestore.instance.collection('usuarios').doc(uid);
+      docUser.update({
+        'fotoUsuario' : photoUrl,
+      });
+      res = 'sucess';
     }catch(err){
       res = err.toString();
     }

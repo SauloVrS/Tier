@@ -82,7 +82,7 @@ void apagarUser(String user) async {
   ref.set(null);
 }
 
-void mudarQnt(String user, int index, int qnt, Map prod) async {
+void mudarQntOld(String user, int index, int qnt, Map prod) async {
   List carrinho = [];
   Map produto = prod;
   final ref = FirebaseDatabase.instance.ref();
@@ -91,6 +91,24 @@ void mudarQnt(String user, int index, int qnt, Map prod) async {
     snapshot.children.forEach((e) => carrinho.add(e.value));
     //produto = carrinho.elementAt(index);
     //produto = {'name': produto["name"], 'quantida': qnt};
+    carrinho.removeAt(index);
+    carrinho.insert(index, produto);
+    update(user, carrinho);
+  }
+}
+
+void mudarQnt(String user, int index, int qnt, Map prod) async {
+  List carrinho = [];
+  Map produto = prod;
+  Map oldProd;
+  num newQnt = qnt;
+  final ref = FirebaseDatabase.instance.ref();
+  final snapshot = await ref.child('users/$user/Carrinho').get();
+  if (snapshot.exists) {
+    snapshot.children.forEach((e) => carrinho.add(e.value));
+    oldProd = carrinho.elementAt(index);
+    newQnt += oldProd['quantidade'];
+    produto['quantidade'] = newQnt;
     carrinho.removeAt(index);
     carrinho.insert(index, produto);
     update(user, carrinho);

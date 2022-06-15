@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../views/produtos_type/type_produtos.dart';
+
 class SPList extends StatelessWidget {
 
   final String name, imgUrl;
@@ -10,7 +12,11 @@ class SPList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){},
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) => TypeProd(type: name),
+        ));
+      },
       child: Container(
         margin: const EdgeInsets.only(right: 10, top: 15),
         decoration: BoxDecoration(border: Border.all(color: const Color(0xFFD6D6D6), width: 1, style: BorderStyle.solid), borderRadius: BorderRadius.circular(8)),

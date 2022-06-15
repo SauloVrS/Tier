@@ -1,28 +1,26 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';
-import 'package:tier/widgets/carrinho_widgets/carrinho_functions.dart';
-
-import '../../firebase/produto_helper.dart';
-
-class ModalLojaDiferente extends StatefulWidget {
-  final String user;
-  final Produto produto;
-  final String lojaId;
-  final int qnt;
-  const ModalLojaDiferente({Key? key, required this.user, required this.produto, required this.lojaId, required this.qnt}) : super(key: key);
+import 'package:tier/firebase/adicionar_imagens.dart';
+import 'package:tier/widgets/perfil_pages/editar_pet.dart';
+class ModalEditPet extends StatefulWidget {
+  final String idPet;
+  const ModalEditPet({Key? key, required this.idPet}) : super(key: key);
 
   @override
-  State<ModalLojaDiferente> createState() => _ModalLojaDiferenteState();
+  _ModalEditPetState createState() => _ModalEditPetState();
 }
 
-class _ModalLojaDiferenteState extends State<ModalLojaDiferente> {
+class _ModalEditPetState extends State<ModalEditPet> {
+  String? idUsuario = FirebaseAuth.instance.currentUser?.uid;
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: const BorderRadius.only(topRight: Radius.circular(10), topLeft: Radius.circular(10)),
       child: Container(
-        color: Colors.white,
+        color: AppColor.background,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -39,36 +37,53 @@ class _ModalLojaDiferenteState extends State<ModalLojaDiferente> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: Text(
-                'Você só pode adicionar itens de uma loja por vez.',
+                'O que você deseja fazer com esse pet?',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600
-                ),
-              ),
-            ),
-            const SizedBox(height: 7,),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Text(
-                'Deseja esvaziar o carrinho e adicionar este item?',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.poppins(
-                  fontSize: 12
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600
                 ),
               ),
             ),
             const SizedBox(height: 15,),
             GestureDetector(
               onTap: () {
-                apagarUser(widget.user);
-                final num valor = widget.produto.promocao ? widget.produto.novoValor : widget.produto.valor;
-                final produto = ShopProd(idProduto: widget.produto.id, idLoja: widget.lojaId, quantidade: widget.qnt, valor: valor);
-                addCarrinho(widget.user, produto.toJson());
-                int count = 0;
-                Navigator.of(context).popUntil((route) {
-                  return count++ == 2;
-                });
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => EditarPet()));
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Container(
+                    width: MediaQuery.of(context).size.width-30,
+                    color: AppColor.amareloPrincipal,
+                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Editar Animal',
+                          style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    )
+                ),
+              ),
+            ),
+            const SizedBox(height: 15,),
+            GestureDetector(
+              onTap: () {
+                final docUser = FirebaseFirestore.instance
+                    .collection('usuarios')
+                    .doc(idUsuario)
+                    .collection('pets')
+                    .doc(widget.idPet);
+                final docUser2 = FirebaseFirestore.instance
+                    .collection('pets')
+                    .doc(widget.idPet);
+                docUser.delete();
+                docUser2.delete();
+                showSnackBar('Animal excluido com sucesso', context);
+                Navigator.pop(context);
               },
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
@@ -80,15 +95,14 @@ class _ModalLojaDiferenteState extends State<ModalLojaDiferente> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Esvaziar carrinho e adicionar',
-                          style: GoogleFonts.poppins(color: Colors.white),
+                          'Excluir Animal',
+                          style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w600),
                         ),
                       ],
                     )
                 ),
               ),
             ),
-            const SizedBox(height: 10,),
             GestureDetector(
               onTap: () {
                 Navigator.of(context).pop();
@@ -111,7 +125,6 @@ class _ModalLojaDiferenteState extends State<ModalLojaDiferente> {
                 ),
               ),
             ),
-            const SizedBox(height: 10,),
           ],
         ),
       ),
