@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../colors.dart';
+import '../../colors.dart';
 
 
 class AnimaisDonoList extends StatelessWidget {
@@ -68,12 +68,22 @@ class AnimaisDonoList extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text(
-                          idade,
-                          style: GoogleFonts.poppins(
-                            color: AppColor.textosPretos2,
-                            fontSize: 12,
-                          ),
+                        Row(
+                          children: [
+                            Text(
+                              idade,
+                              style: GoogleFonts.poppins(
+                                color: AppColor.textosPretos2,
+                                fontSize: 12,
+                              ),
+                            ),
+                            SizedBox(width: 4,),
+                            Text(idade! == "1" ? "mês" : "meses",style: GoogleFonts.poppins(
+                              color: AppColor.textosPretos2,
+                              fontSize: 12,
+
+                            ),)
+                          ],
                         ),
                       ],
                     ),
@@ -105,7 +115,7 @@ class AnimaisDonoList extends StatelessWidget {
                           backgroundColor: Colors.white,
                           child: Icon(
                             Icons.star,
-                            color: Colors.amber,
+                            color: Colors.grey,
                             size: 25,
                           ),
                         ),

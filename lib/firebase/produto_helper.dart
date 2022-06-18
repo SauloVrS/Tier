@@ -52,3 +52,4 @@ Stream<List<Produto>> getProdByType({required String type, required String id}) 
         .snapshots()
         .map((snapshot) =>
         snapshot.docs.map((doc) => Produto.fromJson(doc.data())).toList());
+

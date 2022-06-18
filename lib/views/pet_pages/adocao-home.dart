@@ -1,13 +1,14 @@
 
 
 import 'dart:ui';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/data/pet_data.dart';
 import 'package:tier/views/chat/screens/chat_home_screen.dart';
 import 'package:tier/views/perfil_pages/adicionar_pet.dart';
-import 'package:tier/widgets/pet_list.dart';
+import 'package:tier/widgets/pet_widgets/pet_list.dart';
 
 
 import '../../models/pet_model.dart';
@@ -29,6 +30,8 @@ class _AdocaoHomeState extends State<AdocaoHome> {
   String dropdownValueGenero = 'Fêmea';
   String dropdownValueDistancia = 'Distantes';
   String dropdownValueIdade = 'Menor idade';
+ String? idUsuario = FirebaseAuth.instance.currentUser?.uid;
+
 
 
 
@@ -300,27 +303,64 @@ class _AdocaoHomeState extends State<AdocaoHome> {
           ),
 
           /// feed adocao
-
           Expanded(
-            child: StreamBuilder<List<ModelPet>>(
-                stream: readPets(isSelected,dropdownValueGenero,dropdownValueDistancia,dropdownValueIdade),
-                builder: (context, snapshot){
-                  if(snapshot.hasError){
-                    return Text('Something went wrong! ${snapshot.error}');
-                  } else if(snapshot.hasData){
-                    final pets = snapshot.data!;
-                    return pets.length == 0 ? Center() :  ListView(
-                      //physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      children: pets.map((pet) => PetList(pet: pet,  idUsuario: '',)).toList(),
-                    );
-                  } else {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                }
-            ),
-          ),
+            child: FutureBuilder<ModelUsers?>(
+              future: readUser2(idUsuario == null ? '6GqG7AT0zqoOSIOrobTy' : idUsuario!),
+              builder: (context, snapshot){
+                if(snapshot.hasError){
+                  return Text('Something went wrong!1 ${snapshot.error}');
+                } else if(snapshot.hasData){
+                  final user = snapshot.data;
+                  return
+                    StreamBuilder<List<ModelPet>>(
 
+                        stream: readPets(isSelected,dropdownValueGenero,dropdownValueDistancia,dropdownValueIdade,),
+                        builder: (context, snapshot){
+                          if(snapshot.hasError){
+                            return Text('Something went wrong!2 ${snapshot.error}');
+                          } else if(snapshot.hasData){
+                            final pets = snapshot.data!;
+                            return pets.length == 0 ? Center() :  ListView(
+                              //physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              children: pets.map((pet) => PetList(pet: pet,  idUsuario: '', user: user!)).toList(),
+                            );
+                          } else {
+                            return const Center(child: CircularProgressIndicator());
+                          }
+                        }
+                    );
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              },
+            ),
+          )
+
+          /*Expanded(
+            child: FutureBuilder(
+
+
+              child: StreamBuilder<List<ModelPet>>(
+
+                  stream: readPets(isSelected,dropdownValueGenero,dropdownValueDistancia,dropdownValueIdade,),
+                  builder: (context, snapshot){
+                    if(snapshot.hasError){
+                      return Text('Something went wrong! ${snapshot.error}');
+                    } else if(snapshot.hasData){
+                      final pets = snapshot.data!;
+                      return pets.length == 0 ? Center() :  ListView(
+                        //physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        children: pets.map((pet) => PetList(pet: pet,  idUsuario: '', user: user)).toList(),
+                      );
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  }
+              ),
+            ),
+          ),*/
 
 
 

@@ -1,4 +1,8 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:tier/models/pet_model.dart';
 
 class ModelUsers {
@@ -8,6 +12,7 @@ class ModelUsers {
   final String? nomeUsuario;
   final List? enderecoUsuario; //mudar de string p matriz
   final int pontos;
+  List petsFavoritos = [];
 
   ModelUsers({
     this.idUsuario = '',
@@ -16,6 +21,7 @@ class ModelUsers {
     required this.nomeUsuario,
     required this.enderecoUsuario,
     required this.pontos,
+    required this.petsFavoritos
   });
 
   Map<String, dynamic> toJson() => {
@@ -25,6 +31,7 @@ class ModelUsers {
         'nomeUsuario': nomeUsuario,
         'enderecoUsuario': enderecoUsuario,
         'pontos': pontos,
+        'petsFavoritos' : petsFavoritos
       };
 
   static ModelUsers fromJson(Map<String, dynamic> json) => ModelUsers(
@@ -34,6 +41,7 @@ class ModelUsers {
         nomeUsuario: json['nomeUsuario'],
         enderecoUsuario: json['enderecoUsuario'],
         pontos: json['pontos'],
+        petsFavoritos: json['petsFavoritos']
       );
 }
 
@@ -115,6 +123,8 @@ Future<ModelPet?> readPet(String idPet) async{
     return ModelPet.fromJson(snapshot.data()!);
   }
 }
+
+
 //Criar favorito
 Future favoritarAnimal({
   required String idFav,
@@ -201,3 +211,37 @@ Stream<List<ModelPet>> readPets2() {
       snapshot.docs.map((doc) => ModelPet.fromJson(doc.data())).toList());
 
 }
+
+//ler user
+Future<ModelUsers?> readUser2(String idUser) async{
+  final docUser = FirebaseFirestore.instance.collection('usuarios').doc(idUser);
+  final snapshot = await docUser.get();
+  if (snapshot.exists){
+    return ModelUsers.fromJson(snapshot.data()!);
+  }
+}
+
+
+
+
+
+class ModelFavoritosPets {
+  final String idPet;
+
+  ModelFavoritosPets({
+
+    required this.idPet,
+  });
+
+  Map<String, dynamic> toJason() => {
+
+    'idPet': idPet,
+  };
+  static ModelFavoritosPets fromJson(Map<String, dynamic> json) =>
+      ModelFavoritosPets(
+
+        idPet: json['idPet'],
+
+      );
+}
+

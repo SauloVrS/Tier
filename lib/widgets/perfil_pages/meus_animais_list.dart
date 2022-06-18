@@ -67,12 +67,22 @@ class MeusAnimaisList extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 5,),
-                        Text(
-                          idade!,
-                          style: GoogleFonts.poppins(
-                            color: AppColor.textosPretos2,
-                            fontSize: 12,
-                          ),
+                        Row(
+                          children: [
+                            Text(
+                              idade!,
+                              style: GoogleFonts.poppins(
+                                color: AppColor.textosPretos2,
+                                fontSize: 12,
+                              ),
+                            ),
+                            SizedBox(width: 4,),
+                            Text(idade! == "1" ? "mês" : "meses",style: GoogleFonts.poppins(
+                              color: AppColor.textosPretos2,
+                              fontSize: 12,
+
+                            ),)
+                          ],
                         ),
                       ],
                     ),
