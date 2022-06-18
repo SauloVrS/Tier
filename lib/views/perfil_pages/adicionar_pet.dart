@@ -353,22 +353,23 @@ class _AdicionarPetState extends State<AdicionarPet> {
 
                         ),
                       ),
-                      const SizedBox(height: 15,),
-                      Container(
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: AppColor.cinzaBranco),
-                        ),
-                        padding: EdgeInsets.only(left: 10,right: 10,bottom: 10, top: 10),
-                        child:
-                        DatePickerField(
-                          level: 'Adicionar data de hoje',
-                          onTap: ()=> _selectDate(context, selectedCurrentDate, "CurrentDate"),
-                          hintText: "${getFormatedDate(selectedCurrentDate)}",
+                      const SizedBox(height:1,),
+                      Visibility(
+                        visible: false,
+                        child: Container(
+                          width: 0.1,
+                          height: 0.01,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: AppColor.cinzaBranco),
+                          ),
+                          padding: EdgeInsets.only(left: 10,right: 10,bottom: 10, top: 10),
+                          child:
+                          DatePickerField(
+                            level: 'Adicionar data de hoje',
+                            onTap: ()=> _selectDate(context, selectedCurrentDate, "CurrentDate"),
+                            hintText: "${getFormatedDate(selectedCurrentDate)}",
+                          ),
                         ),
                       ),
                       /*IconButton(onPressed:() {

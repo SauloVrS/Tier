@@ -77,3 +77,6 @@ Stream<List<ModelPet>> readPetsUser(String idUsuario) =>
         .snapshots()
         .map((snapshot) =>
             snapshot.docs.map((doc) => ModelPet.fromJson(doc.data())).toList());
+
+
+

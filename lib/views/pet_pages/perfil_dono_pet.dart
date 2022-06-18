@@ -11,7 +11,7 @@ import 'package:tier/views/chat/screens/chat_screen.dart';
 
 import '../../data/animais_fav.dart';
 import '../../models/pet_model.dart';
-import '../../widgets/animais_dono_list.dart';
+import '../../widgets/pet_widgets/animais_dono_list.dart';
 import '../../widgets/animais_fav_list.dart';
 
 class PerfilDonoPet extends StatefulWidget {
@@ -78,15 +78,18 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
               top: 45,
               left: 20,
               right: 330,
-              child: GestureDetector(
-                onTap: () =>
-                    Navigator.push(context, MaterialPageRoute(
-                        builder: (context) =>
-                            AdocaoHome())),
-                child: Container(
+              child: IconButton(
 
-                    child: Icon(Icons.arrow_back_ios, color: Colors.white,size: 20,)),
-              )
+              onPressed: () {
+    Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(
+    builder: (context) =>
+    AdocaoHome(),
+    ));
+    },
+      icon: Icon(Icons.arrow_back,size: 30,color: Colors.black.withOpacity(0.8),),
+    ),
 
           ),
           //informacoes

@@ -1,20 +1,25 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tier/widgets/auth_widgets/cadastro_page.dart';
 
-import '../models/pet_model.dart';
-import '../models/users_model.dart';
+import '../../models/pet_model.dart';
+import '../../models/users_model.dart';
 
-import '../views/pet_pages/pet_page.dart';
-import 'favorite_button.dart';
+import '../../views/pet_pages/pet_page.dart';
+import '../favorite_button.dart';
+
 
 class PetList extends StatelessWidget {
   final ModelPet pet;
   final String idUsuario;
+  final ModelUsers user;
 
-  PetList({Key? key,required this.pet, required this.idUsuario
+  PetList({Key? key,required this.pet, required this.idUsuario, required this.user
 
   }) : super(key: key);
 
@@ -98,34 +103,12 @@ class PetList extends StatelessWidget {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        child: StarButton(
+                        child: favoritarPet(),
 
-                          //isStarred: false,
-                          // iconDisabledColor: Colors.white,
-                          valueChanged: (_isStarred) {
 
-                            ///addicionar funcao p favoritar no firebase
-                            if (_isStarred == true) {
-                              final docUser = FirebaseFirestore.instance.collection('usuarios').doc(idUsuarioatual).collection('favoritosPets').doc();
-                              final fav = ModelFavoritosAnimais(
-                                idFav: docUser.id,
-                                idDono: pet.idUsuario,
-                                idPet: pet.idPet,
-                              );
-                              final json = fav.toJason();
-                              docUser.set(json);
 
-                            }
-                            else{
-                              final docUser = FirebaseFirestore.instance
-                                  .collection('favoritosPets')
-                                  .doc(pet.idPet)
-                              ;
-                              docUser.delete();
-                            }
-                          },
-                        ),
-                      )
+
+                      ),
                     ],
                   ),
                   SizedBox(
@@ -156,5 +139,54 @@ class PetList extends StatelessWidget {
 
     );
   }
+
+  Widget favoritarPet() {
+    return StarButton(
+
+        isStarred: user.petsFavoritos.contains(pet.idPet)?
+        true : false ,
+        // iconDisabledColor: Colors.white,
+        valueChanged: (_isStarred)  {
+
+          ///addicionar funcao p favoritar no firebase
+          if (_isStarred == true) {
+
+            FirebaseFirestore.instance
+                .collection('usuarios')
+                .doc(idUsuarioatual)
+                .update({
+              "petsFavoritos": FieldValue.arrayUnion([pet.idPet]),
+            });
+            final docUser = FirebaseFirestore.instance.collection('usuarios').doc(idUsuarioatual).collection('favoritosPets').doc();
+            final fav = ModelFavoritosAnimais(
+            idFav: docUser.id,
+            idDono: pet.idUsuario,
+            idPet: pet.idPet,
+            );
+            final json = fav.toJason();
+            docUser.set(json);
+
+          }
+          if(_isStarred == false){
+            FirebaseFirestore.instance
+                .collection('usuarios')
+                .doc(idUsuarioatual)
+                .update({
+              "petsFavoritos": FieldValue.arrayRemove([pet.idPet]),
+            });
+
+            final docUser = FirebaseFirestore.instance
+                .collection('favoritosPets')
+                .doc(pet.idPet)
+            ;
+            docUser.delete();
+          }
+
+
+        }
+
+    );
+  }
+
 
 }

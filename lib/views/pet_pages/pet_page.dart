@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,11 +8,13 @@ import 'package:tier/models/users_model.dart';
 import 'package:tier/views/pet_pages/perfil_dono_pet.dart';
 
 import '../../models/pet_model.dart';
+import '../../widgets/favorite_button.dart';
 import 'adocao-home.dart';
 
 
 class PetPage extends StatefulWidget {
   final ModelPet pet;
+
   final String idUsuario;
 
   const PetPage({Key? key, required this.pet, required this.idUsuario})
@@ -21,7 +25,7 @@ class PetPage extends StatefulWidget {
 }
 
 class _PetPageState extends State<PetPage> {
-
+  String? idUsuario = FirebaseAuth.instance.currentUser?.uid;
 
   @override
   Widget build(BuildContext context) {
@@ -56,16 +60,18 @@ class _PetPageState extends State<PetPage> {
               top: 45,
               left: 20,
               right: 330,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(
-                          builder: (context) => AdocaoHome()));
-                },
+              child:IconButton(
 
-                child: Icon(
-                  Icons.arrow_back_ios, color: Colors.white, size: 20,),
-              )
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            AdocaoHome(),
+                      ));
+                },
+                icon: Icon(Icons.arrow_back,size: 30,color: Colors.black.withOpacity(0.8),),
+              ),
           ),
 
           ///information
@@ -362,32 +368,14 @@ class _PetPageState extends State<PetPage> {
                 .size
                 .width / 40),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  height: MediaQuery
-                      .of(context)
-                      .size
-                      .height / 13,
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width / 6,
-                  padding: EdgeInsets.only(left: MediaQuery
-                      .of(context)
-                      .size
-                      .width / 60, right: MediaQuery
-                      .of(context)
-                      .size
-                      .width / 25, bottom: MediaQuery
-                      .of(context)
-                      .size
-                      .width / 25, top: MediaQuery
-                      .of(context)
-                      .size
-                      .width / 15),
+                CircleAvatar(
+                  radius: 32,
+                  child: Container(
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(300),
+                      borderRadius: BorderRadius.circular(400),
                       image: DecorationImage(
                           fit: BoxFit.cover,
                           image: NetworkImage(
@@ -395,7 +383,7 @@ class _PetPageState extends State<PetPage> {
                           )
                       )
                   ),
-                ),
+                ),),
                 SizedBox(width: MediaQuery
                     .of(context)
                     .size
@@ -456,6 +444,11 @@ class _PetPageState extends State<PetPage> {
               padding: const EdgeInsets.all(11.0),
               child: Row(
                 children: [
+                  Text("Descrição pet:", style: GoogleFonts.poppins(fontSize: MediaQuery
+                      .of(context)
+                      .size
+                      .width / 25)),
+                  SizedBox(width: 4,),
                   Text(widget.pet.descricaoPet,
                       style: GoogleFonts.poppins(fontSize: MediaQuery
                           .of(context)
