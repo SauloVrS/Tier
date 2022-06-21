@@ -6,25 +6,22 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/models/pet_model.dart';
 import 'package:tier/models/users_model.dart';
 
-
 import '../../colors.dart';
 import '../favorite_button.dart';
 
-
 class AnimaisDonoList extends StatelessWidget {
-   AnimaisDonoList(
-      {Key? key,
-      required this.nome,
-      required this.imgUrl,
-      required this.idade,
-      required this.direita,
-      required this.esquerda,
-      required this.idUser,
-       required this.pet,
-       required this.user,
-      })
-      : super(key: key);
-  final String nome,idUser, imgUrl, idade;
+  AnimaisDonoList({
+    Key? key,
+    required this.nome,
+    required this.imgUrl,
+    required this.idade,
+    required this.direita,
+    required this.esquerda,
+    required this.idUser,
+    required this.pet,
+    required this.user,
+  }) : super(key: key);
+  final String nome, idUser, imgUrl, idade;
   final double direita, esquerda;
   ModelPet pet;
   ModelUsers user;
@@ -88,12 +85,16 @@ class AnimaisDonoList extends StatelessWidget {
                                 fontSize: 12,
                               ),
                             ),
-                            SizedBox(width: 4,),
-                            Text(idade! == "1" ? "mês" : "meses",style: GoogleFonts.poppins(
-                              color: AppColor.textosPretos2,
-                              fontSize: 12,
-
-                            ),)
+                            SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              idade == "1" ? "mês" : "meses",
+                              style: GoogleFonts.poppins(
+                                color: AppColor.textosPretos2,
+                                fontSize: 12,
+                              ),
+                            )
                           ],
                         ),
                       ],
@@ -102,15 +103,22 @@ class AnimaisDonoList extends StatelessWidget {
                       child: SizedBox(),
                     ),
                     FutureBuilder<ModelUsers?>(
-                      future: readUser2(idUsuarioatual == null ? '6GqG7AT0zqoOSIOrobTy' : idUsuarioatual!),
-                      builder: (context, snapshot){
-                        if(snapshot.hasError){
-                          return Text('Something went wrong!1 ${snapshot.error}');
-                        } else if(snapshot.hasData){
+                      future: readUser2(idUsuarioatual == null
+                          ? '6GqG7AT0zqoOSIOrobTy'
+                          : idUsuarioatual),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return Text(
+                              'Something went wrong!1 ${snapshot.error}');
+                        } else if (snapshot.hasData) {
                           final user = snapshot.data;
-                          return CircleAvatar(radius:12 ,backgroundColor:Colors.white ,child: favoritarPet(user!));
+                          return CircleAvatar(
+                              radius: 12,
+                              backgroundColor: Colors.white,
+                              child: favoritarPet(user!));
                         } else {
-                          return const Center(child: CircularProgressIndicator());
+                          return const Center(
+                              child: CircularProgressIndicator());
                         }
                       },
                     ),
@@ -126,26 +134,27 @@ class AnimaisDonoList extends StatelessWidget {
       ),
     );
   }
-  Widget favoritarPet(ModelUsers user){
+
+  Widget favoritarPet(ModelUsers user) {
     String? idUsuarioatual = FirebaseAuth.instance.currentUser?.uid;
     return StarButton(
         iconSize: 30,
-
-        isStarred: user.petsFavoritos.contains(pet.idPet)?
-        true : false ,
+        isStarred: user.petsFavoritos.contains(pet.idPet) ? true : false,
         // iconDisabledColor: Colors.white,
-        valueChanged: (_isStarred)  {
-
+        valueChanged: (_isStarred) {
           ///addicionar funcao p favoritar no firebase
           if (_isStarred == true) {
-
             FirebaseFirestore.instance
                 .collection('usuarios')
                 .doc(idUsuarioatual)
                 .update({
               "petsFavoritos": FieldValue.arrayUnion([pet.idPet]),
             });
-            final docUser = FirebaseFirestore.instance.collection('usuarios').doc(idUsuarioatual).collection('favoritosPets').doc();
+            final docUser = FirebaseFirestore.instance
+                .collection('usuarios')
+                .doc(idUsuarioatual)
+                .collection('favoritosPets')
+                .doc();
             final fav = ModelFavoritosAnimais(
               idFav: docUser.id,
               idDono: pet.idUsuario,
@@ -153,9 +162,8 @@ class AnimaisDonoList extends StatelessWidget {
             );
             final json = fav.toJason();
             docUser.set(json);
-
           }
-          if(_isStarred == false){
+          if (_isStarred == false) {
             FirebaseFirestore.instance
                 .collection('usuarios')
                 .doc(idUsuarioatual)
@@ -165,14 +173,9 @@ class AnimaisDonoList extends StatelessWidget {
 
             final docUser = FirebaseFirestore.instance
                 .collection('favoritosPets')
-                .doc(pet.idPet)
-            ;
+                .doc(pet.idPet);
             docUser.delete();
           }
-
-
-        }
-
-    );
+        });
   }
 }

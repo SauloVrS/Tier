@@ -14,6 +14,7 @@ import 'package:tier/models/users_model.dart';
 import 'package:tier/views/perfil_pages/meu_perfil.dart';
 import 'package:tier/widgets/bottom_nav_bar.dart';
 import 'package:tier/views/perfil_pages/configuracoes_perfil.dart';
+import 'assinatura/assinatura_frist.dart';
 import 'nivel_usuario.dart';
 
 class TelaPerfilUsuario extends StatefulWidget {
@@ -291,7 +292,8 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => MeuPerfil(), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
+                          builder: (context) =>
+                              MeuPerfil(), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
                         ));
                   }
                 },
@@ -442,7 +444,13 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                 ),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Assinatura(),
+                      ));
+                },
                 child: Container(
                   height: 59,
                   child: Column(
