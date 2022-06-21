@@ -236,8 +236,7 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
                         }
                       },
                     )),
-                  ],
-                ),
+                  ],),
               ))
         ],
       ),
