@@ -22,6 +22,7 @@ class _FavAnimaisState extends State<FavAnimais> {
   List<Map> favoritas = [];
   String? idUsuario = FirebaseAuth.instance.currentUser?.uid;
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -330,7 +331,7 @@ class _FavAnimaisState extends State<FavAnimais> {
                                       direita: 10,
                                       esquerda: 15,
                                       idFav: favoritas[a].idFav,
-                                      idUser: idUsuario,
+                                      idUser: idUsuario, pet: pet!,
                                     );
                                   } else{
                                     return const Center(child: CircularProgressIndicator(),);
@@ -353,6 +354,7 @@ class _FavAnimaisState extends State<FavAnimais> {
                                       esquerda: 10,
                                       idFav: favoritas[a].idFav,
                                       idUser: idUsuario,
+                                      pet: pet,
                                     );
                                   } else{
                                     return const Center(child: CircularProgressIndicator(),);

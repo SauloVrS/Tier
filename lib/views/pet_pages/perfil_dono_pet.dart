@@ -1,4 +1,5 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';
@@ -14,6 +15,7 @@ import '../../models/pet_model.dart';
 import '../../widgets/pet_widgets/animais_dono_list.dart';
 import '../../widgets/animais_fav_list.dart';
 
+
 class PerfilDonoPet extends StatefulWidget {
   final ModelUsers user;
   final String idUsuario;
@@ -25,6 +27,8 @@ class PerfilDonoPet extends StatefulWidget {
 
 class _PerfilDonoPetState extends State<PerfilDonoPet> {
   List<Map> favoritas = [];
+  String? idUsuario = FirebaseAuth.instance.currentUser?.uid;
+
 
   initData(){
     favoritas = AnimaisFav().animaisFavoritos;
@@ -37,7 +41,7 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
 
   @override
   Widget build(BuildContext context) {
-    User user = chats[0].sender;
+    UserChat user = chats[0].sender;
     return Scaffold(
       backgroundColor: Color(0xEFECECD5),
       body: Stack(
@@ -162,7 +166,14 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
                                    itemBuilder: (context, index) {
                                      int a = 2 * index;
                                      int b = a + 1;
-                                     return Row(
+                                     return FutureBuilder<ModelUsers?>(
+    future: readUser2(idUsuario == null ? '6GqG7AT0zqoOSIOrobTy' : idUsuario!),
+    builder: (context, snapshot){
+    if(snapshot.hasError){
+    return Text('Something went wrong!1 ${snapshot.error}');
+    } else if(snapshot.hasData){
+    final user = snapshot.data;
+                                      return Row(
                                        children: [
                                          AnimaisDonoList(
                                                    nome: petsDono[a].nomePet,
@@ -171,6 +182,8 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
                                                    direita: 0,
                                                    esquerda: 0,
                                                    idUser: widget.user.idUsuario!,
+                                                   pet: petsDono[a],
+                                                   user: user!,
 
                                                ),
                                          (b <= petsDono.length - 1)?
@@ -180,9 +193,14 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
                                                  idade: petsDono[b].idadePet,
                                                  direita: 0,
                                                  esquerda: 0,
-                                                 idUser: widget.user.idUsuario!,
+                                                 idUser: widget.user.idUsuario!, user: user!, pet: petsDono[b],
                                                ): Container()
                                        ],
+                                     );
+    } else {
+      return const Center(child: CircularProgressIndicator());
+    }
+    },
                                      );
                                    }
                                );

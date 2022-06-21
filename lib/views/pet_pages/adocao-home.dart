@@ -1,6 +1,7 @@
 
 
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,15 @@ class _AdocaoHomeState extends State<AdocaoHome> {
   String dropdownValueIdade = 'Menor idade';
  String? idUsuario = FirebaseAuth.instance.currentUser?.uid;
 
+ late String idsFavoritados;
 
+  getvalue(idUsuario)async{ idsFavoritados= await FirebaseFirestore.instance
+      .collection('usuarios')
+      .doc(idUsuario)
+      .get()
+      .then((value) {
+  return value.data()!['petsFavoritos']; // Access your after your get the data
+  });}
 
 
 
@@ -173,10 +182,8 @@ class _AdocaoHomeState extends State<AdocaoHome> {
                 children: [
                   GestureDetector(
                     onTap: (){
-
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(
-                                builder: (context) => AdicionarPet()));
+                    getvalue(idUsuario);
+                    print(idsFavoritados);
 
                     },
                     child: Container(
