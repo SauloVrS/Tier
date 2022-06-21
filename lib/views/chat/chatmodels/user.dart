@@ -1,8 +1,8 @@
-class User {
+class UserChat {
   final int id;
   final String name;
  
-  User({
+  UserChat({
     required this.id,
     required this.name,
    

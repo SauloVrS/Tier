@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tier/widgets/lojas_list.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../models/users_model.dart';
 import 'loja_helper.dart';
 
 class TierTest extends StatefulWidget {
@@ -12,6 +14,8 @@ class TierTest extends StatefulWidget {
 }
 
 class _TierTestState extends State<TierTest> {
+  String? idUsuario = FirebaseAuth.instance.currentUser?.uid;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,10 +32,24 @@ class _TierTestState extends State<TierTest> {
                 return Text('Something went wrong! ${snapshot.error}');
               } else if(snapshot.hasData){
                 final lojas = snapshot.data!;
-                return ListView(
+                return FutureBuilder<ModelUsers?>(
+                future: readUser2(idUsuario == null ? '6GqG7AT0zqoOSIOrobTy' : idUsuario!),
+                builder: (context, snapshot){
+                if(snapshot.hasError){
+                return Text('Something went wrong!1 ${snapshot.error}');
+                } else if(snapshot.hasData){
+                final user = snapshot.data;
+                return
+
+                  ListView(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  children: lojas.map((loja) => lojaList(loja, 30, context)).toList(),
+                  children: lojas.map((loja) => lojaList(loja, 30, context,user!)).toList(),
+                );
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                },
                 );
               } else {
                 return const Center(child: CircularProgressIndicator());

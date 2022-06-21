@@ -13,6 +13,7 @@ class ModelUsers {
   final List? enderecoUsuario; //mudar de string p matriz
   final int pontos;
   List petsFavoritos = [];
+  List lojasFavoritas = [];
 
   ModelUsers({
     this.idUsuario = '',
@@ -21,7 +22,8 @@ class ModelUsers {
     required this.nomeUsuario,
     required this.enderecoUsuario,
     required this.pontos,
-    required this.petsFavoritos
+    required this.petsFavoritos,
+    required this.lojasFavoritas
   });
 
   Map<String, dynamic> toJson() => {
@@ -31,7 +33,8 @@ class ModelUsers {
         'nomeUsuario': nomeUsuario,
         'enderecoUsuario': enderecoUsuario,
         'pontos': pontos,
-        'petsFavoritos' : petsFavoritos
+        'petsFavoritos' : petsFavoritos,
+        'lojasFavoritas': lojasFavoritas
       };
 
   static ModelUsers fromJson(Map<String, dynamic> json) => ModelUsers(
@@ -41,7 +44,8 @@ class ModelUsers {
         nomeUsuario: json['nomeUsuario'],
         enderecoUsuario: json['enderecoUsuario'],
         pontos: json['pontos'],
-        petsFavoritos: json['petsFavoritos']
+        petsFavoritos: json['petsFavoritos'],
+        lojasFavoritas: json['lojasFavoritas']
       );
 }
 
@@ -116,7 +120,7 @@ Stream<List<ModelPet>> readPetsDono(String idDono) => FirebaseFirestore.instance
     snapshot.docs.map((doc) => ModelPet.fromJson(doc.data())).toList());
 
 //ler pet especifico
-Future<ModelPet?> readPet(String idPet) async{
+Future<ModelPet?> readPet(String? idPet) async{
   final docUser = FirebaseFirestore.instance.collection('pets').doc(idPet);
   final snapshot = await docUser.get();
   if (snapshot.exists){
@@ -225,6 +229,8 @@ Future<ModelUsers?> readUser2(String idUser) async{
 
 
 
+
+
 class ModelFavoritosPets {
   final String idPet;
 
@@ -244,4 +250,7 @@ class ModelFavoritosPets {
 
       );
 }
+
+
+
 

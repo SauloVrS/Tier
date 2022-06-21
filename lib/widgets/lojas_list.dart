@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tier/models/users_model.dart';
 
 import '../firebase/loja_helper.dart';
 import '../views/loja_page.dart';
 
-Widget lojaList(Loja loja, int espacamento, BuildContext context) {
+Widget lojaList(Loja loja, int espacamento, BuildContext context,ModelUsers user) {
   return GestureDetector(
     onTap: () => Navigator.push(
-        context, MaterialPageRoute(builder: (context) => LojaPage(loja: loja))),
+        context, MaterialPageRoute(builder: (context) => LojaPage(loja: loja, user: user,))),
     child: Container(
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
       height: 80,

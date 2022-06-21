@@ -142,6 +142,7 @@ class PetList extends StatelessWidget {
 
   Widget favoritarPet() {
     return StarButton(
+      iconSize: 40,
 
         isStarred: user.petsFavoritos.contains(pet.idPet)?
         true : false ,
@@ -187,6 +188,7 @@ class PetList extends StatelessWidget {
 
     );
   }
+
 
 
 }

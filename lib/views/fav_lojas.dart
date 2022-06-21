@@ -312,7 +312,15 @@ class _FavLojas2State extends State<FavLojas2> {
                       return ListView.builder(
                         itemCount: favoritas.length,
                         itemBuilder: (context, index){
-                          return FutureBuilder<Loja?>(
+     return FutureBuilder<ModelUsers?>(
+    future: readUser2(idUsuario == null ? '6GqG7AT0zqoOSIOrobTy' : idUsuario!),
+    builder: (context, snapshot){
+    if(snapshot.hasError){
+    return Text('Something went wrong!1 ${snapshot.error}');
+    } else if(snapshot.hasData){
+    final user = snapshot.data;
+    return
+                           FutureBuilder<Loja?>(
                               future: readLoja(favoritas[index].idLoja),
                               builder: (context, snapshot){
                                 if (snapshot.hasError){
@@ -321,7 +329,7 @@ class _FavLojas2State extends State<FavLojas2> {
                                   final lojas = snapshot.data;
                                   return Row(
                                     children: [
-                                      lojaList(lojas!, 70, context),
+                                      lojaList(lojas!, 70, context,user!),
                                       GestureDetector(
                                         onTap: (){},
                                         child: Container(
@@ -359,6 +367,11 @@ class _FavLojas2State extends State<FavLojas2> {
                                 }
                               }
                           );
+    } else {
+      return const Center(child: CircularProgressIndicator());
+    }
+    },
+     );
                         },
                       );
                     }

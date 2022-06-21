@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 
 class StarButton extends StatefulWidget {
   StarButton({
-    double? iconSize,
+    required double iconSize,
     Color? iconColor,
     bool? isStarred,
     Color? iconDisabledColor,
     required Function valueChanged,
     Key? key,
-  })  : _iconSize = iconSize ?? 40.0,
+  })  : _iconSize =  iconSize,
         _iconColor = iconColor ?? Colors.yellow,
         _iconDisabledColor = iconDisabledColor ?? Colors.grey[400],
         _isStarred = isStarred ?? false,
