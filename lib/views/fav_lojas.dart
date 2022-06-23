@@ -329,7 +329,7 @@ class _FavLojas2State extends State<FavLojas2> {
                                   final lojas = snapshot.data;
                                   return Row(
                                     children: [
-                                      lojaList(lojas!, 70, context,user!),
+                                      lojaList(lojas!, 70, context),
                                       GestureDetector(
                                         onTap: (){},
                                         child: Container(
