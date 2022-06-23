@@ -55,7 +55,7 @@ class _TypeProdState extends State<TypeProd> {
                 return ListView(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                children: realLojas.map((loja) => lojaList(loja, 30, context,user!)).toList(),
+                children: realLojas.map((loja) => lojaList(loja, 30, context)).toList(),
               );
                     } else {
                       return const Center(child: CircularProgressIndicator());

@@ -16,9 +16,9 @@ import '../widgets/promocoes_list.dart';
 
 class LojaPage extends StatefulWidget {
   final Loja loja;
-final ModelUsers user;
 
-  const LojaPage({Key? key, required this.loja,required this.user}) : super(key: key);
+
+  const LojaPage({Key? key, required this.loja}) : super(key: key);
 
   @override
   State<LojaPage> createState() => _LojaPageState();
@@ -26,7 +26,7 @@ final ModelUsers user;
 
 
 class _LojaPageState extends State<LojaPage> {
-  String? idUsuarioatual = FirebaseAuth.instance.currentUser?.uid;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +40,7 @@ class _LojaPageState extends State<LojaPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            titleLoja(widget.loja,widget.user, context),
+            titleLoja(widget.loja, context),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 15),
               color: AppColor.cinzaBranco,
@@ -102,18 +102,18 @@ class _LojaPageState extends State<LojaPage> {
     );
   }
 
-  Widget titleLoja(Loja loja,ModelUsers user, BuildContext context, {bool isLoja = false}) {
+  Widget titleLoja(Loja loja, BuildContext context, {bool isLoja = false}) {
     return SizedBox(
       width: MediaQuery.of(context).size.width - 30,
       child: Column(children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            descLoja(loja, user, 0, context),
+            descLoja(loja, 0, context),
             Expanded(child: Container()),
-            CircleAvatar(
-              backgroundColor: AppColor.cinzaBranco.withOpacity(0.1),
-                child: favoritarLoja(user, loja)),
+            //CircleAvatar(
+            //  backgroundColor: AppColor.cinzaBranco.withOpacity(0.1),
+            //    child: favoritarLoja( loja)),
           ],
         ),
         Row(
@@ -173,7 +173,7 @@ class _LojaPageState extends State<LojaPage> {
   }
 }
 
-Widget descLoja(Loja loja,ModelUsers user, int espacamento, BuildContext context) {
+Widget descLoja(Loja loja, int espacamento, BuildContext context) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 15),
     height: 80,
@@ -392,52 +392,5 @@ Widget prodList(Produto produto, String id, BuildContext context) {
   );
 
 }
-Widget favoritarLoja(ModelUsers? user, Loja loja) {
-  String? idUsuarioatual = FirebaseAuth.instance.currentUser?.uid;
-  return StarButton(
-      iconSize: 50,
-      isStarred: user!.lojasFavoritas.contains(loja.id)?
-      true : false ,
-      // iconDisabledColor: Colors.white,
-      valueChanged: (_isStarred)  {
-        if(user.idUsuario == '6GqG7AT0zqoOSIOrobTy' && _isStarred == true){
-
-        }
-        ///addicionar funcao p favoritar no firebase
-        if (_isStarred == true) {
-
-          FirebaseFirestore.instance
-              .collection('usuarios')
-              .doc(idUsuarioatual)
-              .update({
-            "lojasFavoritas": FieldValue.arrayUnion([loja.id]),
-          });
-          final docUser = FirebaseFirestore.instance.collection('usuarios').doc(idUsuarioatual).collection('favoritosLojas').doc();
-          final fav = ModelFavoritosLojas(
-            idFav: docUser.id,
-             idLoja: loja.id,
-          );
-          final json = fav.toJason();
-          docUser.set(json);
-
-        }
-        if(_isStarred == false){
-          FirebaseFirestore.instance
-              .collection('usuarios')
-              .doc(idUsuarioatual)
-              .update({
-            "lojasFavoritas": FieldValue.arrayRemove([loja.id]),
-          });
-
-          final docUser = FirebaseFirestore.instance
-              .collection('favoritosLojas')
-              .doc(loja.id)
-          ;
-          docUser.delete();
-        }
 
 
-      }
-
-  );
-}
