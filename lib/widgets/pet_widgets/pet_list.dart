@@ -177,6 +177,8 @@ class PetList extends StatelessWidget {
             });
 
             final docUser = FirebaseFirestore.instance
+                .collection('usuarios')
+                .doc(idUsuarioatual)
                 .collection('favoritosPets')
                 .doc(pet.idPet)
             ;

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -350,11 +351,31 @@ class _FavLojas2State extends State<FavLojas2> {
                                                 ),
                                               ]
                                           ),
-                                          child: const CircleAvatar(
+                                          child:  CircleAvatar(
                                             backgroundColor: Colors.white,
-                                            child: Icon(
-                                              Icons.star,
-                                              color: Colors.amber,
+                                            child: GestureDetector(
+
+                                              child: Icon(
+                                                Icons.star,
+                                                color: Colors.amber,
+                                              ),
+                                              onTap: (){
+                                                //remover favorito
+                                                //removendo do array - deu crt
+                                                FirebaseFirestore.instance
+                                                    .collection('usuarios')
+                                                    .doc(user?.idUsuario)
+                                                    .update({
+                                                  "lojasFavoritas": FieldValue.arrayRemove([lojas.id])});
+                                                //removendo da lista - tem q ajeitar
+                                                final docUser = FirebaseFirestore.instance
+                                                     .collection('usuarios')
+                                                     .doc(user?.idUsuario)
+                                                    .collection('favoritosLojas')
+                                                    .doc(lojas.id)
+                                                ;
+                                                docUser.delete();
+                                              },
                                             ),
                                           ),
                                         ),
