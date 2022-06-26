@@ -111,9 +111,7 @@ class _LojaPageState extends State<LojaPage> {
           children: [
             descLoja(loja, 0, context),
             Expanded(child: Container()),
-            //CircleAvatar(
-            //  backgroundColor: AppColor.cinzaBranco.withOpacity(0.1),
-            //    child: favoritarLoja( loja)),
+            favoritarLoja(loja)
           ],
         ),
         Row(
@@ -391,6 +389,69 @@ Widget prodList(Produto produto, String id, BuildContext context) {
     ),
   );
 
+}
+
+Widget favoritarLoja( Loja loja) {
+  String? idUsuarioatual = FirebaseAuth.instance.currentUser?.uid;
+  return
+  FutureBuilder<ModelUsers?>(
+      future: readUser2(idUsuarioatual == null ? '6GqG7AT0zqoOSIOrobTy' : idUsuarioatual),
+  builder: (context, snapshot){
+  if(snapshot.hasError){
+  return Text('Something went wrong!1 ${snapshot.error}');
+  } else if(snapshot.hasData){
+  final user = snapshot.data;
+  return StarButton(
+      iconSize: 50,
+      isStarred: user!.lojasFavoritas.contains(loja.id)?
+      true : false ,
+      // iconDisabledColor: Colors.white,
+      valueChanged: (_isStarred)  {
+        if(user.idUsuario == '6GqG7AT0zqoOSIOrobTy' && _isStarred == true){
+
+        }
+        ///addicionar funcao p favoritar no firebase
+        if (_isStarred == true) {
+
+          FirebaseFirestore.instance
+              .collection('usuarios')
+              .doc(idUsuarioatual)
+              .update({
+            "lojasFavoritas": FieldValue.arrayUnion([loja.id]),
+          });
+          final docUser = FirebaseFirestore.instance.collection('usuarios').doc(idUsuarioatual).collection('favoritosLojas').doc();
+          final fav = ModelFavoritosLojas(
+            idFav: docUser.id,
+            idLoja: loja.id,
+          );
+          final json = fav.toJason();
+          docUser.set(json);
+
+        }
+        if(_isStarred == false){
+          FirebaseFirestore.instance
+              .collection('usuarios')
+              .doc(idUsuarioatual)
+              .update({
+            "lojasFavoritas": FieldValue.arrayRemove([loja.id]),
+          });
+
+          final docUser = FirebaseFirestore.instance
+              .collection('favoritosLojas')
+              .doc(loja.id)
+          ;
+          docUser.delete();
+        }
+
+
+      }
+
+  );
+    } else {
+    return const Center(child: CircularProgressIndicator());
+    }
+  },
+  );
 }
 
 
