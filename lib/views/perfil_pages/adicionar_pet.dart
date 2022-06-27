@@ -98,6 +98,11 @@ class _AdicionarPetState extends State<AdicionarPet> {
       });
       if (res == 'success') {
         showSnackBar('Animal adicionado!', context);
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MeuPerfil(),
+            ));
       } else {
         showSnackBar(res, context);
       }

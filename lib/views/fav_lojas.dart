@@ -372,7 +372,7 @@ class _FavLojas2State extends State<FavLojas2> {
                                                      .collection('usuarios')
                                                      .doc(user?.idUsuario)
                                                     .collection('favoritosLojas')
-                                                    .doc(lojas.id)
+                                                    .doc(favoritas[index].idFav)
                                                 ;
                                                 docUser.delete();
                                               },

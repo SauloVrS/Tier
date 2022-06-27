@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,7 +15,7 @@ class ModalEditEnd extends StatefulWidget {
 }
 
 class _ModalEditEndState extends State<ModalEditEnd> {
-  String? idUsuario = 'tNJ7BlmfVtfQiztDrcLv6IJGo412';
+  String? idUsuario = FirebaseAuth.instance.currentUser?.uid;
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
