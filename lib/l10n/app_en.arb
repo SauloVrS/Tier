@@ -1,0 +1,8 @@
+{
+  "language": "english",
+  "helloWorld": "Hello World!",
+  "title" : "English Application",
+  "@helloWorld": {
+    "description": "Hello, Subscribe the Daves Tecnologia Channel"
+  }
+}
