@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/views/auth_page.dart';
 import 'package:tier/views/configuracoes_pages/cadastre_sua_loja.dart';
 import 'package:tier/views/perfil_pages/cupom_perfil.dart';
+import 'package:tier/views/perfil_pages/enderecos.dart';
 import 'package:tier/views/perfil_pages/meu_codigo_perfil.dart';
 import 'package:tier/widgets/perfil_pages/editar_meu_perfil.dart';
 
@@ -287,14 +288,14 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              authPage(), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
+                              authPage(),
                         ));
                   } else {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              MeuPerfil(), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
+                              MeuPerfil(),
                         ));
                   }
                 },
@@ -338,10 +339,6 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                             ),
                           ],
                         ),
-                      ),
-                      Container(
-                        height: 1,
-                        color: AppColor.cinzaClaro.withOpacity(0.6),
                       ),
                     ],
                   ),
@@ -556,7 +553,23 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                 ),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  //if (idUsuario == null) {
+                    //Navigator.pushReplacement(
+                        //context,
+                        //MaterialPageRoute(
+                          //builder: (context) =>
+                              //authPage(),
+                        //));
+                  //} else {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              EnderecosPage(),
+                        ));
+                  //}
+                },
                 child: Container(
                   height: 59,
                   child: Column(
