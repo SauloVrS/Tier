@@ -56,26 +56,7 @@ class _CarrinhoState extends State<Carrinho> {
             ),
             const SizedBox(height: 10,),
             CouponWidget(),
-            GestureDetector(
-              onTap: () {},
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Container(
-                    width: MediaQuery.of(context).size.width-30,
-                    color: AppColor.textosPretos2,
-                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Aplicar cupons',
-                          style: GoogleFonts.poppins(color: Colors.white),
-                        ),
-                      ],
-                    )
-                ),
-              ),
-            ),
+
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
               child: Column(
