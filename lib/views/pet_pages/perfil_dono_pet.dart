@@ -58,7 +58,7 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.width / 8),
                   child: Column(
-                    children: [
+                    children: [ (widget.user.fotoUsuario==null) ?Container() :
                       Container(
                         width: MediaQuery.of(context).size.width / 3.5,
                         height: MediaQuery.of(context).size.width / 3.5,
@@ -82,7 +82,7 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
           //button to back
           Positioned(
             top: 45,
-            left: 20,
+            left: 5,
             right: 330,
             child: IconButton(
               onPressed: () {
@@ -103,7 +103,7 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
           Positioned(
               left: 0,
               right: 0,
-              top: MediaQuery.of(context).size.height / 3.8,
+              top: MediaQuery.of(context).size.height / 3.5,
               bottom: 0,
               child: Container(
                 padding: EdgeInsets.only(
@@ -119,7 +119,7 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
                 ),
                 child: Column(
                   children: [
-                    Text(
+                    (widget.user.descricaoUsuario==null)? Container() : Text(
                       widget.user.descricaoUsuario!,
                       style: GoogleFonts.poppins(),
                     ),
