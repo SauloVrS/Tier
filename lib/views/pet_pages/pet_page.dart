@@ -283,7 +283,7 @@ class _PetPageState extends State<PetPage> {
                             child: Column(
 
                               children: [
-                                Text("Pequeno", style: GoogleFonts.poppins(
+                                Text(widget.pet.portePet, style: GoogleFonts.poppins(
                                     fontSize: MediaQuery
                                         .of(context)
                                         .size
@@ -453,6 +453,9 @@ class _PetPageState extends State<PetPage> {
 
               Text("Descrição pet:",style: GoogleFonts.poppins(fontSize: MediaQuery
                   .of(context)
+
+
+
                   .size
                   .width / 25)),
               SizedBox(width: 6,),
