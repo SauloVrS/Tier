@@ -1,6 +1,5 @@
 
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -11,6 +10,7 @@ import 'package:tier/widgets/carrinho_widgets/modal_excluir_item.dart';
 
 import '../../colors.dart';
 import '../../firebase/produto_helper.dart';
+import '../coupon_widget.dart';
 
 class Carrinho extends StatefulWidget {
   final List list;
@@ -55,6 +55,7 @@ class _CarrinhoState extends State<Carrinho> {
               ),
             ),
             const SizedBox(height: 10,),
+            CouponWidget(),
             GestureDetector(
               onTap: () {},
               child: ClipRRect(
