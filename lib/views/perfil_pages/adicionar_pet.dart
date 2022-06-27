@@ -571,7 +571,7 @@ class _AdicionarPetState extends State<AdicionarPet> {
                           } else {
                             idade = AgeCalculator.age(selectedBithDate, today: selectedCurrentDate).months.toString();
                             print(idade);
-                            salvarAnimal(idUsuario!, '1 km' );
+                            salvarAnimal(idUsuario!, '1,2 km' );
                           }
                           //checar campos e adicionar no firebase
                         },
