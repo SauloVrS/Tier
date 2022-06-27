@@ -155,7 +155,7 @@ final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
    adicionarImagem(BuildContext context) {
     return showDialog(context: context, builder: (context) {
       return SimpleDialog(
-        title: const Text('Escolha uma opcão'),
+        title: const Text('Adicione sua Logo'),
         children: [
           
           SimpleDialogOption(
@@ -251,7 +251,7 @@ final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
                             icon: const Icon(
                               Icons.arrow_back_ios_outlined,
                               size: 20,
-                              
+                              semanticLabel: "Adicione sua Logo.",
                             ),
                             
                           ),
