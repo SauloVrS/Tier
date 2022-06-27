@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:tier/views/auth_page.dart';
 import 'package:tier/views/perfil_pages/cupom_perfil.dart';
 import 'package:tier/views/perfil_pages/meu_codigo_perfil.dart';
@@ -282,12 +283,16 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               GestureDetector(
                 onTap: () {
                   if (idUsuario == null) {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              authPage(), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
-                        ));
+                    showCupertinoModalBottomSheet(
+                        enableDrag: true,
+                        bounce: true,
+                        topRadius: Radius.circular(30),
+                        barrierColor: Color.fromARGB(100, 0, 0, 0),
+                        context: context,
+                        builder: (context) => Container(
+                              height: MediaQuery.of(context).size.height / 1.18,
+                              child: authPage(),
+                            ));
                   } else {
                     Navigator.pushReplacement(
                         context,
