@@ -1,13 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tier/views/perfil_pages/assinatura/prodAssinados.dart';
 
 import '../../../colors.dart';
+import '../../../firebase/produto_helper.dart';
 import '../../../widgets/bottom_nav_bar.dart';
 
 class AssinaturaSecond extends StatefulWidget {
-  const AssinaturaSecond({Key? key}) : super(key: key);
+  final Produto produto;
+  const AssinaturaSecond({Key? key, required this.produto}) : super(key: key);
 
   @override
   State<AssinaturaSecond> createState() => _AssinaturaSecondState();
@@ -15,6 +20,7 @@ class AssinaturaSecond extends StatefulWidget {
 
 class _AssinaturaSecondState extends State<AssinaturaSecond> {
   int qnt = 1;
+  final controllerPeriodo = TextEditingController();
 
   aumentar() {
     setState(() {
@@ -65,19 +71,24 @@ class _AssinaturaSecondState extends State<AssinaturaSecond> {
             preferredSize: const Size.fromHeight(1.2)),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
         child: Center(
           child: Column(
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProdAssinados(),
+                      ));
+                },
                 child: Container(
                   margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                   height: 60,
                   width: MediaQuery.of(context).size.width - 50,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: AppColor.cinzaBranco.withOpacity(0.5),
+                    color: AppColor.amareloPrincipal,
                   ),
                   child: Row(
                     children: [
@@ -102,36 +113,158 @@ class _AssinaturaSecondState extends State<AssinaturaSecond> {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 30,
+              ),
               Container(
-                height: 70,
-                child: Column(children: [
-                  Container(
-                    color: AppColor.cinzaBranco,
-                    width: MediaQuery.of(context).size.width,
-                    height: 1,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                color: AppColor.cinzaClaro,
+                width: MediaQuery.of(context).size.width,
+                height: 1,
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              Container(
+                height: 180,
+                child: Row(
+                  children: [
+                    Column(
                       children: [
-                        qntProd(),
-                        const SizedBox(
-                          width: 15,
+                        Container(
+                          height: 100,
+                          width: MediaQuery.of(context).size.width / 4,
+                          margin: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Image.network(
+                            widget.produto.imgUrl,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                        //Expanded(child: addProd(context))
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          child: qntProd(),
+                        ),
                       ],
                     ),
+                    Column(
+                      children: [
+                        Container(
+                          height: 80,
+                          width: (MediaQuery.of(context).size.width / 4) * 2.5,
+                          alignment: Alignment.bottomCenter,
+                          //margin: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Text(
+                            widget.produto.nome,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w500, fontSize: 15),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
+                          height: 35,
+                          width: (MediaQuery.of(context).size.width / 4) * 2,
+                          child: TextField(
+                            controller: controllerPeriodo,
+                            decoration: InputDecoration(
+                              labelText: 'Periodo de entrega (semanas)',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              // Container(
+              //   color: AppColor.cinzaClaro,
+              //   width: MediaQuery.of(context).size.width,
+              //   height: 1,
+              // ),
+              Row(
+                children: [
+                  Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.fromLTRB(40, 0, 0, 0),
+                        //width: ((MediaQuery.of(context).size.width - 50) / 4) * 2.5,
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                            "R\$ ${widget.produto.novoValor.toStringAsFixed(2)}",
+                            style: GoogleFonts.poppins(
+                              textStyle: const TextStyle(
+                                  fontSize: 15,
+                                  decoration: TextDecoration.lineThrough),
+                            )),
+                      ),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(40, 0, 0, 0),
+                        //width: ((MediaQuery.of(context).size.width - 50) / 4) * 2.5,
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                            "R\$ ${((qnt * widget.produto.novoValor) * 90 / 100).toStringAsFixed(2)}",
+                            style: GoogleFonts.poppins(
+                              textStyle: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            )),
+                      ),
+                    ],
                   ),
-                ]),
+                  Expanded(child: Container()),
+                  GestureDetector(
+                    onTap: () {
+                      final assin = AssinaturaDados(
+                        idProduto: widget.produto.id,
+                        periodo: controllerPeriodo.text,
+                        qnt: qnt,
+                      );
+
+                      createAssinatura(assin);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProdAssinados(),
+                          ));
+                    },
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(0, 0, 40, 0),
+                      height: 50,
+                      width: (MediaQuery.of(context).size.width - 200),
+                      decoration: BoxDecoration(
+                        color: AppColor.amareloEscuro,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Assinar',
+                          style: TextStyle(
+                            color: Color.fromRGBO(27, 27, 27, 0.8),
+                            fontSize: 25,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Container(
+                color: AppColor.cinzaClaro,
+                width: MediaQuery.of(context).size.width,
+                height: 1,
               ),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: const BottomNavBar(pagina: 'perfil'),
+      bottomNavigationBar: const BottomNavBar(pagina: 'lojas'),
     );
   }
 
@@ -165,4 +298,41 @@ class _AssinaturaSecondState extends State<AssinaturaSecond> {
       ),
     );
   }
+}
+
+Future createAssinatura(AssinaturaDados assin) async {
+  String? currentUserId = FirebaseAuth.instance.currentUser?.uid;
+
+  final docUser = FirebaseFirestore.instance
+      .collection('usuarios')
+      .doc(currentUserId)
+      .collection('assinatura')
+      .doc();
+  //assin. = docUser.id;
+  final json = assin.toJson();
+  await docUser.set(json);
+}
+
+class AssinaturaDados {
+  String idProduto;
+  final String periodo;
+  final int qnt;
+
+  AssinaturaDados({
+    this.idProduto = '',
+    required this.periodo,
+    required this.qnt,
+  });
+
+  Map<String, dynamic> toJson() => {
+        'idProduto': idProduto,
+        'periodo': periodo,
+        'qnt': qnt,
+      };
+
+  static AssinaturaDados fromJson(Map<String, dynamic> json) => AssinaturaDados(
+        idProduto: json['idProduto'],
+        periodo: json['periodo'],
+        qnt: json['qnt'],
+      );
 }

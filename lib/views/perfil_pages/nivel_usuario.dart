@@ -1,6 +1,7 @@
 import 'dart:ffi';
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tier/views/perfil_pages/perfil_usuario.dart';
 import '../../widgets/bottom_nav_bar.dart';
@@ -34,6 +35,13 @@ class _NivelUsuarioState extends State<NivelUsuario> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.arrow_back_ios),
+                    color: const Color.fromRGBO(27, 27, 27, 0.8),
+                  ),
                   height: 40,
                   width: (MediaQuery.of(context).size.width) * 0.1,
                   //color: Colors.black,

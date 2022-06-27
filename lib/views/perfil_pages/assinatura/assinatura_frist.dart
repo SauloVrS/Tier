@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';
 import 'package:tier/views/perfil_pages/assinatura/assinatura_second.dart';
+import 'package:tier/views/perfil_pages/assinatura/prodAssinados.dart';
 
 import '../../../widgets/bottom_nav_bar.dart';
 import '../../main_lojas.dart';
@@ -197,10 +198,10 @@ class _AssinaturaState extends State<Assinatura> {
               Center(
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacement(
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => MainLojas(),
+                          builder: (context) => ProdAssinados(),
                         ));
                   },
                   child: Container(
@@ -213,7 +214,7 @@ class _AssinaturaState extends State<Assinatura> {
                     ),
                     child: const Center(
                       child: Text(
-                        'Ir para loja',
+                        'Produtos Assinados',
                         style: TextStyle(
                           color: Color.fromRGBO(27, 27, 27, 0.8),
                           fontSize: 25,

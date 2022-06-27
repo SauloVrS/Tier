@@ -211,7 +211,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.pushReplacement(
+                            Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => NivelUsuario(),

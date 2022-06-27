@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:tier/firebase/loja_helper.dart';
+import 'package:tier/views/auth_page.dart';
+import 'package:tier/views/perfil_pages/assinatura/assinatura_second.dart';
 import 'package:tier/widgets/carrinho_widgets/carrinho_functions.dart';
 import 'package:tier/widgets/carrinho_widgets/modal_loja_diferente.dart';
 
@@ -22,6 +26,29 @@ class ProdutoPage extends StatefulWidget {
 class _ProdutoPageState extends State<ProdutoPage> {
   int qnt = 1;
 
+  var cor = Colors.yellow;
+
+  CollectionReference usuarios =
+      FirebaseFirestore.instance.collection('usuarios');
+  String? currentUserId = FirebaseAuth.instance.currentUser?.uid;
+
+  bool verifProdAssinado() {
+    bool verif = false;
+    usuarios
+        .doc(currentUserId)
+        .collection('assinatura')
+        .where('idProduto', isEqualTo: widget.produto.id)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      if (querySnapshot.docs.isNotEmpty) {
+        verif = true;
+      } else {
+        verif = false;
+      }
+    });
+    return verif;
+  }
+
   aumentar() {
     setState(() {
       qnt++;
@@ -37,6 +64,10 @@ class _ProdutoPageState extends State<ProdutoPage> {
       }
     });
   }
+
+  // void initState() {
+  //   verifSeExisteProd();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +161,24 @@ class _ProdutoPageState extends State<ProdutoPage> {
                       }),
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    /*if (currentUserId == null) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                authPage(), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
+                          ));
+                    }*/
+                    if (true) {
+                      print(verifProdAssinado());
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  AssinaturaSecond(produto: widget.produto)));
+                    }
+                  },
                   child: Container(
                     margin: const EdgeInsets.only(
                         left: 15, right: 15, top: 5, bottom: 15),
@@ -140,7 +188,10 @@ class _ProdutoPageState extends State<ProdutoPage> {
                         alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 15, vertical: 15),
-                        decoration: BoxDecoration(color: AppColor.cinzaBranco),
+                        decoration: BoxDecoration(
+                            color: //verifSeExisteProd()
+                                //? AppColor.cinzaClaro
+                                AppColor.amareloEscuro),
                         child: Text(
                           'Adicionar à Assinatura',
                           style: GoogleFonts.poppins(
@@ -259,14 +310,26 @@ class _ProdutoPageState extends State<ProdutoPage> {
               final aux = await verificaLoja(widget.lojaId, "André");
               final index = await verificaProduto(widget.produto.id, "André");
               if (index >= 0) {
-                final num valor = widget.produto.promocao ? widget.produto.novoValor : widget.produto.valor;
-                final produto = ShopProd(idProduto: widget.produto.id, idLoja: widget.lojaId, quantidade: qnt, valor: valor);
+                final num valor = widget.produto.promocao
+                    ? widget.produto.novoValor
+                    : widget.produto.valor;
+                final produto = ShopProd(
+                    idProduto: widget.produto.id,
+                    idLoja: widget.lojaId,
+                    quantidade: qnt,
+                    valor: valor);
                 mudarQnt('André', index, qnt, produto.toJson());
                 Navigator.of(context).pop();
               } else {
-                if(aux == 1){
-                  final num valor = widget.produto.promocao ? widget.produto.novoValor : widget.produto.valor;
-                  final produto = ShopProd(idProduto: widget.produto.id, idLoja: widget.lojaId, quantidade: qnt, valor: valor);
+                if (aux == 1) {
+                  final num valor = widget.produto.promocao
+                      ? widget.produto.novoValor
+                      : widget.produto.valor;
+                  final produto = ShopProd(
+                      idProduto: widget.produto.id,
+                      idLoja: widget.lojaId,
+                      quantidade: qnt,
+                      valor: valor);
                   addCarrinho("André", produto.toJson());
                   Navigator.of(context).pop();
                 } else {
@@ -274,8 +337,12 @@ class _ProdutoPageState extends State<ProdutoPage> {
                       expand: false,
                       backgroundColor: Colors.transparent,
                       context: context,
-                      builder: (context) => ModalLojaDiferente(user: 'André', qnt: qnt, lojaId: widget.lojaId, produto: widget.produto,)
-                  );
+                      builder: (context) => ModalLojaDiferente(
+                            user: 'André',
+                            qnt: qnt,
+                            lojaId: widget.lojaId,
+                            produto: widget.produto,
+                          ));
                 }
               }
             },
