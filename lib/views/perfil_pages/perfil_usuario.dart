@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/views/auth_page.dart';
+import 'package:tier/views/configuracoes_pages/cadastre_sua_loja.dart';
 import 'package:tier/views/perfil_pages/cupom_perfil.dart';
 import 'package:tier/views/perfil_pages/meu_codigo_perfil.dart';
 import 'package:tier/widgets/perfil_pages/editar_meu_perfil.dart';
@@ -322,6 +323,64 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                             Expanded(
                               child: Text(
                                 'Meu Perfil',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 20,
+                                  color: AppColor.textosPretos3,
+                                ),
+                              ),
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios_outlined,
+                              color: AppColor.textosPretos2.withOpacity(0.8),
+                            ),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: 1,
+                        color: AppColor.cinzaClaro.withOpacity(0.6),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                 Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              Cadastro_Loja(), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
+                        ));
+                },
+                child: Container(
+                  height: 60,
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 1,
+                        color: AppColor.cinzaClaro.withOpacity(0.6),
+                      ),
+                      Container(
+                        height: 58,
+                        child: Row(
+                          children: [
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Icon(
+                              Icons.perm_identity,
+                              color: AppColor.textosPretos3,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: Text(
+                                'Cadastre sua loja',
                                 style: GoogleFonts.poppins(
                                   fontSize: 20,
                                   color: AppColor.textosPretos3,

@@ -345,6 +345,53 @@ class _Configuracoes extends State<Configuracoes> {
             ),
             GestureDetector(
               onTap: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => Cadastro_Loja()));
+              },
+              child: Container(
+                height: 59,
+                child: Column(
+                  children: [
+                    Container(
+                      height: 58,
+                      child: Row(
+                        children: [
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: Text(
+                              'Minha loja',
+                              style: GoogleFonts.poppins(
+                                fontSize: 20,
+                                color: AppColor.textosPretos3,
+                              ),
+                            ),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios_outlined,
+                            color: AppColor.textosPretos2.withOpacity(0.8),
+                          ),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: 1,
+                      color: AppColor.cinzaClaro.withOpacity(0.6),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            
+            GestureDetector(
+              onTap: () {
                 Navigator.pushReplacement(
                     context, MaterialPageRoute(builder: (context) => Sobre()));
               },
