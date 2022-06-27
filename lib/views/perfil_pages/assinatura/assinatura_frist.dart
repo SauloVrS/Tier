@@ -204,9 +204,9 @@ class _AssinaturaState extends State<Assinatura> {
                         ));
                   },
                   child: Container(
-                    margin: EdgeInsets.fromLTRB(0, 20, 0, 40),
-                    height: 70,
-                    width: (MediaQuery.of(context).size.width - 150),
+                    margin: EdgeInsets.fromLTRB(0, 30, 0, 40),
+                    height: 50,
+                    width: (MediaQuery.of(context).size.width - 200),
                     decoration: BoxDecoration(
                       color: AppColor.amareloEscuro,
                       borderRadius: BorderRadius.circular(20),
@@ -216,7 +216,7 @@ class _AssinaturaState extends State<Assinatura> {
                         'Ir para loja',
                         style: TextStyle(
                           color: Color.fromRGBO(27, 27, 27, 0.8),
-                          fontSize: 25,
+                          fontSize: 20,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
