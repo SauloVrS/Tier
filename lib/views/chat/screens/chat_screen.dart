@@ -30,8 +30,8 @@ class _ChatScreenState extends State<ChatScreen> {
   CollectionReference chats = FirebaseFirestore.instance.collection('chats');
 
   var chatDocId;
- // final currentUserId = FirebaseAuth.instance.currentUser?.uid; 
-  final currentUserId = "g6afMeF0UzD6u7XgNrRe";
+ final currentUserId = FirebaseAuth.instance.currentUser?.uid; 
+  //final currentUserId = "g6afMeF0UzD6u7XgNrRe";
   final _textController = TextEditingController();
    @override
   void initState() {
@@ -55,7 +55,7 @@ class _ChatScreenState extends State<ChatScreen> {
             } else {
               await chats.add({
                 'users': {currentUserId: null, widget.friendUid: null},
-                'names':{currentUserId:"Antonio Jose",widget.friendUid:widget.friendName }
+                'names':{currentUserId:FirebaseAuth.instance.currentUser?.displayName,widget.friendUid:widget.friendName }
               }).then((value) => {chatDocId = value});
             }
           },

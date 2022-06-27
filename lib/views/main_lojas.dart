@@ -36,7 +36,7 @@ class _MainLojasState extends State<MainLojas> {
   List<Map> produtos = [];
   List<String> banners = [];
   List<Map> lojas = [];
-  String? idUsuario = FirebaseAuth.instance.currentUser?.uid;
+
 
   initData() {
     promocoesFeed = Promo().promocoes;
@@ -226,14 +226,7 @@ class _MainLojasState extends State<MainLojas> {
                 )
               ),
             ),
-    FutureBuilder<ModelUsers?>(
-    future: readUser2(idUsuario == null ? '6GqG7AT0zqoOSIOrobTy' : idUsuario!),
-    builder: (context, snapshot){
-    if(snapshot.hasError){
-    return Text('Something went wrong!1 ${snapshot.error}');
-    } else if(snapshot.hasData){
-    final user = snapshot.data;
-    return
+
             StreamBuilder<List<Loja>>(
                 stream: readUsers(),
                 builder: (context, snapshot){
@@ -244,18 +237,14 @@ class _MainLojasState extends State<MainLojas> {
                     return ListView(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      children: lojas.map((loja) => lojaList(loja, 30, context,user!)).toList(),
+                      children: lojas.map((loja) => lojaList(loja, 30, context)).toList(),
                     );
                   } else {
                     return const Center(child: CircularProgressIndicator());
                   }
                 }
-            );
-      } else {
-      return const Center(child: CircularProgressIndicator());
-      }
-    },
-    ),
+            ),
+
           ],
         ),
       ),

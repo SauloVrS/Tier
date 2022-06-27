@@ -8,8 +8,8 @@ class ChatState = _ChatState with _$ChatState;
 
 abstract class _ChatState with Store {
  
-  //var currentUser = FirebaseAuth.instance.currentUser?.uid;
- var currentUser = "g6afMeF0UzD6u7XgNrRe";
+  var currentUser = FirebaseAuth.instance.currentUser?.uid;
+ //var currentUser = "g6afMeF0UzD6u7XgNrRe";
   CollectionReference chats = FirebaseFirestore.instance.collection('chats');
 
   @observable

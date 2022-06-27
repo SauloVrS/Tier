@@ -3,7 +3,7 @@
 import 'package:tier/views/chat/chatmodels/user.dart';
 
 class Message {
-  final UserChat sender;
+  final User sender;
   final String
       time; // Would usually be type DateTime or Firebase Timestamp in production apps
   final String text;
@@ -20,70 +20,70 @@ class Message {
 }
 
 // YOU - current user
-final UserChat currentUser = UserChat(
+final User currentUser = User(
   id: 0,
   name: 'Current User'
 );
 
 // USERS
-final UserChat greg = UserChat(
+final User greg = User(
   id: 1,
   name: 'Greg',
   
 );
-final UserChat james = UserChat(
+final User james = User(
   id: 2,
   name: 'James',
  
 );
-final UserChat john = UserChat(
+final User john = User(
   id: 3,
   name: 'John',
   
 );
-final UserChat olivia = UserChat(
+final User olivia = User(
   id: 4,
   name: 'Olivia',
   
 );
-final UserChat sam = UserChat(
+final User sam = User(
   id: 5,
   name: 'Sam',
   
 );
-final UserChat sophia = UserChat(
+final User sophia = User(
   id: 6,
   name: 'Sophia',
   
 );
-final UserChat steven = UserChat(
+final User steven = User(
   id: 7,
   name: 'Steven',
   
 );
-final UserChat suzen = UserChat(
+final User suzen = User(
   id: 8,
   name: 'suzen',
   
 );
-final UserChat aika = UserChat(
+final User aika = User(
   id: 9,
   name: 'aika',
   
 );
-final UserChat zarima = UserChat(
+final User zarima = User(
   id: 10,
   name: 'zarima',
   
 );
-final UserChat patima = UserChat(
+final User patima = User(
   id:11,
   name: 'patima',
   
 );
 
 // FAVORITE CONTACTS
-List<UserChat> favorites = [sam, steven, olivia, john, greg,];
+List<User> favorites = [sam, steven, olivia, john, greg,];
 
 // EXAMPLE CHATS ON HOME SCREEN
 List<Message> chats = [

@@ -35,6 +35,8 @@ class AuthMethod {
             'descricaoUsuario': "nenhuma descrição",
             'enderecoUsuario': [""],
             'fotoUsuario': null,
+            'petsFavoritos': [""],
+            'lojasFavoritas': [""],
           });
         } else {
           return res = 'As senhas não coincidem.';
@@ -101,6 +103,8 @@ class AuthMethod {
         'descricaoUsuario': "nenhuma descrição",
         'enderecoUsuario': [""],
         'fotoUsuario': userCredential.user!.photoURL,
+        'petsFavoritos': [""],
+        'lojasFavoritas': [""],
       });
     } catch (err) {
       res = err.toString();

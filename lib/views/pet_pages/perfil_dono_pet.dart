@@ -41,7 +41,7 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
 
   @override
   Widget build(BuildContext context) {
-    UserChat user = chats[0].sender;
+   // UserChat user = chats[0].sender;
     return Scaffold(
       backgroundColor: Color(0xEFECECD5),
       body: Stack(
@@ -236,8 +236,7 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
                         }
                       },
                     )),
-                  ],
-                ),
+                  ],),
               ))
         ],
       ),

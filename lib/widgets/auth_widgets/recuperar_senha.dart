@@ -26,20 +26,14 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
         length: 1,
         child: Scaffold(
           appBar: AppBar(
-            elevation: 3,
+            automaticallyImplyLeading: false,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(40),
                 bottomRight: Radius.circular(40),
               ),
             ),
-            toolbarHeight: MediaQuery.of(context).size.height / 4,
-            centerTitle: true,
-            title: const Center(
-              child: Image(
-                image: AssetImage("images/img.png"),
-              ),
-            ),
+            toolbarHeight: MediaQuery.of(context).size.height * 0.004,
             backgroundColor: AppColor.textoBranco,
             bottom: TabBar(
               indicator: UnderlineTabIndicator(
@@ -63,48 +57,14 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
           backgroundColor: AppColor.cinzaBranco,
           body: SingleChildScrollView(
             child: Column(children: [
-              Row(
-                children: [
-                  SizedBox(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 0.0, horizontal: 4.0),
-                      child: IconButton(
-                        iconSize: MediaQuery.of(context).size.width / 7,
-                        icon: Icon(
-                          Icons.keyboard_arrow_left_rounded,
-                          color: AppColor.textosPretos3,
-                        ),
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => authPage()));
-                        },
-                      ),
-                    ),
-                  )
-                ],
-              ),
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 40.0,
+                  vertical: 15.0,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Esqueceu \na senha?',
-                      textAlign: TextAlign.start,
-                      style: GoogleFonts.poppins(
-                        fontSize: 30,
-                        color: AppColor.amareloPrincipal,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 30,
-                    ),
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
@@ -148,9 +108,6 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 22,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(

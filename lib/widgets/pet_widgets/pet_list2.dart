@@ -1,5 +1,4 @@
 
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,12 +13,12 @@ import '../../views/pet_pages/pet_page.dart';
 import '../favorite_button.dart';
 
 
-class PetList extends StatelessWidget {
+class PetList2 extends StatelessWidget {
   final ModelPet pet;
   final String idUsuario;
-  final ModelUsers user;
 
-  PetList({Key? key,required this.pet, required this.idUsuario, required this.user
+
+  PetList2({Key? key,required this.pet, required this.idUsuario,
 
   }) : super(key: key);
 
@@ -103,7 +102,12 @@ class PetList extends StatelessWidget {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        child: favoritarPet(),
+                        child: StarButton(
+                          valueChanged: (){
+
+                          }, iconSize: 40,
+
+                        ),
 
 
 
@@ -136,57 +140,6 @@ class PetList extends StatelessWidget {
           ],
         ),
       ),
-
-    );
-  }
-
-  Widget favoritarPet() {
-    return StarButton(
-      iconSize: 40,
-
-        isStarred: user.petsFavoritos.contains(pet.idPet)?
-        true : false ,
-        // iconDisabledColor: Colors.white,
-        valueChanged: (_isStarred)  {
-
-          ///addicionar funcao p favoritar no firebase
-          if (_isStarred == true) {
-
-            FirebaseFirestore.instance
-                .collection('usuarios')
-                .doc(idUsuarioatual)
-                .update({
-              "petsFavoritos": FieldValue.arrayUnion([pet.idPet]),
-            });
-            final docUser = FirebaseFirestore.instance.collection('usuarios').doc(idUsuarioatual).collection('favoritosPets').doc();
-            final fav = ModelFavoritosAnimais(
-            idFav: docUser.id,
-            idDono: pet.idUsuario,
-            idPet: pet.idPet,
-            );
-            final json = fav.toJason();
-            docUser.set(json);
-
-          }
-          if(_isStarred == false){
-            FirebaseFirestore.instance
-                .collection('usuarios')
-                .doc(idUsuarioatual)
-                .update({
-              "petsFavoritos": FieldValue.arrayRemove([pet.idPet]),
-            });
-
-            final docUser = FirebaseFirestore.instance
-                .collection('usuarios')
-                .doc(idUsuarioatual)
-                .collection('favoritosPets')
-                .doc(pet.idPet)
-            ;
-            docUser.delete();
-          }
-
-
-        }
 
     );
   }

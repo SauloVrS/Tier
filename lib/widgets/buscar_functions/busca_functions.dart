@@ -8,7 +8,7 @@ import '../../firebase/produto_helper.dart';
 import '../../models/users_model.dart';
 import '../lojas_list.dart';
 import '../promocoes_list.dart';
-String? idUsuario = FirebaseAuth.instance.currentUser?.uid;
+
 
 Widget streamProdutosBusca({required String id, required String text, required BuildContext context}) {
 
@@ -81,13 +81,7 @@ Stream<List<Produto>> getProdutosBusca({required String id}) =>
 
 Widget streamLojasBusca(String text){
 
-  return FutureBuilder<ModelUsers?>(
-      future: readUser2(idUsuario == null ? '6GqG7AT0zqoOSIOrobTy' : idUsuario!),
-  builder: (context, snapshot){
-  if(snapshot.hasError){
-  return Text('Something went wrong!1 ${snapshot.error}');
-  } else if(snapshot.hasData){
-  final user = snapshot.data;
+
   return StreamBuilder<List<Loja>>(
       stream: readUsers(),
       builder: (context, snapshot){
@@ -99,16 +93,12 @@ Widget streamLojasBusca(String text){
           return ListView(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            children: newLojas.map((loja) => lojaList(loja, 30, context,user!)).toList(),
+            children: newLojas.map((loja) => lojaList(loja, 30, context)).toList(),
           );
         } else {
           return const Center(child: CircularProgressIndicator());
         }
       }
   );
-  } else {
-    return const Center(child: CircularProgressIndicator());
-  }
-  },
-  );
+
 }
