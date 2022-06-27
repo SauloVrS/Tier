@@ -90,6 +90,51 @@ class ModelFavoritosAnimais {
       );
 }
 
+class ModelEnderecos{
+  final String idEnd;
+  final String bairro;
+  final String cidade;
+  final String rua;
+  final int numero;
+  final String cep;
+  final String pontoRef;
+  final String estado;
+
+  ModelEnderecos({
+    this.idEnd = '',
+    required this.cidade,
+    required this.bairro,
+    required this.cep,
+    required this.numero,
+    required this.rua,
+    required this.pontoRef,
+    required this.estado,
+  });
+
+  Map<String, dynamic> toJason() => {
+    'idEnd': idEnd,
+    'rua': rua,
+    'bairro': bairro,
+    'cidade': cidade,
+    'numero': numero,
+    'cep': cep,
+    'pontoRef': pontoRef,
+    'estado': estado,
+  };
+
+  static ModelEnderecos fromJson(Map<String, dynamic> json) =>
+      ModelEnderecos(
+        idEnd: json['idEnd'],
+        numero: json['numero'],
+        rua: json['rua'],
+        estado: json['estado'],
+        cep: json['cep'],
+        pontoRef: json['pontoRef'],
+        bairro: json['bairro'],
+        cidade: json['cidade'],
+      );
+}
+
 //ler usuario
 Future<ModelUsers?> readUser(String idUser) async{
   final docUser = FirebaseFirestore.instance.collection('usuarios').doc(idUser);
@@ -128,10 +173,9 @@ Future<ModelPet?> readPet(String? idPet) async{
   }
 }
 
-
 //Criar favorito
 Future favoritarAnimal({
-  required String idFav,
+  required String idFav,//oq é isso aqui
   required String idDono,
   required String idPet,
   required String idUsuario,//usuario atual
@@ -147,7 +191,6 @@ Future favoritarAnimal({
 }
 
 Stream<List<ModelPet>> readPets(isSelected,value,option,valueIdade) {
-
 
   String typePet = "Cachorro";
   if(isSelected[0] == true){
@@ -188,12 +231,6 @@ Stream<List<ModelPet>> readPets(isSelected,value,option,valueIdade) {
   }
 
 
-
-
-
-
-
-
   return FirebaseFirestore.instance
       .collection("pets")
       .where("typePet", isEqualTo: typePet)
@@ -225,32 +262,60 @@ Future<ModelUsers?> readUser2(String idUser) async{
   }
 }
 
-
-
-
-
-
-
 class ModelFavoritosPets {
   final String idPet;
 
   ModelFavoritosPets({
-
     required this.idPet,
   });
 
   Map<String, dynamic> toJason() => {
-
     'idPet': idPet,
   };
   static ModelFavoritosPets fromJson(Map<String, dynamic> json) =>
       ModelFavoritosPets(
-
         idPet: json['idPet'],
-
       );
 }
 
+//Adicionar Endereço
+Future adicionarEndereco({
+  required String idUsuario,
+  required String cep,
+  required String rua,
+  required int numero,
+  required String bairro,
+  required String cidade,
+  required String estado,
+  required String pontoRef,
+}) async {
+  final docUser = FirebaseFirestore.instance.collection('usuarios').doc(idUsuario).collection('enderecos').doc();
+  final end = ModelEnderecos(
+      idEnd: docUser.id,
+      cidade: cidade,
+      bairro: bairro,
+      cep: cep,
+      numero: numero,
+      rua: rua,
+      pontoRef: pontoRef,
+      estado: estado);
+  final json = end.toJason();
+  await docUser.set(json);
+}
+//ler endereços
+Stream<List<ModelEnderecos>> readEnderecos(String id) => FirebaseFirestore.instance
+    .collection('usuarios').doc(id).collection('enderecos')
+    .snapshots()
+    .map((snapshot) =>
+    snapshot.docs.map((doc) => ModelEnderecos.fromJson(doc.data())).toList());
 
+//ler endereço especifico
+Future<ModelEnderecos?> readEnd(String? idEnd) async{
+  final docUser = FirebaseFirestore.instance.collection('pets').doc(idEnd);
+  final snapshot = await docUser.get();
+  if (snapshot.exists){
+    return ModelEnderecos.fromJson(snapshot.data()!);
+  }
+}
 
 
