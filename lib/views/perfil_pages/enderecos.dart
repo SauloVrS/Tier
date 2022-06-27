@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,7 +16,7 @@ class EnderecosPage extends StatefulWidget {
 }
 
 class _EnderecosPageState extends State<EnderecosPage> {
-  String? idUsuario = 'tNJ7BlmfVtfQiztDrcLv6IJGo412';
+  String? idUsuario = FirebaseAuth.instance.currentUser?.uid;
 
   @override
   Widget build(BuildContext context) {

@@ -118,4 +118,27 @@ class FireStoreMethods{
     }
     return res;
   }
+
+  Future<String> atualizarFotoPet(
+      Uint8List file,
+      String uid,
+      String idPet,
+      ) async {
+    String res = 'ocorreu um erro';
+    try{
+      String photoUrl = await StorageMethods().uploadImageToStorage('fotosPerfil/', file, true);
+      final docUser = FirebaseFirestore.instance.collection('usuarios').doc(uid).collection('pets').doc(idPet);
+      final docUser2 = FirebaseFirestore.instance.collection('pets').doc(idPet);
+      docUser.update({
+        'fotoPet' : photoUrl,
+      });
+      docUser2.update({
+        'fotoPet' : photoUrl,
+      });
+      res = 'sucess';
+    }catch(err){
+      res = err.toString();
+    }
+    return res;
+  }
 }
