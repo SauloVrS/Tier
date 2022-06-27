@@ -175,6 +175,12 @@ final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     });
   }
 
+  Future<void>  adicionarId(String id) async {
+    lojasCollection.doc(id).update({
+      'id':id,
+    });
+  }
+
   Future<void> cadastrarLoja() async {
     try{
 
@@ -200,8 +206,10 @@ final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
           'avaliacao':4.9,
           'tipoProdutos':{},
           'distancia':3.5
-        }).then((value) {
+        }).then((value) async {
+          await adicionarId(value.id);
           showSnackBar('Loja Cadastrada!', context);
+
         });
     }catch(err){
          showSnackBar('Ocorreu um erro. Tente novamente.', context);
