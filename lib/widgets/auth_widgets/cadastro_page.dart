@@ -128,7 +128,7 @@ class _CadastroPageState extends State<CadastroPage> {
             Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: Text(
                     'Cadastro',
                     style: TextStyle(
