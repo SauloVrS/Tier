@@ -15,6 +15,7 @@ import 'package:tier/widgets/pet_widgets/pet_list.dart';
 import '../../models/pet_model.dart';
 import '../../models/users_model.dart';
 import '../../widgets/bottom_nav_bar.dart';
+import '../../widgets/pet_widgets/pet_list2.dart';
 class AdocaoHome extends StatefulWidget {
   AdocaoHome({Key? key,
   }) : super(key: key);
@@ -311,8 +312,25 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
           /// feed adocao
           Expanded(
-            child: FutureBuilder<ModelUsers?>(
-              future: readUser2(idUsuario == null ? '6GqG7AT0zqoOSIOrobTy' : idUsuario!),
+            child: (idUsuario==null) ? StreamBuilder<List<ModelPet>>(
+
+                stream: readPets(isSelected,dropdownValueGenero,dropdownValueDistancia,dropdownValueIdade,),
+                builder: (context, snapshot){
+                  if(snapshot.hasError){
+                    return Text('Something went wrong!2 ${snapshot.error}');
+                  } else if(snapshot.hasData){
+                    final pets = snapshot.data!;
+                    return pets.length == 0 ? Center() :  ListView(
+                      //physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      children: pets.map((pet) => PetList2(pet: pet,  idUsuario: '', )).toList(),
+                    );
+                  } else {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                }
+            ): FutureBuilder<ModelUsers?>(
+              future: readUser2( idUsuario==null? '' : idUsuario!),
               builder: (context, snapshot){
                 if(snapshot.hasError){
                   return Text('Something went wrong!1 ${snapshot.error}');
@@ -330,7 +348,7 @@ class _AdocaoHomeState extends State<AdocaoHome> {
                             return pets.length == 0 ? Center() :  ListView(
                               //physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
-                              children: pets.map((pet) => PetList(pet: pet,  idUsuario: '', user: user!)).toList(),
+                              children: pets.map((pet) => PetList(pet: pet,  idUsuario: '',user: user!,)).toList(),
                             );
                           } else {
                             return const Center(child: CircularProgressIndicator());
