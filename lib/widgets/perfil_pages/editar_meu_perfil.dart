@@ -90,8 +90,8 @@ class _EditarPerfilState extends State<EditarPerfil> {
     } catch (e) {
       showSnackBar(e.toString(), context);
     }
-
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

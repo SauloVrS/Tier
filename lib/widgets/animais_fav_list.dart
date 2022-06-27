@@ -102,7 +102,6 @@ class AnimaisList extends StatelessWidget {
                       GestureDetector(
                         onTap: (){
 
-                          //remover favorito
                           FirebaseFirestore.instance
                               .collection('usuarios')
                               .doc(idUser)

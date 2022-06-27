@@ -48,8 +48,12 @@ class _ModalEditPetState extends State<ModalEditPet> {
             const SizedBox(height: 15,),
             GestureDetector(
               onTap: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => EditarPet()));
+                Navigator.pop(context);
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditarPet(idPet: widget.idPet),
+                    ));
               },
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
