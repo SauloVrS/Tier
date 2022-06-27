@@ -529,7 +529,6 @@ class _EditarPetState extends State<EditarPet> {
                                                       ],
                                                     ),
                                                   ),
-
                                                 ],
                                               ),
                                             ],
@@ -545,7 +544,7 @@ class _EditarPetState extends State<EditarPet> {
                               const SizedBox(height: 15,),
                               GestureDetector(
                                 onTap: () {
-                                  if (controllerName.text != '' || controllerDescricao.text != '' ||(tipo != pet.typePet && tipo != null) || (genero != pet.generoPet && genero != null)){
+                                  if (controllerName.text != '' || controllerDescricao.text != '' ||(tipo != pet.typePet && tipo != null) || (genero != pet.generoPet && genero != null) || (porte != null)){
                                     setState(() {
                                       _isLoading = true;
                                     });
@@ -581,6 +580,14 @@ class _EditarPetState extends State<EditarPet> {
                                       });
                                       docUser2.update({
                                         'generoPet': genero
+                                      });
+                                    }
+                                    if (porte != null){
+                                      docUser.update({
+                                        'portePet': porte,
+                                      });
+                                      docUser2.update({
+                                        'portePet': porte,
                                       });
                                     }
                                     setState(() {

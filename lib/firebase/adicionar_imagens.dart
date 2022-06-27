@@ -74,6 +74,7 @@ class FireStoreMethods{
       String idadePet,
       String nomePet,
       String typePet,
+      String portePet,
       ) async {
     String res = 'ocorreu um erro';
     try{
@@ -90,6 +91,7 @@ class FireStoreMethods{
         idadePet: idadePet,
         nomePet: nomePet,
         typePet: typePet,
+        portePet: portePet,
       );
       
       _firestore.collection('usuarios').doc(uid).collection('pets').doc(petId).set(pet.toJson());
