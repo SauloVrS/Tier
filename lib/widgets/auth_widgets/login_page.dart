@@ -1,9 +1,11 @@
 import 'dart:ffi';
+
 import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:tier/firebase/adicionar_imagens.dart';
 import 'package:tier/firebase/auth_service.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -108,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height / 15,
+              height: MediaQuery.of(context).size.height / 40,
             ),
             Container(
               decoration: BoxDecoration(
@@ -170,8 +172,16 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               onPressed: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => RecuperarSenha()));
+                showCupertinoModalBottomSheet(
+                    elevation: MediaQuery.of(context).size.height / 4,
+                    bounce: true,
+                    topRadius: Radius.circular(40),
+                    barrierColor: Color.fromARGB(150, 0, 0, 0),
+                    context: context,
+                    builder: (context) => Container(
+                          height: MediaQuery.of(context).size.height / 1.8,
+                          child: RecuperarSenha(),
+                        ));
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -189,8 +199,8 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 50),
             SizedBox(
-              height: MediaQuery.of(context).size.height / 12,
-              width: MediaQuery.of(context).size.width - 30,
+              height: MediaQuery.of(context).size.height / 15,
+              width: MediaQuery.of(context).size.width / 1.2,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
@@ -219,11 +229,12 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 50),
             SizedBox(
-              height: MediaQuery.of(context).size.height / 12,
-              width: MediaQuery.of(context).size.width - 30,
+              height: MediaQuery.of(context).size.height / 15,
+              width: MediaQuery.of(context).size.width / 1.2,
               child: ElevatedButton.icon(
                 icon: Icon(
                   Icons.facebook,
+                  color: Color.fromARGB(255, 243, 243, 243),
                   size: 30,
                 ),
                 style: ElevatedButton.styleFrom(
@@ -242,14 +253,14 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height / 25),
+            SizedBox(height: MediaQuery.of(context).size.height / 30),
             SizedBox(
-              height: MediaQuery.of(context).size.height / 12,
-              width: MediaQuery.of(context).size.width - 30,
+              height: MediaQuery.of(context).size.height / 15,
+              width: MediaQuery.of(context).size.width / 1.2,
               child: ElevatedButton.icon(
                 icon: Image.asset(
                   'images/google_icon.png',
-                  height: MediaQuery.of(context).size.height / 10,
+                  height: MediaQuery.of(context).size.height / 12,
                   width: MediaQuery.of(context).size.width / 10,
                 ),
                 style: ElevatedButton.styleFrom(

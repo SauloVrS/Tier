@@ -174,6 +174,7 @@ final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
       );
     });
   }
+  
 
   Future<void>  adicionarId(String id) async {
     lojasCollection.doc(id).update({
@@ -184,7 +185,7 @@ final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   Future<void> cadastrarLoja() async {
     try{
 
-        String imgUrl = await StorageMethods().uploadImageToStorage('pets/', _file!, true);
+        String imgUrl = await StorageMethods().uploadImageToStorage('logolojas/', _file!, true);
      
         lojasCollection.add({
           'proprietarioId':proprietarioLojaId,

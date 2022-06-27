@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:tier/views/auth_page.dart';
 import 'package:tier/views/configuracoes_pages/cadastre_sua_loja.dart';
 import 'package:tier/views/perfil_pages/cupom_perfil.dart';
@@ -284,18 +285,22 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               GestureDetector(
                 onTap: () {
                   if (idUsuario == null) {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              authPage(),
-                        ));
+                    showCupertinoModalBottomSheet(
+                        enableDrag: true,
+                        bounce: true,
+                        topRadius: Radius.circular(30),
+                        barrierColor: Color.fromARGB(100, 0, 0, 0),
+                        context: context,
+                        builder: (context) => Container(
+                              height: MediaQuery.of(context).size.height / 1.18,
+                              child: authPage(),
+                            ));
                   } else {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              MeuPerfil(),
+                              MeuPerfil(), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
                         ));
                   }
                 },
@@ -346,12 +351,12 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               ),
               GestureDetector(
                 onTap: () {
-                 Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              Cadastro_Loja(), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
-                        ));
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            Cadastro_Loja(), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
+                      ));
                 },
                 child: Container(
                   height: 60,
@@ -555,19 +560,18 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               GestureDetector(
                 onTap: () {
                   //if (idUsuario == null) {
-                    //Navigator.pushReplacement(
-                        //context,
-                        //MaterialPageRoute(
-                          //builder: (context) =>
-                              //authPage(),
-                        //));
+                  //Navigator.pushReplacement(
+                  //context,
+                  //MaterialPageRoute(
+                  //builder: (context) =>
+                  //authPage(),
+                  //));
                   //} else {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              EnderecosPage(),
-                        ));
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EnderecosPage(),
+                      ));
                   //}
                 },
                 child: Container(

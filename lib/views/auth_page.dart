@@ -22,6 +22,7 @@ class _authPageState extends State<authPage> {
       child: Scaffold(
         backgroundColor: AppColor.cinzaBranco,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           elevation: 3,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
@@ -29,7 +30,7 @@ class _authPageState extends State<authPage> {
               bottomRight: Radius.circular(40),
             ),
           ),
-          toolbarHeight: MediaQuery.of(context).size.height / 4,
+          toolbarHeight: MediaQuery.of(context).size.height / 10,
           centerTitle: true,
           title: const Center(
             child: Image(
@@ -55,7 +56,7 @@ class _authPageState extends State<authPage> {
               ),
               Tab(
                 child: Text(
-                  'Cadastre-se',
+                  'Cadastro',
                   style: GoogleFonts.poppins(
                     fontSize: 20,
                     color: AppColor.textosPretos3,
