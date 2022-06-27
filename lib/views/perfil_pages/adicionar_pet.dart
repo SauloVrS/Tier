@@ -92,6 +92,7 @@ class _AdicionarPetState extends State<AdicionarPet> {
         idade!,
         controllerName.text,
         tipo!,
+        porte!,
       );
       setState(() {
         _isLoading = false;

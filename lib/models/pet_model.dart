@@ -10,6 +10,7 @@ class ModelPet {
   final String idadePet;
   final String nomePet;
   final String typePet;
+  final String portePet;
 
   ModelPet({
     this.idPet = '',
@@ -21,6 +22,7 @@ class ModelPet {
     required this.idadePet,
     required this.nomePet,
     required this.typePet,
+    required this.portePet,
   });
 
   Map<String, dynamic> toJson() => {
@@ -33,6 +35,7 @@ class ModelPet {
         'idadePet': idadePet,
         'nomePet': nomePet,
         'typePet': typePet,
+        'portePet': portePet,
       };
 
   static ModelPet fromJson(Map<String, dynamic> json) => ModelPet(
@@ -44,7 +47,8 @@ class ModelPet {
       generoPet: json['generoPet'] ?? "",
       idadePet: json['idadePet'] ?? "",
       nomePet: json['nomePet'] ?? "",
-      typePet: json['typePet'] ?? "");
+      typePet: json['typePet'] ?? "",
+      portePet: json['portePet'] ?? "");
 }
 /*
 Stream<List<String>> getIds2() => FirebaseFirestore.instance
