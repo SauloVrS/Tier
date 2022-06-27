@@ -46,7 +46,7 @@ class PetList2 extends StatelessWidget {
               padding:
               EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 0),
               width: MediaQuery.of(context).size.width / 1.15,
-              height: MediaQuery.of(context).size.height / 10,
+              height: MediaQuery.of(context).size.height / 9.5,
               decoration: BoxDecoration(
                 color: Color(0xffe5e5e5).withOpacity(0.7),
                 borderRadius: BorderRadius.only(
@@ -105,7 +105,7 @@ class PetList2 extends StatelessWidget {
                         child: StarButton(
                           valueChanged: (){
 
-                          }, iconSize: 40,
+                          }, iconSize: 30,
 
                         ),
 
