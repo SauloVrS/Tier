@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Experimentebuscar extends StatelessWidget {
   const Experimentebuscar({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class Experimentebuscar extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 22),
-          child: Text("Experimente buscar", style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18)),
+          child: Text(AppLocalizations.of(context)!.trysearch, style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18)),
         ),
         Column(
           children: [
@@ -23,7 +24,7 @@ class Experimentebuscar extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 8, left: 32),
                     child: Icon(Icons.search, color: Color(0xFFFFD595),),
                   ),
-                  Text("Rações para cães", style: TextStyle(fontWeight: FontWeight.w400,fontSize: 14)),
+                  Text(AppLocalizations.of(context)!.dogfood, style: TextStyle(fontWeight: FontWeight.w400,fontSize: 14)),
                 ]
               ),
             ),
@@ -37,7 +38,7 @@ class Experimentebuscar extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 8, left: 32),
                       child: Icon(Icons.search, color: Color(0xFFFFD595),),
                     ),
-                    Text("Shampoo para cachorros", style: TextStyle(fontWeight: FontWeight.w400,fontSize: 14)),
+                    Text(AppLocalizations.of(context)!.shampoo_for_dogs, style: TextStyle(fontWeight: FontWeight.w400,fontSize: 14)),
                   ]
               ),
             ),
@@ -51,7 +52,7 @@ class Experimentebuscar extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 8, left: 32),
                       child: Icon(Icons.search, color: Color(0xFFFFD595),),
                     ),
-                    Text("Rações para gatos", style: TextStyle(fontWeight: FontWeight.w400,fontSize: 14)),
+                    Text(AppLocalizations.of(context)!.catfood, style: TextStyle(fontWeight: FontWeight.w400,fontSize: 14)),
                   ]
               ),
             ),
@@ -65,7 +66,7 @@ class Experimentebuscar extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 8, left: 32),
                       child: Icon(Icons.search, color: Color(0xFFFFD595),),
                     ),
-                    Text("Brinquedo para cachorros", style: TextStyle(fontWeight: FontWeight.w400,fontSize: 14)),
+                    Text(AppLocalizations.of(context)!.dogtoy, style: TextStyle(fontWeight: FontWeight.w400,fontSize: 14)),
                   ]
               ),
             ),

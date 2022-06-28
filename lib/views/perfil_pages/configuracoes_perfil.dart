@@ -16,6 +16,7 @@ import 'package:tier/widgets/bottom_nav_bar.dart';
 import 'package:tier/models/users_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Configuracoes extends StatefulWidget {
   const Configuracoes({Key? key}) : super(key: key);
@@ -180,7 +181,7 @@ class _Configuracoes extends State<Configuracoes> {
                           ),
                           Expanded(
                             child: Text(
-                              'Configurações de idiomas',
+                              AppLocalizations.of(context)!.language_settings,
                               style: GoogleFonts.poppins(
                                 fontSize: 20,
                                 color: AppColor.textosPretos3,
@@ -226,7 +227,7 @@ class _Configuracoes extends State<Configuracoes> {
                           ),
                           Expanded(
                             child: Text(
-                              'Central de ajuda',
+                              AppLocalizations.of(context)!.call_center,
                               style: GoogleFonts.poppins(
                                 fontSize: 20,
                                 color: AppColor.textosPretos3,
@@ -272,7 +273,7 @@ class _Configuracoes extends State<Configuracoes> {
                           ),
                           Expanded(
                             child: Text(
-                              'Políticas de uso',
+                              AppLocalizations.of(context)!.usage_policy,
                               style: GoogleFonts.poppins(
                                 fontSize: 20,
                                 color: AppColor.textosPretos3,
@@ -318,7 +319,7 @@ class _Configuracoes extends State<Configuracoes> {
                           ),
                           Expanded(
                             child: Text(
-                              'Cadastre sua loja',
+                              AppLocalizations.of(context)!.sign_up_your_store,
                               style: GoogleFonts.poppins(
                                 fontSize: 20,
                                 color: AppColor.textosPretos3,
@@ -364,7 +365,7 @@ class _Configuracoes extends State<Configuracoes> {
                           ),
                           Expanded(
                             child: Text(
-                              'Minha loja',
+                              AppLocalizations.of(context)!.my_store,
                               style: GoogleFonts.poppins(
                                 fontSize: 20,
                                 color: AppColor.textosPretos3,
@@ -411,7 +412,7 @@ class _Configuracoes extends State<Configuracoes> {
                           ),
                           Expanded(
                             child: Text(
-                              'Sobre',
+                              AppLocalizations.of(context)!.about,
                               style: GoogleFonts.poppins(
                                 fontSize: 20,
                                 color: AppColor.textosPretos3,
@@ -454,7 +455,7 @@ class _Configuracoes extends State<Configuracoes> {
                           ),
                           Expanded(
                             child: Text(
-                              'Sair',
+                              AppLocalizations.of(context)!.sign_out,
                               style: GoogleFonts.poppins(
                                 fontSize: 20,
                                 color: AppColor.textosPretos3,

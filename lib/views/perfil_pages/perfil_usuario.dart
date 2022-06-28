@@ -8,6 +8,7 @@ import 'package:tier/views/perfil_pages/cupom_perfil.dart';
 import 'package:tier/views/perfil_pages/enderecos.dart';
 import 'package:tier/views/perfil_pages/meu_codigo_perfil.dart';
 import 'package:tier/widgets/perfil_pages/editar_meu_perfil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../colors.dart';
 import '../../widgets/bottom_nav_bar.dart';
@@ -193,13 +194,13 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                                     ),
                                     RichText(
                                       text: TextSpan(
-                                          text: 'Meus\n',
+                                          text: AppLocalizations.of(context)!.my,
                                           style: GoogleFonts.poppins(
                                               fontSize: 18,
                                               color: AppColor.textosPretos3),
-                                          children: const [
+                                          children: [
                                             TextSpan(
-                                              text: 'pedidos',
+                                              text: AppLocalizations.of(context)!.orders,
                                             )
                                           ]),
                                     )
@@ -262,7 +263,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                                       width: 5,
                                     ),
                                     Text(
-                                      'Nível',
+                                      AppLocalizations.of(context)!.level,
                                       style: GoogleFonts.poppins(
                                         fontSize: 18,
                                         color: AppColor.textosPretos3,
@@ -328,7 +329,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                             ),
                             Expanded(
                               child: Text(
-                                'Meu Perfil',
+                                AppLocalizations.of(context)!.my_profile,
                                 style: GoogleFonts.poppins(
                                   fontSize: 20,
                                   color: AppColor.textosPretos3,
@@ -382,7 +383,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                             ),
                             Expanded(
                               child: Text(
-                                'Cadastre sua loja',
+                                AppLocalizations.of(context)!.sign_up_your_store,
                                 style: GoogleFonts.poppins(
                                   fontSize: 20,
                                   color: AppColor.textosPretos3,
@@ -432,7 +433,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                             ),
                             Expanded(
                               child: Text(
-                                'Cupons',
+                                AppLocalizations.of(context)!.coupons,
                                 style: GoogleFonts.poppins(
                                   fontSize: 20,
                                   color: AppColor.textosPretos3,
@@ -479,7 +480,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                             ),
                             Expanded(
                               child: Text(
-                                'Carteira',
+                                AppLocalizations.of(context)!.wallet,
                                 style: GoogleFonts.poppins(
                                   fontSize: 20,
                                   color: AppColor.textosPretos3,
@@ -532,7 +533,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                             ),
                             Expanded(
                               child: Text(
-                                'Assinatura',
+                                AppLocalizations.of(context)!.signature,
                                 style: GoogleFonts.poppins(
                                   fontSize: 20,
                                   color: AppColor.textosPretos3,
@@ -598,7 +599,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                             ),
                             Expanded(
                               child: Text(
-                                'Endereços',
+                                AppLocalizations.of(context)!.adresses,
                                 style: GoogleFonts.poppins(
                                   fontSize: 20,
                                   color: AppColor.textosPretos3,
@@ -648,7 +649,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                             ),
                             Expanded(
                               child: Text(
-                                'Meu código',
+                                AppLocalizations.of(context)!.my_code,
                                 style: GoogleFonts.poppins(
                                   fontSize: 20,
                                   color: AppColor.textosPretos3,
@@ -698,7 +699,7 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                             ),
                             Expanded(
                               child: Text(
-                                'Configurações',
+                                AppLocalizations.of(context)!.settings,
                                 style: GoogleFonts.poppins(
                                   fontSize: 20,
                                   color: AppColor.textosPretos3,

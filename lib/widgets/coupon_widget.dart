@@ -11,6 +11,8 @@ class CouponWidget extends StatefulWidget {
 
 class _CouponWidgetState extends State<CouponWidget> {
   Color color = Colors.grey;
+  bool _enable = false;
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -19,7 +21,7 @@ class _CouponWidgetState extends State<CouponWidget> {
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
             child: Column(
               children: [
-                      Row(
+                      /*Row(
                         children: [
                           Expanded(
                               child: SizedBox(
@@ -38,10 +40,12 @@ class _CouponWidgetState extends State<CouponWidget> {
                                       if(value.length<3){
                                         setState((){
                                           color=Colors.grey;
+                                          _enable = false;
                                         });
                                       if(value.isNotEmpty){
                                         setState((){
                                           color=Theme.of(context).primaryColor;
+                                          _enable = true;
                                         });
                                       }
                                       }
@@ -50,9 +54,11 @@ class _CouponWidgetState extends State<CouponWidget> {
                               )
                           ),
                         ],
-                      ),
+                      ),*/
                 const SizedBox(height: 10,),
-                GestureDetector(
+                AbsorbPointer(
+                absorbing: _enable ? false : true,
+                child: GestureDetector(
                   onTap: () {},
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
@@ -71,7 +77,7 @@ class _CouponWidgetState extends State<CouponWidget> {
                         )
                     ),
                   ),
-                ),
+                ),),
 
               ],
             ),

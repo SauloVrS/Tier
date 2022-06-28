@@ -56,7 +56,6 @@ class _CarrinhoState extends State<Carrinho> {
             ),
             const SizedBox(height: 10,),
             CouponWidget(),
-
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
               child: Column(

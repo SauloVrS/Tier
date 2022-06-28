@@ -12,6 +12,7 @@ import 'package:tier/views/perfil_pages/adicionar_pet.dart';
 import 'package:tier/widgets/pet_widgets/pet_list.dart';
 
 
+
 import '../../models/pet_model.dart';
 import '../../models/users_model.dart';
 import '../../widgets/bottom_nav_bar.dart';

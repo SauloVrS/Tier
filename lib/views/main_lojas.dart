@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // arquivos com exemplos:
 import 'package:tier/data/banners.dart';
@@ -135,7 +136,7 @@ class _MainLojasState extends State<MainLojas> {
                 bottom: 15
               ),
               child: Text(
-                "Promoções",
+                AppLocalizations.of(context)!.sales,
                 style: GoogleFonts.poppins(
                   textStyle: const TextStyle(
                       color: Colors.black,
@@ -187,7 +188,7 @@ class _MainLojasState extends State<MainLojas> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Produtos",
+                      AppLocalizations.of(context)!.products,
                     style: GoogleFonts.poppins(
                       textStyle: const TextStyle(
                           color: Colors.black,
@@ -217,7 +218,7 @@ class _MainLojasState extends State<MainLojas> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Text(
-                "Lojas",
+                  AppLocalizations.of(context)!.stores,
                 style: GoogleFonts.poppins(
                   textStyle: const TextStyle(
                       color: Colors.black,
