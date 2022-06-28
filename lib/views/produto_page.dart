@@ -1,13 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:tier/firebase/loja_helper.dart';
 import 'package:tier/widgets/carrinho_widgets/carrinho_functions.dart';
 import 'package:tier/widgets/carrinho_widgets/modal_loja_diferente.dart';
+import 'package:tier/widgets/carrinho_widgets/modal_sem_user.dart';
 
 import '../colors.dart';
 import '../firebase/produto_helper.dart';
 //import '../widgets/bottom_nav_bar.dart';
+
+//var user = FirebaseAuth.instance.currentUser;
 
 class ProdutoPage extends StatefulWidget {
   final Produto produto;
@@ -37,6 +41,8 @@ class _ProdutoPageState extends State<ProdutoPage> {
       }
     });
   }
+
+  var user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -254,30 +260,45 @@ class _ProdutoPageState extends State<ProdutoPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          GestureDetector(
+          user?.uid != null
+          ? GestureDetector(
             onTap: () async {
-              final aux = await verificaLoja(widget.lojaId, "André");
-              final index = await verificaProduto(widget.produto.id, "André");
+              final aux = await verificaLoja(widget.lojaId, user!.uid);
+              final index = await verificaProduto(widget.produto.id, user!.uid);
               if (index >= 0) {
                 final num valor = widget.produto.promocao ? widget.produto.novoValor : widget.produto.valor;
                 final produto = ShopProd(idProduto: widget.produto.id, idLoja: widget.lojaId, quantidade: qnt, valor: valor);
-                mudarQnt('André', index, qnt, produto.toJson());
+                mudarQnt(user!.uid, index, qnt, produto.toJson());
                 Navigator.of(context).pop();
               } else {
                 if(aux == 1){
                   final num valor = widget.produto.promocao ? widget.produto.novoValor : widget.produto.valor;
                   final produto = ShopProd(idProduto: widget.produto.id, idLoja: widget.lojaId, quantidade: qnt, valor: valor);
-                  addCarrinho("André", produto.toJson());
+                  addCarrinho(user!.uid, produto.toJson());
                   Navigator.of(context).pop();
                 } else {
                   return showMaterialModalBottomSheet(
                       expand: false,
                       backgroundColor: Colors.transparent,
                       context: context,
-                      builder: (context) => ModalLojaDiferente(user: 'André', qnt: qnt, lojaId: widget.lojaId, produto: widget.produto,)
+                      builder: (context) => ModalLojaDiferente(user: user!.uid, qnt: qnt, lojaId: widget.lojaId, produto: widget.produto,)
                   );
                 }
               }
+            },
+            child: Text(
+              'Adicionar',
+              style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w600, color: AppColor.cobre),
+            ),
+          )
+          : GestureDetector(
+            onTap: () async {
+              return showMaterialModalBottomSheet(
+                  expand: false,
+                  backgroundColor: Colors.transparent,
+                  context: context,
+                  builder: (context) => const ModalSemUser());
             },
             child: Text(
               'Adicionar',

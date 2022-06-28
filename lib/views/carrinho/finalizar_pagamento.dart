@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import '../../colors.dart';
 import '../../firebase/pedido_helper.dart';
 import '../../widgets/carrinho_widgets/carrinho_functions.dart';
 import '../../widgets/carrinho_widgets/metodo_pagamento.dart';
+import '../../widgets/pedidos_users/pedidos_users_functions.dart';
 
 class FinalPagamento extends StatefulWidget {
   final Pedido pedido;
@@ -22,12 +24,12 @@ class FinalPagamento extends StatefulWidget {
 class _FinalPagamentoState extends State<FinalPagamento> {
   num subtotal = 0;
   num taxa = 0;
-
+  var user = FirebaseAuth.instance.currentUser;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getSubtotal("André");
+    getSubtotal(user!.uid);
     getTaxa(widget.pedido.carrinho![0]['idLoja']).then((value) =>
         setState((){
           taxa = value[0];
@@ -166,8 +168,11 @@ class _FinalPagamentoState extends State<FinalPagamento> {
             ),
             const SizedBox(height: 20,),
             GestureDetector(
-              onTap: () {
-
+              onTap: () async {
+                widget.pedido.status = 'Em andamento';
+                criarPedido(widget.pedido);
+                apagarUser(user!.uid);
+                Navigator.of(context).popUntil((route) => route.isFirst);
               },
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
