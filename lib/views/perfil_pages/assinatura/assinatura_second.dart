@@ -170,7 +170,7 @@ class _AssinaturaSecondState extends State<AssinaturaSecond> {
                           child: TextField(
                             controller: controllerPeriodo,
                             decoration: InputDecoration(
-                              labelText: 'Periodo de entrega (semanas)',
+                              labelText: 'Periodo em semanas',
                               border: OutlineInputBorder(),
                             ),
                           ),
