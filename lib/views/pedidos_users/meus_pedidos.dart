@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/widgets/pedidos_users/em_andamento.dart';
@@ -14,7 +15,7 @@ class MeusPedidos extends StatefulWidget {
 
 class _MeusPedidosState extends State<MeusPedidos> {
   bool aux = true;
-
+  var user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,7 +96,7 @@ class _MeusPedidosState extends State<MeusPedidos> {
                 )
               ],
             ),
-            aux == true ? const EmAndamento() : const Finalizados()
+            user?.uid == null ? Container() : (aux == true ? const EmAndamento() : const Finalizados())
           ],
         ),
       ),
