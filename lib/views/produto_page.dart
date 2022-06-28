@@ -173,12 +173,16 @@ class _ProdutoPageState extends State<ProdutoPage> {
                 GestureDetector(
                   onTap: () {
                     if (currentUserId == null) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                authPage(), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
-                          ));
+                      showCupertinoModalBottomSheet(
+                          enableDrag: true,
+                          topRadius: const Radius.circular(30),
+                          barrierColor: const Color.fromARGB(100, 0, 0, 0),
+                          context: context,
+                          builder: (context) => Container(
+                                height:
+                                    MediaQuery.of(context).size.height / 1.18,
+                                child: const authPage(),
+                              ));
                     } else if (produtoAssinado) {
                       //print(verifProdAssinado());
                       Navigator.push(
