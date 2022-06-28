@@ -318,7 +318,11 @@ class _PetPageState extends State<PetPage> {
 
 
                     //botao de adotar
-                    Container(
+                    GestureDetector(
+                      onTap: (){
+
+                      },
+                     child: Container(
                       padding: EdgeInsets.only(
                           top: 5, bottom: 5, left: 30, right: 30),
                       decoration: BoxDecoration(
@@ -331,7 +335,10 @@ class _PetPageState extends State<PetPage> {
                             .size
                             .width / 20),),
                     ),
+                   
+                    ), 
                     SizedBox(height: 500,)
+                    
                   ],
 
 

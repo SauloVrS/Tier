@@ -28,6 +28,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   CollectionReference chats = FirebaseFirestore.instance.collection('chats');
+  CollectionReference usuarios = FirebaseFirestore.instance.collection('usuarios');
 
   var chatDocId;
  final currentUserId = FirebaseAuth.instance.currentUser?.uid; 
@@ -37,6 +38,9 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
     checkUser();
+    print("nome usuaio-----------------------------------------------");
+    print(FirebaseAuth.instance.currentUser?.displayName);
+    //pegarNomeUser();
   }
 
   void checkUser() async {
@@ -55,13 +59,30 @@ class _ChatScreenState extends State<ChatScreen> {
             } else {
               await chats.add({
                 'users': {currentUserId: null, widget.friendUid: null},
-                'names':{currentUserId:FirebaseAuth.instance.currentUser?.displayName,widget.friendUid:widget.friendName }
+                'names':{currentUserId:"tales",widget.friendUid:widget.friendName }
               }).then((value) => {chatDocId = value});
             }
           },
         )
         .catchError((error) {});
   }
+/*void pegarNomeUser() async{
+ 
+ await usuarios
+    .doc(currentUserId)
+    .get()
+    .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        var data = documentSnapshot.data()!;
+        data.map()
+        print(data.toString().);
+        print('Document data: ${documentSnapshot.data()}');
+      } else {
+        print('Document does not exist on the database');
+      }
+    });
+    
+}*/
 void sendMessage(String msg) {
    
     if (msg == '') return;

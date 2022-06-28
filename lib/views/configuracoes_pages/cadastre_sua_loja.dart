@@ -13,6 +13,10 @@ import 'package:tier/views/perfil_pages/meu_perfil.dart';
 import 'dart:typed_data';
 import 'dart:convert';
 
+import 'package:tier/views/perfil_pages/perfil_usuario.dart';
+
+
+
 class Cadastro_Loja extends StatefulWidget {
   const Cadastro_Loja({ Key? key }) : super(key: key);
 
@@ -43,40 +47,7 @@ final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   CollectionReference lojasCollection = FirebaseFirestore.instance.collection('lojas');
 
   
- /* CollectionReference usuarios = FirebaseFirestore.instance.collection('usuarios');
-
-  bool isProdSubscribed =true;
-  void checarAssinatura() async {
-      await usuarios.doc("lDWZljdXZ4aHFU0iz0v6VubhDFv2"/**alterar pelo id do usuario */).collection('assinatura')
-       .where('idProduto',isEqualTo: "3hGtEbU2jCoDSXnTvQwu"/**alterar pelo id do produto */)
-       .limit(1)
-       .get()
-       .then(
-         (QuerySnapshot querySnapshot) async{
-             if (querySnapshot.docs.single.exists) {
-                
-                 setState(() {
-                  isProdSubscribed =  false;
-                 });
-             }
-             else{
-                 
-                 isProdSubscribed = true;
-             }
-              
-          }
-         
-      );
-     
-      
-  }
-  
-
-void initState() {
-    super.initState();
-    checarAssinatura();
-}
-*/
+ 
 
   Widget _buildName() {
     return TextFormField(
@@ -293,7 +264,7 @@ void initState() {
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        MeuPerfil(),
+                                        TelaPerfilUsuario(),
                                   )
                               );
                             },

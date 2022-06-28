@@ -150,8 +150,8 @@ class _PerfilDonoPetState extends State<PerfilDonoPet> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (_) => ChatScreen(
-                                      friendUid: "h6djybClDTYhhsq3aYkL",
-                                      friendName: "leticia",
+                                      friendUid: widget.user.idUsuario,
+                                      friendName: widget.user.nomeUsuario,
                                     ),
                                   )),
                               icon: const Icon(Icons.chat_bubble_rounded),
