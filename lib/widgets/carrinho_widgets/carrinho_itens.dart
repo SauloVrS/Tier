@@ -1,6 +1,5 @@
 
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -11,6 +10,7 @@ import 'package:tier/widgets/carrinho_widgets/modal_excluir_item.dart';
 
 import '../../colors.dart';
 import '../../firebase/produto_helper.dart';
+import '../coupon_widget.dart';
 
 class Carrinho extends StatefulWidget {
   final List list;
@@ -55,26 +55,7 @@ class _CarrinhoState extends State<Carrinho> {
               ),
             ),
             const SizedBox(height: 10,),
-            GestureDetector(
-              onTap: () {},
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Container(
-                    width: MediaQuery.of(context).size.width-30,
-                    color: AppColor.textosPretos2,
-                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Aplicar cupons',
-                          style: GoogleFonts.poppins(color: Colors.white),
-                        ),
-                      ],
-                    )
-                ),
-              ),
-            ),
+            CouponWidget(),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
               child: Column(

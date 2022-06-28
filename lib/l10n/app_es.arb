@@ -1,0 +1,46 @@
+{
+  "products": "Productos",
+  "higine": "Higina",
+  "toys": "Juguetes",
+  "clothing": "Vestimenta",
+  "stores": "Tiendas",
+  "sales": "Promociones",
+
+  "what_does_your_pet_needs": "Qué necesita tu mascota",
+  "seenrecently": "Visto recientemente",
+  "clear": "limpiar",
+  "trysearch": "Intenta Buscar",
+  "dogfood": "Comida de perro",
+  "shampoo_for_dogs": "Champú para perros",
+  "catfood": "Comida de gato",
+  "dogtoy": "Juguete de perro",
+
+  "my": "Mis\n",
+  "orders": "pedidos",
+  "my_profile": "Mi perfil",
+  "level": "Nivel",
+  "sign_up_your_store": "Registra tu tienda",
+  "coupons": "Cupones",
+  "wallet": "Cartera",
+  "signature": "Suscripción",
+  "adresses": "Direcciones",
+  "my_code": "Mi código",
+  "settings": "Configuraciones",
+
+  "language_settings": "Configuración de idioma",
+  "call_center": "Centro de llamadas",
+  "usage_policy": "Política de uso",
+  "my_store": "Mi tienda",
+  "about": "Sobre",
+  "sign_out": "Cerrar sesión",
+
+  "in_your_phone_go_to_settings": "En tu teléfono, ve a Configuración",
+  "search_languages_and_change": "busca 'idiomas' y cambia",
+  "acccording_to_your_preference": "según tu preferencia",
+
+
+  "language": "español",
+  "call" : "llamar",
+  "calloursac" : "Llame a nuestro servicio de atención al consumidor"
+}
+
