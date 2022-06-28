@@ -32,21 +32,30 @@ class _ProdutoPageState extends State<ProdutoPage> {
       FirebaseFirestore.instance.collection('usuarios');
   String? currentUserId = FirebaseAuth.instance.currentUser?.uid;
 
-  bool verifProdAssinado() {
-    bool verif = false;
-    usuarios
+  bool produtoAssinado = true;
+  void checarAssinatura() async {
+    await usuarios
         .doc(currentUserId)
         .collection('assinatura')
         .where('idProduto', isEqualTo: widget.produto.id)
+        .limit(1)
         .get()
-        .then((QuerySnapshot querySnapshot) {
-      if (querySnapshot.docs.isNotEmpty) {
-        verif = true;
+        .then((QuerySnapshot querySnapshot) async {
+      if (querySnapshot.docs.single.exists) {
+        setState(() {
+          produtoAssinado = false;
+        });
       } else {
-        verif = false;
+        setState(() {
+          produtoAssinado = true;
+        });
       }
     });
-    return verif;
+  }
+
+  void initState() {
+    super.initState();
+    checarAssinatura();
   }
 
   aumentar() {
@@ -64,10 +73,6 @@ class _ProdutoPageState extends State<ProdutoPage> {
       }
     });
   }
-
-  // void initState() {
-  //   verifSeExisteProd();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -162,16 +167,15 @@ class _ProdutoPageState extends State<ProdutoPage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    /*if (currentUserId == null) {
+                    if (currentUserId == null) {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) =>
                                 authPage(), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
                           ));
-                    }*/
-                    if (true) {
-                      print(verifProdAssinado());
+                    } else if (produtoAssinado) {
+                      //print(verifProdAssinado());
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -189,9 +193,9 @@ class _ProdutoPageState extends State<ProdutoPage> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 15, vertical: 15),
                         decoration: BoxDecoration(
-                            color: //verifSeExisteProd()
-                                //? AppColor.cinzaClaro
-                                AppColor.amareloEscuro),
+                            color: produtoAssinado
+                                ? AppColor.amareloEscuro
+                                : AppColor.cinzaClaro),
                         child: Text(
                           'Adicionar à Assinatura',
                           style: GoogleFonts.poppins(

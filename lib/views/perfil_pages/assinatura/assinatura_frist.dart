@@ -31,7 +31,8 @@ class _AssinaturaState extends State<Assinatura> {
           icon: const Icon(Icons.arrow_back_ios),
         ),
         title: Container(
-          margin: EdgeInsetsDirectional.fromSTEB(58, 0, 0, 0),
+          //alignment: Alignment.topCenter,
+          //margin: EdgeInsetsDirectional.fromSTEB(58, 0, 0, 0),
           child: const Text(
             'ASSINATURA',
             style: TextStyle(
@@ -41,6 +42,7 @@ class _AssinaturaState extends State<Assinatura> {
             ),
           ),
         ),
+        centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
         bottom: PreferredSize(
@@ -206,14 +208,15 @@ class _AssinaturaState extends State<Assinatura> {
                   },
                   child: Container(
                     margin: EdgeInsets.fromLTRB(0, 30, 0, 40),
-                    height: 50,
-                    width: (MediaQuery.of(context).size.width - 200),
+                    height: 60,
+                    width: (MediaQuery.of(context).size.width - 100),
                     decoration: BoxDecoration(
                       color: AppColor.amareloEscuro,
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: const Center(
-                      child: Text(
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: const Text(
                         'Produtos Assinados',
                         style: TextStyle(
                           color: Color.fromRGBO(27, 27, 27, 0.8),

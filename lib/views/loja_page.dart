@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,16 +15,13 @@ import '../widgets/promocoes_list.dart';
 class LojaPage extends StatefulWidget {
   final Loja loja;
 
-
   const LojaPage({Key? key, required this.loja}) : super(key: key);
 
   @override
   State<LojaPage> createState() => _LojaPageState();
 }
 
-
 class _LojaPageState extends State<LojaPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +51,8 @@ class _LojaPageState extends State<LojaPage> {
             ),
             Column(
                 children: widget.loja.tipoProdutos
-                    .map((tipo) => listTipoProduto(tipo, widget.loja.id, context))
+                    .map((tipo) =>
+                        listTipoProduto(tipo, widget.loja.id, context))
                     .toList())
           ],
         ),
@@ -215,9 +211,7 @@ Widget descLoja(Loja loja, int espacamento, BuildContext context) {
                       Icons.star,
                       color: loja.status ? Colors.yellowAccent : Colors.yellow,
                       size: 14,
-                    )
-
-                ),
+                    )),
                 Text(loja.avaliacao.toString(),
                     style: GoogleFonts.poppins(
                       textStyle: TextStyle(
@@ -275,7 +269,6 @@ Widget descLoja(Loja loja, int espacamento, BuildContext context) {
             ),
           ],
         ),
-
       ],
     ),
   );
@@ -295,7 +288,9 @@ Widget streamProdByType({required String id, required String type}) {
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               //scrollDirection: Axis.vertical,
-              children: produtos.map((produto) => prodList(produto, id, context)).toList(),
+              children: produtos
+                  .map((produto) => prodList(produto, id, context))
+                  .toList(),
             ),
           );
         } else {
@@ -306,7 +301,13 @@ Widget streamProdByType({required String id, required String type}) {
 
 Widget prodList(Produto produto, String id, BuildContext context) {
   return GestureDetector(
-    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ProdutoPage(produto: produto, lojaId: id,))),
+    onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ProdutoPage(
+                  produto: produto,
+                  lojaId: id,
+                ))),
     child: Container(
       margin: const EdgeInsets.symmetric(vertical: 5),
       child: Row(
@@ -343,32 +344,36 @@ Widget prodList(Produto produto, String id, BuildContext context) {
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                      fontSize: 14,
-                    )
-                  ),
+                      textStyle: const TextStyle(
+                    fontSize: 14,
+                  )),
                 ),
-                const SizedBox(height: 8,),
+                const SizedBox(
+                  height: 8,
+                ),
                 Row(
                   children: [
                     produto.promocao
                         ? Container(
                             alignment: Alignment.centerLeft,
-                            child: Text("R\$ ${produto.valor.toStringAsFixed(2)}",
+                            child: Text(
+                                "R\$ ${produto.valor.toStringAsFixed(2)}",
                                 style: GoogleFonts.poppins(
                                   textStyle: const TextStyle(
                                       fontSize: 12,
                                       decoration: TextDecoration.lineThrough),
                                 )),
                           )
-                        : Container(width: 0,),
+                        : Container(
+                            width: 0,
+                          ),
                     produto.promocao
-                      ? const SizedBox(
-                        width: 10,
-                      )
-                      : const SizedBox(
-                      width: 0,
-                    ),
+                        ? const SizedBox(
+                            width: 10,
+                          )
+                        : const SizedBox(
+                            width: 0,
+                          ),
                     Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -388,70 +393,63 @@ Widget prodList(Produto produto, String id, BuildContext context) {
       ),
     ),
   );
-
 }
 
-Widget favoritarLoja( Loja loja) {
+Widget favoritarLoja(Loja loja) {
   String? idUsuarioatual = FirebaseAuth.instance.currentUser?.uid;
-  return
-  FutureBuilder<ModelUsers?>(
-      future: readUser2(idUsuarioatual == null ? '6GqG7AT0zqoOSIOrobTy' : idUsuarioatual),
-  builder: (context, snapshot){
-  if(snapshot.hasError){
-  return Text('Something went wrong!1 ${snapshot.error}');
-  } else if(snapshot.hasData){
-  final user = snapshot.data;
-  return StarButton(
-      iconSize: 50,
-      isStarred: user!.lojasFavoritas.contains(loja.id)?
-      true : false ,
-      // iconDisabledColor: Colors.white,
-      valueChanged: (_isStarred)  {
-        if(user.idUsuario == '6GqG7AT0zqoOSIOrobTy' && _isStarred == true){
+  return FutureBuilder<ModelUsers?>(
+    future: readUser2(
+        idUsuarioatual == null ? '6GqG7AT0zqoOSIOrobTy' : idUsuarioatual),
+    builder: (context, snapshot) {
+      if (snapshot.hasError) {
+        return Text('Something went wrong!1 ${snapshot.error}');
+      } else if (snapshot.hasData) {
+        final user = snapshot.data;
+        return StarButton(
+            iconSize: 50,
+            isStarred: user!.lojasFavoritas.contains(loja.id) ? true : false,
+            // iconDisabledColor: Colors.white,
+            valueChanged: (_isStarred) {
+              if (user.idUsuario == '6GqG7AT0zqoOSIOrobTy' &&
+                  _isStarred == true) {}
 
-        }
-        ///addicionar funcao p favoritar no firebase
-        if (_isStarred == true) {
+              ///addicionar funcao p favoritar no firebase
+              if (_isStarred == true) {
+                FirebaseFirestore.instance
+                    .collection('usuarios')
+                    .doc(idUsuarioatual)
+                    .update({
+                  "lojasFavoritas": FieldValue.arrayUnion([loja.id]),
+                });
+                final docUser = FirebaseFirestore.instance
+                    .collection('usuarios')
+                    .doc(idUsuarioatual)
+                    .collection('favoritosLojas')
+                    .doc();
+                final fav = ModelFavoritosLojas(
+                  idFav: docUser.id,
+                  idLoja: loja.id,
+                );
+                final json = fav.toJason();
+                docUser.set(json);
+              }
+              if (_isStarred == false) {
+                FirebaseFirestore.instance
+                    .collection('usuarios')
+                    .doc(idUsuarioatual)
+                    .update({
+                  "lojasFavoritas": FieldValue.arrayRemove([loja.id]),
+                });
 
-          FirebaseFirestore.instance
-              .collection('usuarios')
-              .doc(idUsuarioatual)
-              .update({
-            "lojasFavoritas": FieldValue.arrayUnion([loja.id]),
-          });
-          final docUser = FirebaseFirestore.instance.collection('usuarios').doc(idUsuarioatual).collection('favoritosLojas').doc();
-          final fav = ModelFavoritosLojas(
-            idFav: docUser.id,
-            idLoja: loja.id,
-          );
-          final json = fav.toJason();
-          docUser.set(json);
-
-        }
-        if(_isStarred == false){
-          FirebaseFirestore.instance
-              .collection('usuarios')
-              .doc(idUsuarioatual)
-              .update({
-            "lojasFavoritas": FieldValue.arrayRemove([loja.id]),
-          });
-
-          final docUser = FirebaseFirestore.instance
-              .collection('favoritosLojas')
-              .doc(loja.id)
-          ;
-          docUser.delete();
-        }
-
-
+                final docUser = FirebaseFirestore.instance
+                    .collection('favoritosLojas')
+                    .doc(loja.id);
+                docUser.delete();
+              }
+            });
+      } else {
+        return const Center(child: CircularProgressIndicator());
       }
-
-  );
-    } else {
-    return const Center(child: CircularProgressIndicator());
-    }
-  },
+    },
   );
 }
-
-

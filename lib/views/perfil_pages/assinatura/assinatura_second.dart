@@ -51,7 +51,6 @@ class _AssinaturaSecondState extends State<AssinaturaSecond> {
           icon: const Icon(Icons.arrow_back_ios),
         ),
         title: Container(
-          margin: EdgeInsetsDirectional.fromSTEB(58, 0, 0, 0),
           child: const Text(
             'ASSINATURA',
             style: TextStyle(
@@ -61,6 +60,7 @@ class _AssinaturaSecondState extends State<AssinaturaSecond> {
             ),
           ),
         ),
+        centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
         bottom: PreferredSize(
@@ -156,6 +156,8 @@ class _AssinaturaSecondState extends State<AssinaturaSecond> {
                           //margin: const EdgeInsets.symmetric(horizontal: 15),
                           child: Text(
                             widget.produto.nome,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.w500, fontSize: 15),
@@ -192,7 +194,7 @@ class _AssinaturaSecondState extends State<AssinaturaSecond> {
                         //width: ((MediaQuery.of(context).size.width - 50) / 4) * 2.5,
                         alignment: Alignment.centerLeft,
                         child: Text(
-                            "R\$ ${widget.produto.novoValor.toStringAsFixed(2)}",
+                            "R\$ ${(qnt * widget.produto.novoValor).toStringAsFixed(2)}",
                             style: GoogleFonts.poppins(
                               textStyle: const TextStyle(
                                   fontSize: 15,
@@ -221,6 +223,9 @@ class _AssinaturaSecondState extends State<AssinaturaSecond> {
                         idProduto: widget.produto.id,
                         periodo: controllerPeriodo.text,
                         qnt: qnt,
+                        valor: ((qnt * widget.produto.novoValor) * 90 / 100),
+                        imgUrl: widget.produto.imgUrl,
+                        nomeProd: widget.produto.nome,
                       );
 
                       createAssinatura(assin);
@@ -317,22 +322,34 @@ class AssinaturaDados {
   String idProduto;
   final String periodo;
   final int qnt;
+  final double valor;
+  final String imgUrl;
+  final String nomeProd;
 
   AssinaturaDados({
     this.idProduto = '',
     required this.periodo,
     required this.qnt,
+    required this.valor,
+    required this.imgUrl,
+    required this.nomeProd,
   });
 
   Map<String, dynamic> toJson() => {
         'idProduto': idProduto,
         'periodo': periodo,
         'qnt': qnt,
+        'valor': valor,
+        'imgUrl': imgUrl,
+        'nomeProd': nomeProd,
       };
 
   static AssinaturaDados fromJson(Map<String, dynamic> json) => AssinaturaDados(
         idProduto: json['idProduto'],
         periodo: json['periodo'],
         qnt: json['qnt'],
+        valor: json['valor'],
+        imgUrl: json['imgUrl'],
+        nomeProd: json['nomeProd'],
       );
 }
