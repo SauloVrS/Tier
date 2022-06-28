@@ -1,8 +1,5 @@
-enum Status {
-  andamento,
-  caminho,
-  concluido
-}
+
+import 'package:tier/widgets/carrinho_widgets/carrinho_functions.dart';
 
 class Pedido {
   List? carrinho;
@@ -12,7 +9,7 @@ class Pedido {
   num? valor;
   //String pontos;
   Endereco? endereco;
-  Status? status;
+  String? status;
 
   Pedido({
     this.carrinho,
@@ -20,7 +17,8 @@ class Pedido {
     this.idLoja,
     this.pagamento,
     this.valor,
-    this.endereco
+    this.endereco,
+    this.status
   });
 
   Map<String, dynamic> toJson() => {
@@ -29,8 +27,19 @@ class Pedido {
     'idLoja': idLoja,
     'pagamento': pagamento,
     'valor': valor,
-    'endereço': endereco
+    'endereco': endereco!.toJson(),
+    'status': status
   };
+
+  static Pedido fromJson(Map<String, dynamic> json) => Pedido(
+    carrinho: json['carrinho'],
+    idUser: json['idUser'],
+    idLoja: json['idLoja'],
+    pagamento: json['pagamento'],
+    valor: json['valor'],
+    endereco: Endereco.fromJson(json['endereco']),
+    status: json['status']
+  );
 }
 
 class Endereco {
@@ -47,4 +56,20 @@ class Endereco {
     required this.numero,
     required this.rua
   });
+
+  Map<String, dynamic> toJson() => {
+    'bairro': bairro,
+    'cidade': cidade,
+    'rua': rua,
+    'numero': numero,
+    'cep': cep
+  };
+
+  static Endereco fromJson(Map<String, dynamic> json) => Endereco(
+    bairro: json['bairro'],
+    cidade: json['cidade'],
+    rua: json['rua'],
+    numero: json['numero'],
+    cep: json['cep'],
+  );
 }

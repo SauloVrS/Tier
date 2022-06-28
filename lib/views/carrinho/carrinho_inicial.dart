@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,12 +19,13 @@ class _CarrinhoPageState extends State<CarrinhoPage> {
   List list = [];
   late final DatabaseReference _ref;
   late StreamSubscription<DatabaseEvent> _subscrip;
+  var user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    init("André");
+    init(user?.uid);
   }
 
   @override
@@ -48,19 +50,21 @@ class _CarrinhoPageState extends State<CarrinhoPage> {
     );
   }
 
-  init(String user) async {
-    _ref = FirebaseDatabase.instance.ref('users/$user/Carrinho');
-    try {
-      final snapshot = await _ref.get();
-      list = snapshot.value as List;
-    } catch (e) {
-      print(e.toString());
-    }
+  init(String? user) async {
+    if(user != null){
+      _ref = FirebaseDatabase.instance.ref('users/$user/Carrinho');
+      try {
+        final snapshot = await _ref.get();
+        list = snapshot.value as List;
+      } catch (e) {
+        print(e.toString());
+      }
 
-    _subscrip = _ref.onValue.listen((DatabaseEvent event) {
-      setState(() {
-        list = (event.snapshot.value ?? []) as List;
+      _subscrip = _ref.onValue.listen((DatabaseEvent event) {
+        setState(() {
+          list = (event.snapshot.value ?? []) as List;
+        });
       });
-    });
+    }
   }
 }
