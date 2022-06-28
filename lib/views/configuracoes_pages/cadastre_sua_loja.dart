@@ -21,6 +21,8 @@ class Cadastro_Loja extends StatefulWidget {
 }
 
 class _Cadastro_LojaState extends State<Cadastro_Loja> {
+
+
   final proprietarioLojaId = FirebaseAuth.instance.currentUser?.uid;
   
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -36,8 +38,46 @@ final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var  _bairro;
   var _estado;
   var _cidade;
+  
 
   CollectionReference lojasCollection = FirebaseFirestore.instance.collection('lojas');
+
+  
+ /* CollectionReference usuarios = FirebaseFirestore.instance.collection('usuarios');
+
+  bool isProdSubscribed =true;
+  void checarAssinatura() async {
+      await usuarios.doc("lDWZljdXZ4aHFU0iz0v6VubhDFv2"/**alterar pelo id do usuario */).collection('assinatura')
+       .where('idProduto',isEqualTo: "3hGtEbU2jCoDSXnTvQwu"/**alterar pelo id do produto */)
+       .limit(1)
+       .get()
+       .then(
+         (QuerySnapshot querySnapshot) async{
+             if (querySnapshot.docs.single.exists) {
+                
+                 setState(() {
+                  isProdSubscribed =  false;
+                 });
+             }
+             else{
+                 
+                 isProdSubscribed = true;
+             }
+              
+          }
+         
+      );
+     
+      
+  }
+  
+
+void initState() {
+    super.initState();
+    checarAssinatura();
+}
+*/
+
   Widget _buildName() {
     return TextFormField(
       decoration: const InputDecoration(labelText: 'Nome da Loja'),
@@ -108,7 +148,7 @@ final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   Widget _buildComplemento() {
     return TextFormField(
       decoration: const InputDecoration(labelText: 'Complemento'),
-      maxLength: 10,
+      maxLength:   10,
       onSaved: ( value) {
         _complemento = value!;
       },
@@ -509,225 +549,7 @@ final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
                 )
                ),
             ),
-           /* Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                   
-                  _buildName(),
-                  _buildCep(),
-                  _buildLogradouro(),
-                  _buildNumero(),
-                  _buildComplemento(),
-                  _buildPedidoMinimo(),
-                  _buildTaxa(),
-                 
-                ]     
-              )
-
-            ),*/
-         /*   Container(
-              width:MediaQuery
-                    .of(context)
-                    .size
-                    .width,
-              decoration: BoxDecoration(
-                    color: AppColor.background,
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30))
-                ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                      vertical: 20, horizontal: 20),
-                child: Column(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(
-                            top:5,left: 5,bottom: 5,right: 5),
-                      padding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 15),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: AppColor.cinzaBranco),
-                        ),
-                      
-                      child: _buildName(), /*TextField(
-                          controller: nomeLojaController,
-                          maxLength: 16,
-                          decoration: InputDecoration(
-                            hintText: 'Nome da Loja',
-                            border: InputBorder.none,
-                            /*errorText: nomePreenchido
-                                ? 'Preencha todos os campos'
-                                : null,*/
-                          ),
-                        ),*/
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(
-                            top:5,left: 5,bottom: 5,right: 5),
-                      padding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 15),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: AppColor.cinzaBranco),
-                        ),
-                      child: TextField(
-                          controller: pedidoMinimoController,
-                          maxLength: 16,
-                          decoration: InputDecoration(
-                            hintText: 'Pedido Mínimo',
-                            border: InputBorder.none,
-                            /*errorText: nomePreenchido
-                                ? 'Preencha todos os campos'
-                                : null,*/
-                          ),
-                        ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(
-                            top:5,left: 5,bottom: 5,right: 5),
-                      padding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 15),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: AppColor.cinzaBranco),
-                        ),
-                      child: TextField(
-                          controller: taxaDeEntregaController,
-                          maxLength: 16,
-                          decoration: InputDecoration(
-                            hintText: 'Taxa de Entrega',
-                            border: InputBorder.none,
-                            /*errorText: nomePreenchido
-                                ? 'Preencha todos os campos'
-                                : null,*/
-                          ),
-                        ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(
-                            top:5,left: 5,bottom: 5,right: 5),
-                      padding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 15),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: AppColor.cinzaBranco),
-                        ),
-                      child: TextField(
-                          controller: cepController,
-                          maxLength: 16,
-                          decoration: InputDecoration(
-                            hintText: 'Cep',
-                            border: InputBorder.none,
-                            /*errorText: nomePreenchido
-                                ? 'Preencha todos os campos'
-                                : null,*/
-                          ),
-                        ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(
-                            top:5,left: 5,bottom: 5,right: 5),
-                      padding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 15),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: AppColor.cinzaBranco),
-                        ),
-                      child: TextField(
-                          controller: logradouroController,
-                          maxLength: 16,
-                          decoration: InputDecoration(
-                            hintText: 'Logradouro',
-                            border: InputBorder.none,
-                            /*errorText: nomePreenchido
-                                ? 'Preencha todos os campos'
-                                : null,*/
-                          ),
-                        ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(
-                            top:5,left: 5,bottom: 5,right: 5),
-                      padding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 15),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: AppColor.cinzaBranco),
-                        ),
-                      child: TextField(
-                          controller: numeroController,
-                          maxLength: 16,
-                          decoration: InputDecoration(
-                            hintText: 'Número',
-                            border: InputBorder.none,
-                            /*errorText: nomePreenchido
-                                ? 'Preencha todos os campos'
-                                : null,*/
-                          ),
-                        ),
-                    ),
-                    Container(
-                    margin: const EdgeInsets.only(
-                            top:5,left: 5,bottom: 5,right: 5),
-                    padding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 15),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: AppColor.cinzaBranco),
-                        ),
-                      child: TextField(
-                          controller: complementoController,
-                          maxLength: 16,
-                          decoration: InputDecoration(
-                            hintText: 'Complemento',
-                            border: InputBorder.none,
-                            /*errorText: nomePreenchido
-                                ? 'Preencha todos os campos'
-                                : null,*/
-                          ),
-                        ),
-                    ),
-                     GestureDetector(
-              onTap:(){},
-              child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 40,vertical: 20),
-                 width: MediaQuery
-                              .of(context)
-                              .size
-                              .width - 80,
-                 height: 50,
-                 decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: AppColor.amareloPrincipal,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                       'Cadastrar',
-                       style:GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: AppColor.textoBranco,
-                       ),
-                    ),
-                  ],
-                  )
-
-              ),
-            ),
-
-
-                  ],
-                ),
-                
-              ),
-            ),*/
-           
+          
            
           ]
         ),
