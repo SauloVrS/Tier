@@ -1,0 +1,44 @@
+
+{
+  "products": "Produtos",
+  "higine": "Higiene",
+  "toys": "Brinquedos",
+  "clothing": "vestuário",
+  "stores": "Lojas",
+
+  "what_does_your_pet_needs": "De que seu pet precisa",
+  "seenrecently": "Visto recentemente",
+  "clear": "limpar",
+  "trysearch": "Experimente Buscar",
+  "dogfood": "Rações para cães",
+  "shampoo_for_dogs": "Shampoo para cachorros",
+  "catfood": "Ração para gatos",
+  "dogtoy": " Brinquedo de cachorro",
+
+  "my": "Meus\n",
+  "orders": "pedidos",
+  "level": "Nível",
+  "my_profile": "Meu perfil",
+  "sign_up_your_store": "Cadastre sua loja",
+  "coupons": "Cupons",
+  "wallet": "Carteira",
+  "signature": "Assinatura",
+  "adresses": "Endereços",
+  "my_code": "Meu código",
+  "settings": "Configurações",
+
+  "language_settings": "Configurações de idiomas",
+  "call_center": "Central de atendimento",
+  "usage_policy": "Política de uso",
+  "my_store": "Minha loja",
+  "about": "Sobre",
+  "sign_out": "Sair",
+
+  "in_your_phone_go_to_settings": "No seu celuar, vá para configurações,",
+  "search_languages_and_change": "pesquise por 'língua' e mude",
+  "acccording_to_your_preference": "de acordo com sua preferência",
+
+  "language": "português",
+  "call" : "ligar",
+  "calloursac" : "Ligue para nosso SAC"
+}

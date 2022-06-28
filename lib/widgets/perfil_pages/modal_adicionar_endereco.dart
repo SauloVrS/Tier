@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/models/users_model.dart';
@@ -13,7 +14,7 @@ class AdicionarEndereco extends StatefulWidget {
 
 class _AdicionarEnderecoState extends State<AdicionarEndereco> {
 
-  String? idUsuario = 'tNJ7BlmfVtfQiztDrcLv6IJGo412';
+  String? idUsuario = FirebaseAuth.instance.currentUser?.uid;
   TextEditingController ruaController = TextEditingController();
   TextEditingController numberController = TextEditingController();
   TextEditingController bairroController = TextEditingController();

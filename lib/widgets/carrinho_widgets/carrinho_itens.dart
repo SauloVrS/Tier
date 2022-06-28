@@ -1,6 +1,6 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -11,6 +11,9 @@ import 'package:tier/widgets/carrinho_widgets/modal_excluir_item.dart';
 
 import '../../colors.dart';
 import '../../firebase/produto_helper.dart';
+import '../coupon_widget.dart';
+
+var user = FirebaseAuth.instance.currentUser;
 
 class Carrinho extends StatefulWidget {
   final List list;
@@ -55,26 +58,7 @@ class _CarrinhoState extends State<Carrinho> {
               ),
             ),
             const SizedBox(height: 10,),
-            GestureDetector(
-              onTap: () {},
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Container(
-                    width: MediaQuery.of(context).size.width-30,
-                    color: AppColor.textosPretos2,
-                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Aplicar cupons',
-                          style: GoogleFonts.poppins(color: Colors.white),
-                        ),
-                      ],
-                    )
-                ),
-              ),
-            ),
+            CouponWidget(),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
               child: Column(
@@ -136,7 +120,7 @@ class _CarrinhoState extends State<Carrinho> {
             GestureDetector(
               onTap: () {
                 Endereco endereco = Endereco(cidade: 'Fortaleza', bairro: 'Antonio Bezerra', cep: '60000000', numero: 60, rua: 'Rua das margaridas');
-                Pedido pedido = Pedido(carrinho: widget.list, idLoja: widget.list[0]['idLoja'], idUser: 'test', valor: total, endereco: endereco);
+                Pedido pedido = Pedido(carrinho: widget.list, idLoja: widget.list[0]['idLoja'], idUser: user!.uid, valor: total, endereco: endereco);
                 Navigator.push(context, MaterialPageRoute(builder: (context) => MetodoDePagamento(pedido: pedido)));
               },
               child: ClipRRect(
@@ -241,9 +225,9 @@ Widget eachProduto(Produto produto, int qnt, BuildContext context, String idLoja
             ),
             GestureDetector(
               onTap: () async {
-                const String user = 'André';
-                final index = await verificaProduto(produto.id, user);
-                apagarProduto(user, index);
+               // const String user = user!.uid;
+                final index = await verificaProduto(produto.id, user!.uid);
+                apagarProduto(user!.uid, index);
               },
               child: Container(
                 margin: const EdgeInsets.all(4),
@@ -252,9 +236,9 @@ Widget eachProduto(Produto produto, int qnt, BuildContext context, String idLoja
             ),
             GestureDetector(
               onTap: () async {
-                const String user = 'André';
-                final index = await verificaProduto(produto.id, user);
-                apagarProduto(user, index);
+                //const String user = 'André';
+                final index = await verificaProduto(produto.id, user!.uid);
+                apagarProduto(user!.uid, index);
               },
               child: Container(
                 margin: const EdgeInsets.all(8.5),
@@ -312,17 +296,16 @@ Widget qntProds(int qnt, String idLoja, Produto prod, idProd, BuildContext conte
         GestureDetector(
           onTap: () async {
             if( qnt - 1 == 0 ) {
-              const String user = 'André';
-              final index = await verificaProduto(prod.id, user);
+              final index = await verificaProduto(prod.id, user!.uid);
               return showMaterialModalBottomSheet(
                   expand: false,
                   backgroundColor: Colors.transparent,
                   context: context,
-                  builder: (context) =>  ModalDeleteItem(user: user, index: index)
+                  builder: (context) =>  ModalDeleteItem(user: user!.uid, index: index)
               );
             }
             final novaQnt = qnt - 1;
-            alterarQntCarrinho(novaQnt, prod, "André", idLoja);
+            alterarQntCarrinho(novaQnt, prod, user!.uid, idLoja);
           },
           child: const Icon(Icons.remove_rounded, size: 16),
         ),
@@ -339,7 +322,7 @@ Widget qntProds(int qnt, String idLoja, Produto prod, idProd, BuildContext conte
         GestureDetector(
           onTap: () async {
             final novaQnt = qnt + 1;
-            alterarQntCarrinho(novaQnt, prod, "André", idLoja);
+            alterarQntCarrinho(novaQnt, prod, user!.uid, idLoja);
           },
           child: const Icon(Icons.add_rounded, size: 16,),
         ),
@@ -355,7 +338,7 @@ void alterarQntCarrinho(int qnt, Produto prod, String user, String idLoja) async
       print('chegou aqui');
       final num valor = prod.promocao ? prod.novoValor : prod.valor;
       final produto = ShopProd(idProduto: prod.id, idLoja: idLoja, quantidade: qnt, valor: valor);
-      mudarQnt(user, index, qnt, produto.toJson());
+      alterarQnt(user, index, qnt, produto.toJson());
     }
   }
 }

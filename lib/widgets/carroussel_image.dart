@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Carrousselimage extends StatelessWidget {
   Carrousselimage({Key? key}) : super(key: key);
@@ -19,9 +20,9 @@ class Carrousselimage extends StatelessWidget {
           padding: const EdgeInsets.all(22.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children:const [
-              Text("Visto recentemente", style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18)),
-              Text("limpar", style: TextStyle(color: Color(0xFFFFD595)),),
+            children: [
+              Text(AppLocalizations.of(context)!.seenrecently, style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18)),
+              Text(AppLocalizations.of(context)!.clear, style: TextStyle(color: Color(0xFFFFD595)),),
             ],
           ),
         ),

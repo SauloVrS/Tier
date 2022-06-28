@@ -1,0 +1,45 @@
+{
+  "products": "Products",
+  "higine": "Higine",
+  "toys": "Toys",
+  "clothing": "Clothing",
+  "stores": "Stores",
+  "sales": "Sales",
+
+  "what_does_your_pet_needs": "What does you pet need",
+  "seenrecently": "Seen Recently",
+  "clear": "clear",
+  "trysearch": "Try search",
+  "dogfood": "Dog food",
+  "shampoo_for_dogs": "Shampoo for dogs",
+  "catfood": "Cat food",
+  "dogtoy": "Dog Toy",
+
+  "my": "My\n",
+  "orders": "orders",
+  "level": "Level",
+  "my_profile": "My profile",
+  "sign_up_your_store": "Sign up your store",
+  "coupons": "Coupons",
+  "wallet": "Wallet",
+  "signature": "Signature",
+  "adresses": "Adresses",
+  "my_code": "My Code",
+  "settings": "Settings",
+
+  "language_settings": "Language Settings",
+  "call_center": "Call center",
+  "usage_policy": "Usage Policy",
+  "my_store": "My Store",
+  "about": "About",
+  "sign_out": "Sign Out",
+
+  "in_your_phone_go_to_settings": "In your phone, go to Settings,",
+  "search_languages_and_change": "search for 'languages' and change",
+  "acccording_to_your_preference": "according to you preference",
+
+
+  "language": "english",
+  "call" : "call",
+  "calloursac" : "Call our Consumer service"
+}

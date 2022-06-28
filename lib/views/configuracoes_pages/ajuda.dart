@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tier/colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tier/widgets/bottom_nav_bar.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+
 
 import '../main_lojas.dart';
 import '../perfil_pages/perfil_usuario.dart';
@@ -64,13 +65,13 @@ class _AjudaState extends State<Ajuda> {
             Center(
               child: RichText(
                 textAlign: TextAlign.center,
-                text: TextSpan( text: ' Ligue para nosso SAC', style: GoogleFonts.poppins( fontSize: 22, color: Colors.black)),
+                text: TextSpan( text: AppLocalizations.of(context)!.calloursac, style: GoogleFonts.poppins( fontSize: 22, color: Colors.black)),
               ),
             ),
             const SizedBox(height: 30,),
 
         ElevatedButton(
-          child: Text("Ligar"),
+          child: Text(AppLocalizations.of(context)!.call),
           onPressed: (){
             _callNumber();
           },

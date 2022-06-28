@@ -92,12 +92,18 @@ class _AdicionarPetState extends State<AdicionarPet> {
         idade!,
         controllerName.text,
         tipo!,
+        porte!,
       );
       setState(() {
         _isLoading = false;
       });
       if (res == 'success') {
         showSnackBar('Animal adicionado!', context);
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MeuPerfil(),
+            ));
       } else {
         showSnackBar(res, context);
       }
@@ -571,7 +577,7 @@ class _AdicionarPetState extends State<AdicionarPet> {
                           } else {
                             idade = AgeCalculator.age(selectedBithDate, today: selectedCurrentDate).months.toString();
                             print(idade);
-                            salvarAnimal(idUsuario!, '1 km' );
+                            salvarAnimal(idUsuario!, '1,2 km' );
                           }
                           //checar campos e adicionar no firebase
                         },

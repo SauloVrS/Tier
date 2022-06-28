@@ -1,27 +1,23 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../colors.dart';
-import '../../firebase/adicionar_imagens.dart';
+import '../../views/auth_page.dart';
 
-class ModalEditEnd extends StatefulWidget {
-  final String idEnd;
-  const ModalEditEnd({Key? key, required this.idEnd}) : super(key: key);
+class ModalSemUser extends StatefulWidget {
+  const ModalSemUser({Key? key}) : super(key: key);
 
   @override
-  _ModalEditEndState createState() => _ModalEditEndState();
+  State<ModalSemUser> createState() => _ModalSemUserState();
 }
 
-class _ModalEditEndState extends State<ModalEditEnd> {
-  String? idUsuario = FirebaseAuth.instance.currentUser?.uid;
+class _ModalSemUserState extends State<ModalSemUser> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: const BorderRadius.only(topRight: Radius.circular(10), topLeft: Radius.circular(10)),
       child: Container(
-        color: AppColor.background,
+        color: Colors.white,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -38,7 +34,7 @@ class _ModalEditEndState extends State<ModalEditEnd> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: Text(
-                'O que você deseja fazer com esse endereço?',
+                'É necessário estar logado para adicionar produtos ao carrinho.',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(
                     fontSize: 15,
@@ -46,38 +42,21 @@ class _ModalEditEndState extends State<ModalEditEnd> {
                 ),
               ),
             ),
-            const SizedBox(height: 15,),
-            GestureDetector(
-              onTap: () {},
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Container(
-                    width: MediaQuery.of(context).size.width-30,
-                    color: AppColor.amareloPrincipal,
-                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Editar endereço',
-                          style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    )
+            const SizedBox(height: 7,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: Text(
+                'Deseja efetuar o login ou o cadastro?',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins(
+                    fontSize: 12
                 ),
               ),
             ),
             const SizedBox(height: 15,),
             GestureDetector(
               onTap: () {
-                final docUser = FirebaseFirestore.instance
-                    .collection('usuarios')
-                    .doc(idUsuario)
-                    .collection('enderecos')
-                    .doc(widget.idEnd);
-                docUser.delete();
-                showSnackBar('Endereço excluido com sucesso', context);
-                Navigator.pop(context);
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const authPage()));
               },
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
@@ -88,15 +67,19 @@ class _ModalEditEndState extends State<ModalEditEnd> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          'Excluir endereço',
-                          style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w600),
+                        Expanded(
+                          child: Text(
+                            'Realizar login ou cadastro',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.poppins(color: Colors.white),
+                          ),
                         ),
                       ],
                     )
                 ),
               ),
             ),
+            const SizedBox(height: 10,),
             GestureDetector(
               onTap: () {
                 Navigator.of(context).pop();
@@ -119,9 +102,10 @@ class _ModalEditEndState extends State<ModalEditEnd> {
                 ),
               ),
             ),
+            const SizedBox(height: 10,),
           ],
         ),
       ),
-    );;
+    );
   }
 }

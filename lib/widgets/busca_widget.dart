@@ -1,6 +1,7 @@
 import 'package:tier/widgets/carroussel_image.dart';
 import 'package:tier/views/itens.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BuscaWidget extends StatefulWidget {
   const BuscaWidget({Key? key}) : super(key: key);
@@ -35,7 +36,7 @@ class _BuscaWidgetState extends State<BuscaWidget> {
             },
             cursorColor: Color(0xFFFFD595),
             decoration: InputDecoration(
-              hintText: "Do que seu pet precisa?",
+              hintText: AppLocalizations.of(context)!.what_does_your_pet_needs,
               border: InputBorder.none,
               icon: Row(
                 mainAxisSize: MainAxisSize.min,
