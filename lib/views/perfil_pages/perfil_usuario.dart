@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:tier/views/auth_page.dart';
+import 'package:tier/views/pedidos_users/meus_pedidos.dart';
 import 'package:tier/views/configuracoes_pages/cadastre_sua_loja.dart';
 import 'package:tier/views/perfil_pages/cupom_perfil.dart';
 import 'package:tier/views/perfil_pages/enderecos.dart';
@@ -150,7 +151,9 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
                     Row(
                       children: [
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MeusPedidos()));
+                          },
                           child: Container(
                             width: (MediaQuery.of(context).size.width - 60) / 2,
                             height: 110,
@@ -286,17 +289,6 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               GestureDetector(
                 onTap: () {
                   if (idUsuario == null) {
-                    showCupertinoModalBottomSheet(
-                        enableDrag: true,
-                        bounce: true,
-                        topRadius: Radius.circular(30),
-                        barrierColor: Color.fromARGB(100, 0, 0, 0),
-                        context: context,
-                        builder: (context) => Container(
-                              height: MediaQuery.of(context).size.height / 1.18,
-                              child: authPage(),
-                            ));
-                  } else {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

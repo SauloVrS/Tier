@@ -97,6 +97,23 @@ void mudarQntOld(String user, int index, int qnt, Map prod) async {
   }
 }
 
+void alterarQnt(String user, int index, int qnt, Map prod) async {
+  List carrinho = [];
+  Map produto = prod;
+  Map oldProd;
+  num newQnt = qnt;
+  final ref = FirebaseDatabase.instance.ref();
+  final snapshot = await ref.child('users/$user/Carrinho').get();
+  if (snapshot.exists) {
+    snapshot.children.forEach((e) => carrinho.add(e.value));
+    oldProd = carrinho.elementAt(index);
+    produto['quantidade'] = newQnt;
+    carrinho.removeAt(index);
+    carrinho.insert(index, produto);
+    update(user, carrinho);
+  }
+}
+
 void mudarQnt(String user, int index, int qnt, Map prod) async {
   List carrinho = [];
   Map produto = prod;
