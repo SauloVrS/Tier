@@ -31,17 +31,20 @@ class _ChatScreenState extends State<ChatScreen> {
   CollectionReference usuarios = FirebaseFirestore.instance.collection('usuarios');
 
   var chatDocId;
+  var nomeUsuario;
  final currentUserId = FirebaseAuth.instance.currentUser?.uid; 
-  //final currentUserId = "g6afMeF0UzD6u7XgNrRe";
+  
   final _textController = TextEditingController();
    @override
   void initState() {
     super.initState();
+    pegarNomeUser();
     checkUser();
-    print("nome usuaio-----------------------------------------------");
-    print(FirebaseAuth.instance.currentUser?.displayName);
-    //pegarNomeUser();
+  
+   
+    
   }
+
 
   void checkUser() async {
     await chats
@@ -59,34 +62,43 @@ class _ChatScreenState extends State<ChatScreen> {
             } else {
               await chats.add({
                 'users': {currentUserId: null, widget.friendUid: null},
-                'names':{currentUserId:"tales",widget.friendUid:widget.friendName }
-              }).then((value) => {chatDocId = value});
+                'names':{currentUserId:nomeUsuario.toString(),widget.friendUid:widget.friendName }
+              }).then((value)  {
+                   setState(() {
+                chatDocId = value.id;
+              });
+              // chatDocId = value;
+                });
             }
           },
         )
         .catchError((error) {});
   }
-/*void pegarNomeUser() async{
  
- await usuarios
-    .doc(currentUserId)
-    .get()
-    .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        var data = documentSnapshot.data()!;
-        data.map()
-        print(data.toString().);
-        print('Document data: ${documentSnapshot.data()}');
-      } else {
-        print('Document does not exist on the database');
-      }
+
+void pegarNomeUser() async{
+     
+       
+   
+    await usuarios
+        .doc(currentUserId)
+        .get()
+        .then((DocumentSnapshot ds) {
+           
+          print(ds.get('nomeUsuario').toString());
+         setState(() {
+            nomeUsuario = ds.get('nomeUsuario').toString();
+         });
+         
+      // use ds as a snapshot
     });
     
-}*/
+}
+
 void sendMessage(String msg) {
    
     if (msg == '') return;
-    
+    print('enviando msg');
    
     chats.doc(chatDocId).collection('messages').add({
       'createdOn': FieldValue.serverTimestamp(),
@@ -125,7 +137,8 @@ bool isSender(String friend) {
             icon: const Icon(Icons.send),
             iconSize: 25.0,
             color: Theme.of(context).primaryColor,
-            onPressed: () => /*print("onpressed")*/ sendMessage(_textController.text),
+            
+            onPressed: () => /*print("onpressed")*/ sendMessage(_textController.text.toString()),
           ),
         ],
       ),
