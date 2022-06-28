@@ -289,12 +289,23 @@ class _TelaPerfilUsuarioState extends State<TelaPerfilUsuario> {
               GestureDetector(
                 onTap: () {
                   if (idUsuario == null) {
+                    showCupertinoModalBottomSheet(
+                      enableDrag: true,
+                        topRadius: const Radius.circular(30),
+                        barrierColor: const Color.fromARGB(100, 0, 0, 0),
+                        context: context,
+                        builder: (context) => Container(
+                          height: MediaQuery.of(context).size.height/1.18,
+                          child: const authPage(),
+                        )
+                    );
+                  } else {
                     Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              MeuPerfil(), //COLOCAR O CENTER SE NÃO TIVER ESSA PAGINA NO SEU ARQUIVO
-                        ));
+                      context,
+                      MaterialPageRoute(
+                       builder: (context) =>
+                          MeuPerfil()
+                      ));
                   }
                 },
                 child: Container(
