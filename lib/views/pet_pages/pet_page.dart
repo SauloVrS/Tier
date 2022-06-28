@@ -44,7 +44,7 @@ class _PetPageState extends State<PetPage> {
                 height: MediaQuery
                     .of(context)
                     .size
-                    .width / 1.8,
+                    .width / 1.5,
 
                 decoration: BoxDecoration(
                     image: DecorationImage(
@@ -81,7 +81,7 @@ class _PetPageState extends State<PetPage> {
               top: MediaQuery
                   .of(context)
                   .size
-                  .height / 4.2,
+                  .height / 3.5,
               child: Container(
                 padding: EdgeInsets.only(left: 18, right: 18, top: 18,),
                 decoration: BoxDecoration(

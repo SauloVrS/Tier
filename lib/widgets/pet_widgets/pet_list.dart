@@ -35,7 +35,7 @@ class PetList extends StatelessWidget {
           children: [
             Container(
                 width: MediaQuery.of(context).size.width / 1.15,
-                height: MediaQuery.of(context).size.height / 5.5,
+                height: MediaQuery.of(context).size.height / 6,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(30),
@@ -47,7 +47,7 @@ class PetList extends StatelessWidget {
               padding:
               EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 0),
               width: MediaQuery.of(context).size.width / 1.15,
-              height: MediaQuery.of(context).size.height / 9.5,
+              height: MediaQuery.of(context).size.height / 11,
               decoration: BoxDecoration(
                 color: Color(0xffe5e5e5).withOpacity(0.7),
                 borderRadius: BorderRadius.only(

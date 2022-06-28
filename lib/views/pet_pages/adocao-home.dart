@@ -173,11 +173,11 @@ class _AdocaoHomeState extends State<AdocaoHome> {
             ),
           ),
 
-          SizedBox(height: MediaQuery.of(context).size.height/30),
+          SizedBox(height: MediaQuery.of(context).size.height/60),
           ///escolher os filtros
           Container(
               height: MediaQuery.of(context).size.height/13,
-              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/20,right: MediaQuery.of(context).size.width/28 ,top: 0,bottom: MediaQuery.of(context).size.height/55  ),
+              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/20,right: MediaQuery.of(context).size.width/15 ,top: 0,bottom: MediaQuery.of(context).size.height/55  ),
               child:
               ListView(
                 scrollDirection: Axis.horizontal,
@@ -189,9 +189,9 @@ class _AdocaoHomeState extends State<AdocaoHome> {
 
                     },
                     child: Container(
-                      padding: EdgeInsets.only(top: 8,bottom: 5,left: 7,right: 3),
+                      padding: EdgeInsets.only(top: 12,bottom: 5,left: 15,right: 10),
                       child: Text("Filtros" , style: GoogleFonts.poppins(color: Colors.white),),
-                      width: MediaQuery.of(context).size.width/6.5,
+                      width: MediaQuery.of(context).size.width/5.5,
                       height: 40,
 
 
