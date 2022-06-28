@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../colors.dart';
 import '../../views/auth_page.dart';
@@ -56,7 +57,17 @@ class _ModalSemUserState extends State<ModalSemUser> {
             const SizedBox(height: 15,),
             GestureDetector(
               onTap: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const authPage()));
+                //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const authPage()));
+                showCupertinoModalBottomSheet(
+                    enableDrag: true,
+                    topRadius: const Radius.circular(30),
+                    barrierColor: const Color.fromARGB(100, 0, 0, 0),
+                    context: context,
+                    builder: (context) => Container(
+                      height: MediaQuery.of(context).size.height/1.18,
+                      child: const authPage(),
+                    )
+                );
               },
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
